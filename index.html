@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Display EX — Advanced Display Profiles for Windows</title>
+  <meta name="description" content="Display EX for Windows — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app. Download the latest Windows installer.">
+  <link rel="canonical" href="https://display-ex.github.io/">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph / Twitter (images will be added to root later) -->
+  <meta property="og:title" content="Display EX — Advanced Display Profiles for Windows">
+  <meta property="og:description" content="Manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR. Download Display EX for Windows.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://display-ex.github.io/">
+  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg:#0f1724; /* deep */
+      --card:#071426;
+      --text:#ffffff;
+      --muted:#9aa6b2;
+      --accent:#0ea5e9; /* cyan */
+      --accent-2:#06b6d4;
+      --success:#10b981;
+      --danger:#ef4444;
+      --max-width:1100px;
+      --radius:10px;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}
+    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
+    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04);}
+    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
+    .brand h1{font-size:16px;margin:0}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+
+    .hero{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;padding:48px 0}
+    .hero h2{font-size:28px;margin:0 0 12px}
+    .lead{color:var(--muted);font-size:15px;line-height:1.5}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
+    .download-cta{display:flex;flex-direction:column;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
+
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+    .feature{padding:14px;background:rgba(255,255,255,0.02);border-radius:10px}
+    .feature h3{margin:0 0 6px;font-size:16px}
+    .feature p{margin:0;color:var(--muted);font-size:14px}
+
+    .faq{margin-top:20px}
+    .faq h3{margin-top:0}
+    .faq-item{margin-bottom:12px}
+
+    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
+
+    /* cookie banner */
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .features{grid-template-columns:repeat(1,1fr)}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 8v.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">EX</div>
+          <div>
+            <h1 style="font-size:14px;margin:0">Display EX</h1>
+            <div style="font-size:12px;color:var(--muted)">Advanced display profiles for Windows</div>
+          </div>
+        </div>
+        <div class="nav-links" role="navigation" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="download-windows.html">Download</a>
+          <a href="multi-monitor-guide.html">Guides</a>
+          <a href="compare-vs-windows.html">Compare</a>
+          <a href="enterprise-deployment.html">Enterprise</a>
+          <a href="privacy-safety.html">Security</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h2>Display EX — Control your monitors, not the OS</h2>
+        <p class="lead">Create profiles, fix scaling issues on high‑DPI displays, enable correct refresh rates and HDR modes per app — all from a lightweight utility built for Windows.</p>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" id="download-btn-hero" data-filename="CDXWin64v1.10.33.exe" data-url="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"> 
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg> Download for Windows
+          </a>
+          <a class="btn secondary" href="download-windows.html">More download info</a>
+        </div>
+
+        <div class="features" style="margin-top:22px">
+          <div class="feature">
+            <h3>Per‑App Profiles</h3>
+            <p>Automatically switch display profiles for games and apps — resolution, HDR, color and refresh rate.</p>
+          </div>
+          <div class="feature">
+            <h3>Fix Blurry Text</h3>
+            <p>Advanced DPI handling and ClearType tweaks for crisp UI on 4K / high‑DPI monitors.</p>
+          </div>
+          <div class="feature">
+            <h3>Multi‑Monitor Support</h3>
+            <p>Arrange screens, set individual scaling and save layouts as named presets.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
+          <div>
+            <div style="font-weight:700">Version 1.10.33</div>
+            <div style="font-size:13px;color:var(--muted)">Windows 10 & Windows 11 (64‑bit)</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px;color:var(--muted);font-size:14px">Quick actions</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a class="btn" href="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" id="download-btn-side" data-filename="CDXWin64v1.10.33.exe" data-url="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"><svg width="14" height="14"><use href="#icon-download"/></svg> Direct download</a>
+          <a class="btn secondary" href="multi-monitor-guide.html">Setup a multi‑monitor profile</a>
+          <a class="btn secondary" href="fix-blurry-text-scaling.html">Fix blurry UI on 4K</a>
+        </div>
+
+        <div style="margin-top:14px;color:var(--muted);font-size:13px;display:flex;gap:8px;align-items:center">
+          <svg width="16" height="16"><use href="#icon-shield"/></svg>
+          <div>Signed installer • SHA‑256 available on download page</div>
+        </div>
+
+      </aside>
+    </section>
+
+    <section class="card">
+      <h3 style="margin-top:0">Why choose Display EX?</h3>
+      <p class="lead" style="margin-top:8px">Display EX fills gaps left by the Windows display settings: per‑app refresh rates, HDR tuning, multi‑monitor profiles and reliable DPI scaling all in one place.</p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+        <div class="card" style="flex:1;min-width:220px">
+          <h4 style="margin:0 0 8px">Fast</h4>
+          <p style="margin:0;color:var(--muted)">Small footprint, fast startup and profile switching.</p>
+        </div>
+        <div class="card" style="flex:1;min-width:220px">
+          <h4 style="margin:0 0 8px">Safe</h4>
+          <p style="margin:0;color:var(--muted)">Installer is code‑signed and distributed from a single canonical URL.</p>
+        </div>
+        <div class="card" style="flex:1;min-width:220px">
+          <h4 style="margin:0 0 8px">Enterprise Ready</h4>
+          <p style="margin:0;color:var(--muted)">MSI/silent install support and documentation for IT rollouts.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="card faq" aria-labelledby="faq-title">
+      <h3 id="faq-title">Frequently asked questions</h3>
+
+      <div class="faq-item">
+        <strong>Q: Is Display EX safe to install?</strong>
+        <p style="margin:6px 0;color:var(--muted)">A: The installer is signed and hosted on the official distribution link. See the Security page for details on code signing and telemetry.</p>
+      </div>
+
+      <div class="faq-item">
+        <strong>Q: Will this fix blurry apps on 4K screens?</strong>
+        <p style="margin:6px 0;color:var(--muted)">A: Yes — Display EX offers advanced DPI fixes and ClearType adjustments per‑app to restore sharp text and UI scaling.</p>
+      </div>
+
+      <div class="faq-item">
+        <strong>Q: Does it support multiple monitors?</strong>
+        <p style="margin:6px 0;color:var(--muted)">A: Yes — create and switch named multi‑monitor layouts with independent scaling and color settings.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="meta">
+      <div>
+        <strong>Display EX</strong> — © <span id="year"></span>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
+        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="download-windows.html">Download</a></div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
+  </footer>
+
+  <!-- Cookie banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
+    <div style="flex:1">
+      <strong>We use cookies for analytics</strong>
+      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="acceptCookies" class="btn">Accept</button>
+      <button id="declineCookies" class="btn secondary">Decline</button>
+      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const GA_ID = 'G-3PM62KNBPD';
+    const DOWNLOAD_URL = 'https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe';
+    const DOWNLOAD_FILE = 'CDXWin64v1.10.33.exe';
+    const CANONICAL = 'https://display-ex.github.io/';
+
+    // Cookie consent management
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    const closeBtn = document.getElementById('closeCookies');
+    const manageBtn = document.getElementById('manageCookies');
+
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
+    function setConsent(val){localStorage.setItem('display_ex_cookie_consent', val)}
+
+    function showBanner(){cookieBanner.style.display='flex'}
+    function hideBanner(){cookieBanner.style.display='none'}
+
+    function initGA(){
+      if(window.gtagLoaded) return;
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { 'anonymize_ip': true });
+      const script = document.createElement('script');
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      script.async = true;
+      document.head.appendChild(script);
+      window.gtagLoaded = true;
+    }
+
+    acceptBtn.addEventListener('click', ()=>{
+      setConsent('granted');
+      initGA();
+      hideBanner();
+    });
+    declineBtn.addEventListener('click', ()=>{
+      setConsent('denied');
+      hideBanner();
+    });
+    closeBtn.addEventListener('click', ()=>{ hideBanner(); });
+    manageBtn.addEventListener('click', ()=>{ showBanner(); });
+
+    // On load: check consent
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const consent = getConsent();
+      if(consent===null){ showBanner(); }
+      else if(consent==='granted'){ initGA(); }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const lm = document.lastModified || '';
+      document.getElementById('lastModified').textContent = lm ? lm : '—';
+
+      // Attach download handlers
+      document.querySelectorAll('[data-url]').forEach(el=>{
+        el.addEventListener('click', function(e){
+          const fname = this.dataset.filename || this.getAttribute('data-filename') || this.textContent.trim();
+          const furl = this.dataset.url || this.getAttribute('data-url');
+          sendDownloadEvent(fname, furl);
+          // allow default navigation to download URL
+        });
+      });
+    });
+
+    // Safe download event sender — only fires if gtag is available (consent granted)
+    function sendDownloadEvent(filename, fileUrl){
+      try{
+        if(typeof window.gtag === 'function'){
+          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
+        } else {
+          // GA not loaded — do nothing (respect consent)
+          // optionally queue: window._downloadQueue = window._downloadQueue || []; window._downloadQueue.push({filename,fileUrl});
+        }
+      }catch(e){console.warn('Download event failed', e)}
+    }
+
+    // Enhance anchor right-click + middle click to include rel noopener and track
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('a');
+      if(!a) return;
+      if(a.href && a.href.startsWith('http')){
+        a.setAttribute('rel', 'noopener');
+      }
+    });
+  </script>
+
+  <!-- JSON-LD structured data for AI and search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://display-ex.github.io/#software",
+        "name": "Display EX",
+        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
+        "url": "https://display-ex.github.io/",
+        "applicationCategory": "Utilities",
+        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
+        "softwareVersion": "1.10.33",
+        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
+        "author": { "@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/" },
+        "publisher": { "@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/" },
+        "offers": { "@type": "Offer", "price": 0, "priceCurrency": "USD" },
+        "potentialAction": { "@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" },
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://display-ex.github.io/#website",
+        "url": "https://display-ex.github.io/",
+        "name": "Display EX",
+        "publisher": { "@type": "Organization", "name": "Display EX" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Is Display EX safe to install?", "acceptedAnswer": { "@type": "Answer", "text": "The installer is code-signed and hosted on the official distribution link. See the Security page for details." } },
+          { "@type": "Question", "name": "Will this fix blurry apps on 4K screens?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — Display EX offers advanced DPI fixes and ClearType adjustments per-app to restore sharp text and UI scaling." } },
+          { "@type": "Question", "name": "Does it support multiple monitors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — create and switch named multi-monitor layouts with independent scaling and color settings." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+</body>
+</html>

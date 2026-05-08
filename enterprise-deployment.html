@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Enterprise Deployment: Silent Install & Group Policy — Display EX</title>
+  <meta name="description" content="Display EX for IT: guidance for silent install, packaging for Intune/SCCM, Group Policy deployment, network allow‑listing, and security notes. Windows 11/10 (64‑bit).">
+  <link rel="canonical" href="https://display-ex.github.io/enterprise-deployment.html">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Enterprise Deployment — Display EX for Windows">
+  <meta property="og:description" content="Silent install, Intune/SCCM packaging, GPO deployment, and security notes for Display EX on Windows.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://display-ex.github.io/enterprise-deployment.html">
+  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#071426;
+      --text:#ffffff;
+      --muted:#9aa6b2;
+      --accent:#0ea5e9;
+      --accent-2:#06b6d4;
+      --success:#10b981;
+      --danger:#ef4444;
+      --max-width:1100px;
+      --radius:10px;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text)}
+    a{color:var(--accent);text-decoration:none}
+    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
+    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
+    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
+    .brand h1{font-size:16px;margin:0}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
+    .nav-links a[aria-current="page"], .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+
+    h2{margin:14px 0 6px;font-size:26px}
+    .lead{color:var(--muted);font-size:15px;line-height:1.5}
+
+    .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
+
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
+
+    .list{display:grid;gap:8px}
+    .list li{margin-left:18px}
+
+    .notice{border-left:3px solid var(--accent);padding:10px;background:rgba(255,255,255,0.02);border-radius:8px}
+
+    .related{display:flex;gap:12px;flex-wrap:wrap}
+
+    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
+
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-brief" viewBox="0 0 24 24"><path d="M3 8h18v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8Zm4-3h10a2 2 0 0 1 2 2v1H5V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.2" fill="none"/></symbol>
+  </svg>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">EX</div>
+          <div>
+            <h1 style="font-size:14px;margin:0">Display EX</h1>
+            <div style="font-size:12px;color:var(--muted)">Enterprise deployment</div>
+          </div>
+        </div>
+        <div class="nav-links" role="navigation" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="download-windows.html">Download</a>
+          <a href="multi-monitor-guide.html">Guides</a>
+          <a href="compare-vs-windows.html">Compare</a>
+          <a href="enterprise-deployment.html" aria-current="page">Enterprise</a>
+          <a href="privacy-safety.html">Security</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Enterprise Deployment: Silent Install & Group Policy</h2>
+    <p class="lead">This guide covers silent installation, packaging for Intune/SCCM, Group Policy rollout, network allow‑listing, and integrity verification for Display EX on Windows 11/10 (64‑bit).</p>
+
+    <div class="grid">
+      <section class="card">
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-brief"/></svg>
+          <strong>Deployment options</strong>
+        </div>
+
+        <h3 style="margin:0 0 8px">1) Silent installation (EXE)</h3>
+        <p class="lead">The official installer is an EXE. Common unattended switches used by many Windows installers include /S, /silent, /verysilent, /quiet and optional /norestart or a log parameter. Support for switches depends on the build. Verify available options by running the installer with /? in a test VM before rollout.</p>
+        <div class="notice">Note: Always test your chosen switch (e.g., /silent) in a staging environment to confirm UI suppression, exit codes and reboot behavior.</div>
+
+        <h3 style="margin:16px 0 8px">2) Intune / MEM (Win32 app) packaging</h3>
+        <ul class="list">
+          <li>Wrap the EXE as a Win32 app and specify your silent switch in the install command.</li>
+          <li>Set a detection rule based on the installed app path or a registry key you define during deployment.</li>
+          <li>Assign to device groups; stagger rollout and monitor return codes.</li>
+        </ul>
+
+        <h3 style="margin:16px 0 8px">3) SCCM / MECM deployment</h3>
+        <ul class="list">
+          <li>Create an application with the EXE as the installer and your tested silent switch.</li>
+          <li>Define detection logic (file/registry) aligned with your packaging standard.</li>
+          <li>Enable logging and set restart behavior per your policy.</li>
+        </ul>
+
+        <h3 style="margin:16px 0 8px">4) Group Policy (GPO)</h3>
+        <ul class="list">
+          <li>Use a computer startup script to run the EXE with your silent switch from a secure share.</li>
+          <li>Scope the GPO to pilot OUs; expand once validated.</li>
+        </ul>
+
+        <h3 style="margin:16px 0 8px">5) Network allow‑listing</h3>
+        <ul class="list">
+          <li>Allow the canonical download host: cdisplayex.com</li>
+          <li>Direct download URL: https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe</li>
+        </ul>
+
+        <h3 style="margin:16px 0 8px">6) Integrity and code signing</h3>
+        <ul class="list">
+          <li>The installer is code‑signed (Authenticode, SHA‑256). Verify Digital Signatures in file properties post‑download.</li>
+          <li>Use your standard checksum/signature verification during intake; keep hashes in your software catalog if required.</li>
+        </ul>
+
+        <h3 style="margin:16px 0 8px">7) Updates and uninstallation</h3>
+        <ul class="list">
+          <li>For managed fleets, schedule periodic updates by redeploying the newer installer with your silent command.</li>
+          <li>Uninstall methods vary by build. If the installer supports an uninstall switch, use it silently; otherwise remove via your software inventory/endpoint tool.</li>
+        </ul>
+
+        <div class="notice" style="margin-top:12px">
+          Security tip: Distribute only the canonical EXE in your internal share. Avoid repacking unless your policy requires wrapping; repackaging may break signature chaining.
+        </div>
+
+        <div style="margin-top:14px" class="related">
+          <a class="btn secondary" href="download-windows.html">All download info</a>
+          <a class="btn secondary" href="privacy-safety.html">Security & privacy</a>
+          <a class="btn secondary" href="compare-vs-windows.html">Display EX vs Windows</a>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
+          <div>
+            <div style="font-weight:700">Display EX for Windows</div>
+            <div style="font-size:13px;color:var(--muted)">Version 1.10.33 • 64‑bit</div>
+          </div>
+        </div>
+        <a class="btn" href="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" data-filename="CDXWin64v1.10.33.exe" data-url="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe">
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
+          Direct download (EXE)
+        </a>
+        <div style="margin-top:10px;color:var(--muted);display:flex;gap:8px;align-items:center">
+          <svg width="16" height="16"><use href="#icon-shield"/></svg>
+          <span>Code‑signed installer • Canonical URL</span>
+        </div>
+        <div style="margin-top:14px;display:grid;gap:8px">
+          <a class="btn secondary" href="download-windows.html">System requirements</a>
+          <a class="btn secondary" href="multi-monitor-guide.html">User guide</a>
+        </div>
+      </aside>
+    </div>
+
+    <section class="card" style="margin-top:20px" aria-labelledby="faq-title">
+      <h3 id="faq-title">Enterprise FAQ</h3>
+      <div style="margin-bottom:10px">
+        <strong>Q: Do you provide an MSI?</strong>
+        <p class="lead" style="margin:6px 0 0">A: The official distribution is an EXE. If your policy mandates MSI, package the EXE as a Win32 app (Intune/SCCM) or use your approved repackaging method in a controlled pipeline.</p>
+      </div>
+      <div style="margin-bottom:10px">
+        <strong>Q: What are the silent switches?</strong>
+        <p class="lead" style="margin:6px 0 0">A: Silent switch support depends on the EXE build. Common options include /S, /silent, /verysilent or /quiet. Validate by testing the installer with /? and in a staging environment.</p>
+      </div>
+      <div style="margin-bottom:10px">
+        <strong>Q: Can we deploy without internet?</strong>
+        <p class="lead" style="margin:6px 0 0">A: Yes. Download the EXE from the canonical URL to an internal share, then deploy via your management tool. The app does not require an active connection to run basic features.</p>
+      </div>
+      <div>
+        <strong>Q: How do we verify integrity?</strong>
+        <p class="lead" style="margin:6px 0 0">A: Check the Authenticode signature (SHA‑256) in file properties and compare hashes if your policy requires it. Only use the canonical file link.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="meta">
+      <div>
+        <strong>Display EX</strong> — © <span id="year"></span>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
+        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="download-windows.html">Download</a></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
+  </footer>
+
+  <!-- Cookie banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
+    <div style="flex:1">
+      <strong>We use cookies for analytics</strong>
+      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="acceptCookies" class="btn">Accept</button>
+      <button id="declineCookies" class="btn secondary">Decline</button>
+      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+    </div>
+  </div>
+
+  <script>
+    const GA_ID = 'G-3PM62KNBPD';
+
+    // Cookie consent
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    const closeBtn = document.getElementById('closeCookies');
+    const manageBtn = document.getElementById('manageCookies');
+
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
+    function setConsent(v){localStorage.setItem('display_ex_cookie_consent', v)}
+    function showBanner(){cookieBanner.style.display='flex'}
+    function hideBanner(){cookieBanner.style.display='none'}
+
+    function initGA(){
+      if(window.gtagLoaded) return;
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { 'anonymize_ip': true });
+      const s=document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      s.async = true;
+      document.head.appendChild(s);
+      window.gtagLoaded = true;
+    }
+
+    acceptBtn.addEventListener('click', ()=>{ setConsent('granted'); initGA(); hideBanner(); });
+    declineBtn.addEventListener('click', ()=>{ setConsent('denied'); hideBanner(); });
+    closeBtn.addEventListener('click', ()=> hideBanner());
+    manageBtn.addEventListener('click', ()=> showBanner());
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const consent = getConsent();
+      if(consent===null){ showBanner(); }
+      else if(consent==='granted'){ initGA(); }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+      document.getElementById('lastModified').textContent = document.lastModified || '—';
+
+      // Attach download tracking
+      document.querySelectorAll('[data-url]').forEach(el=>{
+        el.addEventListener('click', function(){
+          const filename = this.dataset.filename || this.textContent.trim();
+          const fileUrl = this.dataset.url || this.href;
+          sendDownloadEvent(filename, fileUrl);
+        });
+      });
+    });
+
+    function sendDownloadEvent(filename, fileUrl){
+      try{
+        if(typeof window.gtag === 'function'){
+          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
+        }
+      }catch(e){console.warn('Download event failed', e)}
+    }
+
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('a');
+      if(!a) return;
+      if(a.href && a.href.startsWith('http')){ a.setAttribute('rel','noopener'); }
+    });
+  </script>
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://display-ex.github.io/enterprise-deployment.html#webpage",
+        "url": "https://display-ex.github.io/enterprise-deployment.html",
+        "name": "Enterprise Deployment: Silent Install & Group Policy — Display EX",
+        "isPartOf": {"@id": "https://display-ex.github.io/#website"},
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08",
+        "breadcrumb": {"@id": "https://display-ex.github.io/enterprise-deployment.html#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://display-ex.github.io/enterprise-deployment.html#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://display-ex.github.io/"},
+          {"@type": "ListItem", "position": 2, "name": "Enterprise", "item": "https://display-ex.github.io/enterprise-deployment.html"}
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://display-ex.github.io/#software",
+        "name": "Display EX",
+        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
+        "applicationCategory": "Utilities",
+        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
+        "softwareVersion": "1.10.33",
+        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
+        "url": "https://display-ex.github.io/enterprise-deployment.html",
+        "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"},
+        "potentialAction": {"@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"},
+        "publisher": {"@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/"},
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Do you provide an MSI?", "acceptedAnswer": {"@type": "Answer", "text": "The official distribution is an EXE. If your policy mandates MSI, package the EXE as a Win32 app (Intune/SCCM) or use your approved repackaging method."}},
+          {"@type": "Question", "name": "What are the silent switches?", "acceptedAnswer": {"@type": "Answer", "text": "Silent switch support depends on the build. Common options include /S, /silent, /verysilent or /quiet. Validate by testing the installer with /? and in a staging environment."}},
+          {"@type": "Question", "name": "Can we deploy without internet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Download the EXE from the canonical URL to an internal share, then deploy via your management tool. The app does not require an active connection to run basic features."}},
+          {"@type": "Question", "name": "How do we verify integrity?", "acceptedAnswer": {"@type": "Answer", "text": "Check the Authenticode signature (SHA-256) in file properties and compare hashes if your policy requires it. Use only the canonical file link."}}
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://display-ex.github.io/#website",
+        "url": "https://display-ex.github.io/",
+        "name": "Display EX",
+        "publisher": { "@type": "Organization", "name": "Display EX" }
+      }
+    ]
+  }
+  </script>
+
+</body>
+</html>

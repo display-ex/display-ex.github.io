@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Official Download & System Requirements — Display EX for Windows</title>
+  <meta name="description" content="Download Display EX for Windows (64-bit). View system requirements, code signing, integrity notes, and quick start. Version 1.10.33 for Windows 11/10.">
+  <link rel="canonical" href="https://display-ex.github.io/download-windows.html">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Official Download — Display EX for Windows">
+  <meta property="og:description" content="Download Display EX for Windows (64-bit). Version 1.10.33 with multi-monitor profiles, high-DPI fixes, HDR and refresh-rate controls.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://display-ex.github.io/download-windows.html">
+  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#071426;
+      --text:#ffffff;
+      --muted:#9aa6b2;
+      --accent:#0ea5e9;
+      --accent-2:#06b6d4;
+      --success:#10b981;
+      --danger:#ef4444;
+      --max-width:1100px;
+      --radius:10px;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text)}
+    a{color:var(--accent);text-decoration:none}
+    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
+    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
+    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
+    .brand h1{font-size:16px;margin:0}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+
+    .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;margin-top:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
+    h2{margin:14px 0 6px;font-size:26px}
+    .lead{color:var(--muted);font-size:15px;line-height:1.5}
+
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
+
+    .dl-box{display:flex;flex-direction:column;gap:10px}
+    .dl-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;color:var(--muted);font-size:14px}
+
+    .list{display:grid;gap:8px}
+    .list li{margin-left:18px}
+
+    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
+
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .dl-meta{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 8v.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">EX</div>
+          <div>
+            <h1 style="font-size:14px;margin:0">Display EX</h1>
+            <div style="font-size:12px;color:var(--muted)">Official Windows download</div>
+          </div>
+        </div>
+        <div class="nav-links" role="navigation" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="download-windows.html" aria-current="page">Download</a>
+          <a href="multi-monitor-guide.html">Guides</a>
+          <a href="compare-vs-windows.html">Compare</a>
+          <a href="enterprise-deployment.html">Enterprise</a>
+          <a href="privacy-safety.html">Security</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Official Download & System Requirements</h2>
+    <p class="lead">Get the latest Display EX installer for Windows. Version 1.10.33 supports Windows 11 and Windows 10 (64‑bit).</p>
+
+    <div class="grid">
+      <section class="card">
+        <div class="dl-box">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
+            <div>
+              <div style="font-weight:700">Display EX for Windows</div>
+              <div style="font-size:13px;color:var(--muted)">Version 1.10.33 • 64‑bit</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+            <a class="btn" href="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" id="download-primary" data-filename="CDXWin64v1.10.33.exe" data-url="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe">
+              <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
+              Download installer (EXE)
+            </a>
+            <a class="btn secondary" href="#integrity">Verify integrity</a>
+          </div>
+
+          <div class="dl-meta" style="margin-top:10px">
+            <div><strong>Operating systems:</strong> Windows 11, Windows 10 (64‑bit)</div>
+            <div><strong>Installer type:</strong> EXE (code‑signed)</div>
+            <div><strong>Canonical download URL:</strong> <a href="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe">cdisplayex.com/files/CDXWin64v1.10.33.exe</a></div>
+            <div><strong>License:</strong> Free download</div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h3 style="margin:0 0 8px">System requirements</h3>
+        <ul class="list">
+          <li>Windows 11 or Windows 10, 64‑bit</li>
+          <li>Administrator privileges for installation</li>
+          <li>~50 MB free disk space</li>
+          <li>Internet connection for first‑time download</li>
+        </ul>
+
+        <h3 style="margin:14px 0 8px">Quick start</h3>
+        <ol class="list">
+          <li>Download the installer and run it.</li>
+          <li>Follow the setup wizard; restart may be requested.</li>
+          <li>Create your first display profile and assign hotkeys.</li>
+        </ol>
+
+        <div style="margin-top:10px;color:var(--muted);display:flex;gap:8px;align-items:center">
+          <svg width="16" height="16"><use href="#icon-shield"/></svg>
+          <span>Installer is code‑signed. See integrity section below.</span>
+        </div>
+      </aside>
+    </div>
+
+    <section id="integrity" class="card" style="margin-top:20px">
+      <h3 style="margin-top:0">Integrity and security</h3>
+      <p class="lead">Use the canonical URL above and verify the digital signature to ensure the installer has not been tampered with.</p>
+      <ul class="list">
+        <li><strong>Code signing:</strong> Windows Authenticode (SHA‑256)</li>
+        <li><strong>File name:</strong> CDXWin64v1.10.33.exe</li>
+        <li><strong>SHA‑256 checksum:</strong> Provided on request; publisher signature verification recommended.</li>
+      </ul>
+      <p style="color:var(--muted)">Tip: In Windows, right‑click the installer → Properties → Digital Signatures to verify it is signed and valid.</p>
+      <div style="margin-top:10px">
+        <a class="btn secondary" href="privacy-safety.html">Security & privacy details</a>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px">
+      <h3 style="margin-top:0">Changelog</h3>
+      <div>
+        <div style="font-weight:600">1.10.33 — 2026‑05‑08</div>
+        <ul class="list">
+          <li>Performance and stability improvements.</li>
+          <li>Refinements to DPI scaling and multi‑monitor profile switching.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px" aria-labelledby="faq-title">
+      <h3 id="faq-title">Download FAQ</h3>
+      <div style="margin-bottom:10px">
+        <strong>Q: Is this 64‑bit only?</strong>
+        <p class="lead" style="margin:6px 0 0">A: Yes, Display EX supports Windows 11/10 on 64‑bit systems.</p>
+      </div>
+      <div style="margin-bottom:10px">
+        <strong>Q: Is it free?</strong>
+        <p class="lead" style="margin:6px 0 0">A: The installer is free to download and use.</p>
+      </div>
+      <div style="margin-bottom:10px">
+        <strong>Q: Where does the file come from?</strong>
+        <p class="lead" style="margin:6px 0 0">A: From the canonical distribution URL at cdisplayex.com, linked above.</p>
+      </div>
+      <div>
+        <strong>Q: Can I do a silent install?</strong>
+        <p class="lead" style="margin:6px 0 0">A: See the Enterprise page for deployment options and silent install guidance.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="meta">
+      <div>
+        <strong>Display EX</strong> — © <span id="year"></span>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
+        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="index.html">Home</a></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
+  </footer>
+
+  <!-- Cookie banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
+    <div style="flex:1">
+      <strong>We use cookies for analytics</strong>
+      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="acceptCookies" class="btn">Accept</button>
+      <button id="declineCookies" class="btn secondary">Decline</button>
+      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+    </div>
+  </div>
+
+  <script>
+    const GA_ID = 'G-3PM62KNBPD';
+    const DOWNLOAD_URL = 'https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe';
+    const DOWNLOAD_FILE = 'CDXWin64v1.10.33.exe';
+
+    // Cookie consent
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    const closeBtn = document.getElementById('closeCookies');
+    const manageBtn = document.getElementById('manageCookies');
+
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
+    function setConsent(v){localStorage.setItem('display_ex_cookie_consent', v)}
+    function showBanner(){cookieBanner.style.display='flex'}
+    function hideBanner(){cookieBanner.style.display='none'}
+
+    function initGA(){
+      if(window.gtagLoaded) return;
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { 'anonymize_ip': true });
+      const s=document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      s.async = true;
+      document.head.appendChild(s);
+      window.gtagLoaded = true;
+    }
+
+    acceptBtn.addEventListener('click', ()=>{ setConsent('granted'); initGA(); hideBanner(); });
+    declineBtn.addEventListener('click', ()=>{ setConsent('denied'); hideBanner(); });
+    closeBtn.addEventListener('click', ()=> hideBanner());
+    manageBtn.addEventListener('click', ()=> showBanner());
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const consent = getConsent();
+      if(consent===null){ showBanner(); }
+      else if(consent==='granted'){ initGA(); }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const lm = document.lastModified || '';
+      document.getElementById('lastModified').textContent = lm ? lm : '—';
+
+      // Attach download tracking
+      document.querySelectorAll('[data-url]').forEach(el=>{
+        el.addEventListener('click', function(){
+          const fname = this.dataset.filename || this.textContent.trim();
+          const furl = this.dataset.url || this.href;
+          sendDownloadEvent(fname, furl);
+        });
+      });
+    });
+
+    function sendDownloadEvent(filename, fileUrl){
+      try{
+        if(typeof window.gtag === 'function'){
+          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
+        }
+      }catch(e){console.warn('Download event failed', e)}
+    }
+
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('a');
+      if(!a) return;
+      if(a.href && a.href.startsWith('http')){ a.setAttribute('rel','noopener'); }
+    });
+  </script>
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://display-ex.github.io/download-windows.html#webpage",
+        "url": "https://display-ex.github.io/download-windows.html",
+        "name": "Official Download & System Requirements — Display EX for Windows",
+        "isPartOf": {"@id": "https://display-ex.github.io/#website"},
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08",
+        "breadcrumb": {"@id": "https://display-ex.github.io/download-windows.html#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://display-ex.github.io/download-windows.html#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://display-ex.github.io/"},
+          {"@type": "ListItem", "position": 2, "name": "Download", "item": "https://display-ex.github.io/download-windows.html"}
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://display-ex.github.io/#website",
+        "url": "https://display-ex.github.io/",
+        "name": "Display EX",
+        "publisher": { "@type": "Organization", "name": "Display EX" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://display-ex.github.io/#software",
+        "name": "Display EX",
+        "description": "Display EX for Windows — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
+        "applicationCategory": "Utilities",
+        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
+        "softwareVersion": "1.10.33",
+        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
+        "url": "https://display-ex.github.io/download-windows.html",
+        "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"},
+        "potentialAction": {"@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"},
+        "publisher": {"@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/"},
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Is this 64-bit only?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Display EX supports Windows 11/10 on 64-bit systems."}},
+          {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "The installer is free to download and use."}},
+          {"@type": "Question", "name": "Where does the file come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the canonical distribution URL at cdisplayex.com, linked on this page."}},
+          {"@type": "Question", "name": "Can I do a silent install?", "acceptedAnswer": {"@type": "Answer", "text": "See the Enterprise page for deployment options and silent install guidance."}}
+        ]
+      }
+    ]
+  }
+  </script>
+
+</body>
+</html>

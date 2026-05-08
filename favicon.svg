@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="url(#g)"/>
+  <!-- Stylized EX mark -->
+  <!-- E -->
+  <rect x="14" y="16" width="6" height="32" fill="#042331"/>
+  <rect x="14" y="16" width="18" height="6" fill="#042331"/>
+  <rect x="14" y="30" width="16" height="6" fill="#042331"/>
+  <rect x="14" y="42" width="18" height="6" fill="#042331"/>
+  <!-- X -->
+  <path d="M38 18 L52 46" stroke="#042331" stroke-width="6" stroke-linecap="round"/>
+  <path d="M52 18 L38 46" stroke="#042331" stroke-width="6" stroke-linecap="round"/>
+</svg>

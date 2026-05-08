@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Fix Blurry Text on High‑DPI Displays in Windows — Display EX</title>
+  <meta name="description" content="Clear, crisp text on 4K/high‑DPI monitors. Learn how to fix blurry apps in Windows with Display EX: per‑app DPI, ClearType tuning, and scaling best practices.">
+  <link rel="canonical" href="https://display-ex.github.io/fix-blurry-text-scaling.html">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Fix Blurry Text on High‑DPI Displays — Display EX">
+  <meta property="og:description" content="Step‑by‑step guide to fix blurry text and UI on 4K/high‑DPI monitors using Display EX with per‑app DPI and ClearType.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://display-ex.github.io/fix-blurry-text-scaling.html">
+  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#071426;
+      --text:#ffffff;
+      --muted:#9aa6b2;
+      --accent:#0ea5e9;
+      --accent-2:#06b6d4;
+      --success:#10b981;
+      --danger:#ef4444;
+      --max-width:1100px;
+      --radius:10px;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text)}
+    a{color:var(--accent);text-decoration:none}
+    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
+    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
+    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
+    .brand h1{font-size:16px;margin:0}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
+    .nav-links a[aria-current="page"], .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+
+    h2{margin:14px 0 6px;font-size:26px}
+    .lead{color:var(--muted);font-size:15px;line-height:1.5}
+
+    .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
+
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
+
+    .steps{display:grid;gap:12px}
+    .step{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+    .step .num{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#042331;display:grid;place-items:center;font-weight:700}
+    .tip{border-left:3px solid var(--accent);padding:10px;background:rgba(255,255,255,0.02);border-radius:8px}
+
+    .related{display:flex;gap:12px;flex-wrap:wrap}
+
+    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
+
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-text" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M9 17h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">EX</div>
+          <div>
+            <h1 style="font-size:14px;margin:0">Display EX</h1>
+            <div style="font-size:12px;color:var(--muted)">Fix blurry text on high‑DPI</div>
+          </div>
+        </div>
+        <div class="nav-links" role="navigation" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="download-windows.html">Download</a>
+          <a href="multi-monitor-guide.html">Guides</a>
+          <a href="compare-vs-windows.html">Compare</a>
+          <a href="enterprise-deployment.html">Enterprise</a>
+          <a href="privacy-safety.html">Security</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Fix Blurry Text on High‑DPI Displays in Windows</h2>
+    <p class="lead">On 4K/high‑DPI screens, some apps render fuzzy text due to scaling. Use Display EX to apply per‑app DPI rules, tune ClearType, and pick the right scaling so everything looks razor sharp.</p>
+
+    <div class="grid">
+      <section class="card">
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">
+          <svg width="22" height="22" aria-hidden="true"><use href="#icon-text"/></svg>
+          <strong>Step‑by‑step</strong>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Set a sensible base scaling</strong>
+              <p class="lead" style="margin:6px 0 0">Open Windows Settings → System → Display → Scale. Start with 150%–200% for 4K at 27–32", ~125% for 1440p. Keep integer‑ish values to avoid rounding blur.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Enable ClearType and calibrate</strong>
+              <p class="lead" style="margin:6px 0 0">Run “Adjust ClearType text” and complete the wizard. This improves sub‑pixel rendering for your panel and viewing distance.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Let Windows fix blurry apps (global)</strong>
+              <p class="lead" style="margin:6px 0 0">Settings → System → Display → Advanced scaling → toggle “Fix scaling for apps.” Sign out/in after enabling.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <strong>Use per‑app DPI overrides</strong>
+              <p class="lead" style="margin:6px 0 0">Right‑click the app shortcut → Properties → Compatibility → Change high DPI settings. Try:</p>
+              <div class="tip">
+                <ul style="margin:6px 0 0 18px">
+                  <li>“Use this setting to fix scaling problems” (program DPI on 100% zoom)</li>
+                  <li>High DPI scaling override = Application (sharpest for many classic apps)</li>
+                  <li>If UI is too small, try System (Enhanced) as a compromise</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">5</div>
+            <div>
+              <strong>Apply Display EX per‑app profile</strong>
+              <p class="lead" style="margin:6px 0 0">In Display EX, create a profile that sets DPI behavior, refresh rate and color mode for the specific app. Bind it so it auto‑applies on launch.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">6</div>
+            <div>
+              <strong>Avoid mixed scaling across monitors</strong>
+              <p class="lead" style="margin:6px 0 0">If possible, keep similar scaling on all active displays or move the app to the monitor it was launched on to prevent re‑rasterization blur.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip" style="margin-top:12px">
+          <strong>Pro tip:</strong> After changing DPI, sign out and back in. Some apps (especially Electron/.NET Framework) only fully re‑rasterize on a fresh session.
+        </div>
+
+        <div style="margin-top:14px" class="related">
+          <a class="btn secondary" href="multi-monitor-guide.html">Multi‑monitor layout guide</a>
+          <a class="btn secondary" href="gaming-hdr-refresh-rate.html">Gaming, HDR & High Refresh</a>
+          <a class="btn secondary" href="compare-vs-windows.html">Display EX vs Windows</a>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
+          <div>
+            <div style="font-weight:700">Display EX for Windows</div>
+            <div style="font-size:13px;color:var(--muted)">Version 1.10.33 • 64‑bit</div>
+          </div>
+        </div>
+        <a class="btn" href="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" data-filename="CDXWin64v1.10.33.exe" data-url="https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe">
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
+          Download for Windows
+        </a>
+        <div style="margin-top:10px;color:var(--muted);display:flex;gap:8px;align-items:center">
+          <svg width="16" height="16"><use href="#icon-shield"/></svg>
+          <span>Code‑signed installer • Canonical URL</span>
+        </div>
+        <div style="margin-top:14px;display:grid;gap:8px">
+          <a class="btn secondary" href="download-windows.html">All download info</a>
+          <a class="btn secondary" href="privacy-safety.html">Security & privacy</a>
+        </div>
+      </aside>
+    </div>
+
+    <section class="card" style="margin-top:20px" aria-labelledby="faq-title">
+      <h3 id="faq-title">High‑DPI FAQ</h3>
+      <div style="margin-bottom:10px">
+        <strong>Q: Why is text blurry on my 4K monitor?</strong>
+        <p class="lead" style="margin:6px 0 0">A: Apps that are not DPI‑aware are bitmap‑scaled by Windows, causing blur. Use per‑app DPI overrides or Display EX profiles to render at native scale.</p>
+      </div>
+      <div style="margin-bottom:10px">
+        <strong>Q: Which is better — Application vs System vs System (Enhanced)?</strong>
+        <p class="lead" style="margin:6px 0 0">A: “Application” gives the sharpest UI if the app supports it. “System (Enhanced)” can improve older apps. Try both and pick the best look.</p>
+      </div>
+      <div>
+        <strong>Q: Do I need to reboot after changing scaling?</strong>
+        <p class="lead" style="margin:6px 0 0">A: Usually a sign‑out/in is enough. Some apps require a full restart to refresh their DPI context.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="meta">
+      <div>
+        <strong>Display EX</strong> — © <span id="year"></span>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
+        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="download-windows.html">Download</a></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
+  </footer>
+
+  <!-- Cookie banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
+    <div style="flex:1">
+      <strong>We use cookies for analytics</strong>
+      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="acceptCookies" class="btn">Accept</button>
+      <button id="declineCookies" class="btn secondary">Decline</button>
+      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+    </div>
+  </div>
+
+  <script>
+    const GA_ID = 'G-3PM62KNBPD';
+
+    // Cookie consent
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    const closeBtn = document.getElementById('closeCookies');
+    const manageBtn = document.getElementById('manageCookies');
+
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
+    function setConsent(v){localStorage.setItem('display_ex_cookie_consent', v)}
+    function showBanner(){cookieBanner.style.display='flex'}
+    function hideBanner(){cookieBanner.style.display='none'}
+
+    function initGA(){
+      if(window.gtagLoaded) return;
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { 'anonymize_ip': true });
+      const s=document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      s.async = true;
+      document.head.appendChild(s);
+      window.gtagLoaded = true;
+    }
+
+    acceptBtn.addEventListener('click', ()=>{ setConsent('granted'); initGA(); hideBanner(); });
+    declineBtn.addEventListener('click', ()=>{ setConsent('denied'); hideBanner(); });
+    closeBtn.addEventListener('click', ()=> hideBanner());
+    manageBtn.addEventListener('click', ()=> showBanner());
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const consent = getConsent();
+      if(consent===null){ showBanner(); }
+      else if(consent==='granted'){ initGA(); }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+      document.getElementById('lastModified').textContent = document.lastModified || '—';
+
+      // Attach download tracking
+      document.querySelectorAll('[data-url]').forEach(el=>{
+        el.addEventListener('click', function(){
+          const filename = this.dataset.filename || this.textContent.trim();
+          const fileUrl = this.dataset.url || this.href;
+          sendDownloadEvent(filename, fileUrl);
+        });
+      });
+    });
+
+    function sendDownloadEvent(filename, fileUrl){
+      try{
+        if(typeof window.gtag === 'function'){
+          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
+        }
+      }catch(e){console.warn('Download event failed', e)}
+    }
+
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('a');
+      if(!a) return;
+      if(a.href && a.href.startsWith('http')){ a.setAttribute('rel','noopener'); }
+    });
+  </script>
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://display-ex.github.io/fix-blurry-text-scaling.html#webpage",
+        "url": "https://display-ex.github.io/fix-blurry-text-scaling.html",
+        "name": "Fix Blurry Text on High‑DPI Displays in Windows — Display EX",
+        "isPartOf": {"@id": "https://display-ex.github.io/#website"},
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08",
+        "breadcrumb": {"@id": "https://display-ex.github.io/fix-blurry-text-scaling.html#breadcrumb"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://display-ex.github.io/fix-blurry-text-scaling.html#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://display-ex.github.io/"},
+          {"@type": "ListItem", "position": 2, "name": "Fix blurry text", "item": "https://display-ex.github.io/fix-blurry-text-scaling.html"}
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://display-ex.github.io/#software",
+        "name": "Display EX",
+        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
+        "applicationCategory": "Utilities",
+        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
+        "softwareVersion": "1.10.33",
+        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
+        "url": "https://display-ex.github.io/fix-blurry-text-scaling.html",
+        "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"},
+        "potentialAction": {"@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"},
+        "publisher": {"@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/"},
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08"
+      },
+      {
+        "@type": "HowTo",
+        "name": "Fix blurry text on high-DPI screens in Windows",
+        "description": "Adjust scaling, enable ClearType, and apply per-app DPI overrides using Display EX.",
+        "totalTime": "PT8M",
+        "supply": [
+          {"@type": "HowToSupply", "name": "Windows 11/10 PC (64-bit)"},
+          {"@type": "HowToSupply", "name": "Display EX installed"}
+        ],
+        "tool": [
+          {"@type": "HowToTool", "name": "Display EX"}
+        ],
+        "step": [
+          {"@type": "HowToStep", "name": "Set a sensible base scaling", "text": "Windows Settings → System → Display → Scale. Pick 150%–200% for 4K; 125% for 1440p."},
+          {"@type": "HowToStep", "name": "Enable ClearType and calibrate", "text": "Run Adjust ClearType text and complete the wizard."},
+          {"@type": "HowToStep", "name": "Turn on global app-fix", "text": "Settings → Display → Advanced scaling → Fix scaling for apps (On)."},
+          {"@type": "HowToStep", "name": "Per-app DPI override", "text": "App Properties → Compatibility → Change high DPI settings → set Application or System (Enhanced)."},
+          {"@type": "HowToStep", "name": "Apply Display EX profile", "text": "Create a per-app profile with DPI behavior and bind it to launch."}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Why is text blurry on my 4K monitor?", "acceptedAnswer": {"@type": "Answer", "text": "Non-DPI-aware apps are bitmap-scaled by Windows, causing blur. Use per-app DPI overrides or Display EX profiles to render at native scale."}},
+          {"@type": "Question", "name": "Which is better — Application vs System vs System (Enhanced)?", "acceptedAnswer": {"@type": "Answer", "text": "Application is sharpest if supported. System (Enhanced) can improve older apps. Try both and choose the best look."}},
+          {"@type": "Question", "name": "Do I need to reboot after changing scaling?", "acceptedAnswer": {"@type": "Answer", "text": "Sign out/in is usually enough. Some apps need a full restart to refresh their DPI context."}}
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://display-ex.github.io/#website",
+        "url": "https://display-ex.github.io/",
+        "name": "Display EX",
+        "publisher": { "@type": "Organization", "name": "Display EX" }
+      }
+    ]
+  }
+  </script>
+
+</body>
+</html>

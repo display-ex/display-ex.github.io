@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>How to Enable &amp; Tune HDR on Windows 11 — Display EX Guide</title>
+  <meta name="description" content="Enable HDR on Windows 11, fix washed-out colours and save HDR settings per monitor with Display EX profiles. Step-by-step guide for gaming, video and desktop HDR setups.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/hdr-enable-windows-11.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--warning:#f59e0b;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}.nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    .guide-layout{display:table;width:100%;border-spacing:0}
+    .toc-sidebar{display:table-cell;width:220px;padding-right:28px;vertical-align:top}
+    .toc-sidebar h3{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+    .toc-sidebar ol{margin:0;padding:0 0 0 16px;display:flex;flex-direction:column;gap:6px}
+    .toc-sidebar li a{font-size:13px;color:var(--muted)}.toc-sidebar li a:hover{color:var(--accent)}
+    .step-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;scroll-margin-top:74px}
+    .step-card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;font-size:13px;color:#042331;flex-shrink:0;font-family:"IBM Plex Mono",monospace}
+    .step-card h2{font-size:17px;font-weight:700;margin:0;letter-spacing:-.2px}
+    .step-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px}
+    .step-card p:last-child{margin-bottom:0}
+    .step-card h3{font-size:14px;font-weight:600;margin:16px 0 6px}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .warn{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .warn strong{color:var(--warning)}
+    .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+    .req-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:14px}
+    .req-item h4{font-size:13px;font-weight:600;margin:0 0 5px}
+    .req-item p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+    .related{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .related-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:9px;padding:11px 13px;color:var(--text);font-size:13px;transition:background .15s,border-color .15s}
+    .related-link:hover{background:rgba(14,165,233,.06);border-color:rgba(14,165,233,.2)}
+    .ri{width:28px;height:28px;border-radius:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);display:grid;place-items:center;flex-shrink:0;font-size:13px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:800px){.guide-layout{display:block}.toc-sidebar{display:none}.req-grid{grid-template-columns:1fr}.related{grid-template-columns:1fr}}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a><a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a></div>
+  </nav></div></header>
+
+  <main class="container" style="padding-top:0">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › Enable HDR on Windows 11</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>How to Enable &amp; Tune HDR on Windows 11</h1>
+      <p>HDR on Windows 11 can look stunning — or washed out and over-bright — depending on how it's configured. This guide covers enabling HDR, fixing common problems like bleached colours, and using Display EX to save HDR states as part of named profiles for gaming, video and desktop work.</p>
+    </section>
+
+    <div class="guide-layout">
+      <nav class="toc-sidebar">
+        <h3>Contents</h3>
+        <ol>
+          <li><a href="#reqs">Requirements</a></li>
+          <li><a href="#enable">Enable HDR in Windows</a></li>
+          <li><a href="#calibrate">Calibrate HDR</a></li>
+          <li><a href="#washed">Fix washed-out colours</a></li>
+          <li><a href="#profiles">Save HDR profiles</a></li>
+          <li><a href="#gaming">HDR for gaming</a></li>
+          <li><a href="#troubleshoot">Troubleshooting</a></li>
+        </ol>
+      </nav>
+
+      <div style="display:table-cell;vertical-align:top">
+        <div class="step-card" id="reqs">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">✓</div><h2>Requirements for HDR on Windows 11</h2></div>
+          <p>Before enabling HDR, confirm your setup meets these requirements — if any one piece is missing, HDR will either be unavailable or produce incorrect colour output.</p>
+          <div class="req-grid">
+            <div class="req-item"><h4>HDR-capable monitor</h4><p>Look for VESA DisplayHDR certification (400, 600, 1000, 1400) or HDR10 support in the monitor spec sheet. Most OLED panels are HDR-capable. Budget "HDR" panels may only support HDR400 which has minimal visible impact.</p></div>
+            <div class="req-item"><h4>High-bandwidth cable</h4><p>DisplayPort 1.4 or HDMI 2.0+ (preferably 2.1 for 4K HDR at high refresh rates). A cheap HDMI 1.4 cable will limit you to 1080p HDR only.</p></div>
+            <div class="req-item"><h4>Supported GPU</h4><p>Any NVIDIA GTX 950+, AMD RX 400+, or Intel Iris Xe / Arc GPU with an up-to-date driver supports HDR output on Windows 11.</p></div>
+            <div class="req-item"><h4>Windows version</h4><p>Windows 11 or Windows 10 version 1803+. Windows 11 23H2 has the most refined HDR implementation including AutoHDR improvements.</p></div>
+          </div>
+        </div>
+
+        <div class="step-card" id="enable">
+          <div class="step-card-head"><div class="step-num">1</div><h2>Enable HDR in Windows 11</h2></div>
+          <p>Go to <strong>Settings → System → Display</strong>. Click the monitor you want to enable HDR on (important on multi-monitor setups). Scroll to the <strong>HDR</strong> section and toggle <strong>Use HDR</strong> on.</p>
+          <p>If the HDR toggle is greyed out, your monitor, cable or GPU combination doesn't meet the requirements — check the requirements section above.</p>
+          <div class="tip"><strong>Tip:</strong> On Windows 11, you can also press <strong>Win + Alt + B</strong> to toggle HDR on/off for the primary monitor without opening Settings — useful for quick testing.</div>
+          <h3>Windows HD Colour Settings</h3>
+          <p>Click <strong>Windows HD Colour settings</strong> (appears when HDR is on) to access two important sliders:</p>
+          <p><strong>SDR content brightness</strong> — controls how bright SDR content (the Windows desktop, non-HDR apps) looks when HDR mode is active. If your desktop looks dim with HDR on, increase this to 80–100.</p>
+          <p><strong>HDR/SDR brightness balance</strong> — balances the brightness between HDR and SDR content displayed simultaneously. Tune this by eye.</p>
+        </div>
+
+        <div class="step-card" id="calibrate">
+          <div class="step-card-head"><div class="step-num">2</div><h2>Calibrate HDR with Windows Calibration tool</h2></div>
+          <p>Windows 11 includes an <strong>HDR Calibration app</strong> (download free from the Microsoft Store if not already installed). It walks you through setting peak brightness, minimum black level and tone mapping to match your specific panel's capabilities.</p>
+          <p>Run the calibration in a dimmed room for accurate results. The calibration creates an ICC profile that Windows uses to tonemap HDR content correctly for your monitor's actual peak brightness and colour gamut.</p>
+          <div class="tip"><strong>Tip:</strong> Display EX can save the calibrated ICC profile assignment as part of a display profile. When you switch to your <em>HDR — Gaming</em> profile, Display EX applies both the HDR toggle and the calibrated colour profile simultaneously.</div>
+        </div>
+
+        <div class="step-card" id="washed">
+          <div class="step-card-head"><div class="step-num">3</div><h2>Fix washed-out colours with HDR on</h2></div>
+          <p>The most common HDR complaint on Windows is that the desktop and SDR apps look faded, grey or washed out when HDR is enabled. This is almost always a misconfiguration, not a hardware problem.</p>
+          <h3>Fix 1: Increase SDR content brightness</h3>
+          <p>In <strong>Settings → Display → Windows HD Colour settings</strong>, drag the <strong>SDR content brightness</strong> slider to the right (start around 70–80). This compensates for the monitor operating in a higher luminance mode.</p>
+          <h3>Fix 2: Disable "Cinema" or "Movie" monitor preset</h3>
+          <p>Many monitors automatically switch to a low-brightness film preset when they detect an HDR signal. Enter your monitor's OSD and switch the picture mode to <strong>HDR Game</strong> or <strong>HDR True Black</strong> — or simply disable any automatic preset switching.</p>
+          <h3>Fix 3: Check GPU driver colour format</h3>
+          <p>Open your GPU control panel (NVIDIA Control Panel / AMD Software) and confirm the output colour format is set to <strong>RGB Full Range</strong> or <strong>YCbCr 4:4:4</strong> — not YCbCr 4:2:0, which compresses chroma data and causes colour banding. Display EX's profile system saves this setting alongside HDR state.</p>
+        </div>
+
+        <div class="step-card" id="profiles">
+          <div class="step-card-head"><div class="step-num">4</div><h2>Save HDR states as Display EX profiles</h2></div>
+          <p>The biggest limitation of Windows HDR is that it's a global toggle — there's no way to save "HDR on for gaming, HDR off for photo editing" as a named preset you can switch instantly. Display EX solves this.</p>
+          <h3>Creating an HDR-on profile</h3>
+          <p>Enable HDR and calibrate it to your liking. Open Display EX → <strong>New Profile</strong> → name it <em>HDR — Gaming</em> (or similar). Display EX snapshots the current HDR state, brightness settings and colour profile.</p>
+          <h3>Creating an SDR profile</h3>
+          <p>Turn HDR off. Optionally recalibrate the SDR brightness. Save as a second profile named <em>SDR — Design</em> or <em>Desktop Work</em>. You can now switch between HDR and SDR modes in one click from the tray icon.</p>
+          <div class="tip"><strong>Tip:</strong> Combine HDR profiles with per-app triggers — e.g. set the <em>HDR — Gaming</em> profile to activate automatically when a game executable launches, and revert to SDR when it closes.</div>
+        </div>
+
+        <div class="step-card" id="gaming">
+          <div class="step-card-head"><div class="step-num">5</div><h2>HDR for gaming — best settings</h2></div>
+          <p>Game HDR and desktop HDR are very different experiences. Most HDR games include their own in-game calibration — use it rather than relying solely on Windows settings.</p>
+          <h3>Recommended workflow</h3>
+          <p>1. Create a Display EX profile with HDR on, refresh rate at your gaming target (e.g. 144 Hz), and VRR enabled.</p>
+          <p>2. Set this profile as the auto-trigger for your game executable.</p>
+          <p>3. Inside the game, run the HDR calibration if available — look for peak brightness and black level sliders. Set peak brightness to match your monitor's spec (e.g. 600 nits for a DisplayHDR 600 panel).</p>
+          <p>4. For games without HDR calibration, use AutoHDR if your GPU and monitor support it — it applies tone-mapping to SDR games automatically. Enable it in <strong>Settings → Display → Windows HD Colour settings → Auto HDR</strong>.</p>
+          <div class="warn"><strong>Note:</strong> Some games disable HDR in borderless windowed mode. Switch to <strong>exclusive fullscreen</strong> in the game's video settings if HDR appears inactive despite being enabled in Windows.</div>
+        </div>
+
+        <div class="step-card" id="troubleshoot">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">?</div><h2>Troubleshooting</h2></div>
+          <h3>HDR toggle is greyed out</h3>
+          <p>Your monitor doesn't report HDR capability to Windows via EDID, or your cable doesn't support the required bandwidth. Try a different cable (HDMI 2.0+ or DP 1.4), make sure GPU drivers are up to date, and check if your monitor requires HDR to be enabled in its OSD first.</p>
+          <h3>HDR resets to off after sleep or reboot</h3>
+          <p>This is a known Windows bug on some monitor/driver combinations. Enable <strong>Re-apply profile on wake</strong> in Display EX — it re-sends the display configuration including HDR state after every sleep/wake cycle and on startup.</p>
+          <h3>HDR looks worse than SDR</h3>
+          <p>Your monitor's peak brightness is probably too low for HDR to make a visible improvement (under 400 nits). DisplayHDR 400 panels show minimal benefit from HDR. Consider disabling HDR for desktop use and enabling it only for content specifically mastered for your panel's brightness level.</p>
+        </div>
+
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(6,182,212,.04));border:1px solid rgba(14,165,233,.2);border-radius:14px;padding:24px;margin-bottom:20px">
+          <h2 style="font-size:17px;margin:0 0 8px;font-weight:700">Save HDR profiles with Display EX</h2>
+          <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Free — switch between HDR and SDR in one click, auto-enable HDR when a game launches, and restore settings after sleep.</p>
+          <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+        </div>
+
+        <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:22px">
+          <h2 style="font-size:15px;font-weight:600;margin:0 0 12px">Related guides</h2>
+          <div class="related">
+            <a href="high-refresh-rate-144hz-setup.html" class="related-link"><div class="ri">⚡</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">144Hz / 240Hz setup</strong><span style="color:var(--muted);font-size:12px">Combine HDR with high refresh</span></div></a>
+            <a href="multi-monitor-guide.html" class="related-link"><div class="ri">🖥</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Multi-monitor setup</strong><span style="color:var(--muted);font-size:12px">HDR on one, SDR on another</span></div></a>
+            <a href="display-profile-per-app.html" class="related-link"><div class="ri">🔄</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Per-app profile triggers</strong><span style="color:var(--muted);font-size:12px">Auto-enable HDR for games</span></div></a>
+            <a href="4k-monitor-setup-windows.html" class="related-link"><div class="ri">✨</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">4K monitor setup</strong><span style="color:var(--muted);font-size:12px">Full 4K + HDR configuration</span></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a></div>
+    </div>
+    <div class="footer-bottom"><div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div><div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div></div>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button><button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button><button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button></div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+  </script>
+</body>
+</html>

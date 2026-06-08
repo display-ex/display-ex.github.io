@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Fix Windows DPI Scaling Problems — Why Scaling Breaks &amp; How to Fix It</title>
+  <meta name="description" content="Why Windows DPI scaling breaks on multi-monitor setups and how to fix it. Per-app overrides, blurry text solutions and Display EX profile-based scaling fixes for Windows 10 and 11.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/windows-scaling-fix.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--warning:#f59e0b;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}
+    .nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .btn.secondary:hover{background:rgba(255,255,255,.04)}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    .guide-layout{display:table;width:100%;border-spacing:0}
+    .toc-sidebar{display:table-cell;width:220px;padding-right:28px;vertical-align:top}
+    .toc-sidebar h3{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+    .toc-inner{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:12px;padding:18px}
+    .toc-sidebar ol{margin:0;padding:0 0 0 16px;display:flex;flex-direction:column;gap:6px}
+    .toc-sidebar li a{font-size:13px;color:var(--muted)}.toc-sidebar li a:hover{color:var(--accent)}
+    .step-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;scroll-margin-top:74px}
+    .step-card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;font-size:13px;color:#042331;flex-shrink:0;font-family:"IBM Plex Mono",monospace}
+    .step-card h2{font-size:17px;font-weight:700;margin:0;letter-spacing:-.2px}
+    .step-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px}
+    .step-card p:last-child{margin-bottom:0}
+    .step-card h3{font-size:14px;font-weight:600;margin:16px 0 6px}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .cause-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+    .cause-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:14px}
+    .cause-item h4{font-size:13px;font-weight:600;margin:0 0 5px}
+    .cause-item p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+    .related{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .related-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:9px;padding:11px 13px;color:var(--text);font-size:13px;transition:background .15s,border-color .15s}
+    .related-link:hover{background:rgba(14,165,233,.06);border-color:rgba(14,165,233,.2)}
+    .ri{width:28px;height:28px;border-radius:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);display:grid;place-items:center;flex-shrink:0;font-size:13px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:800px){.guide-layout{display:block}.toc-sidebar{display:none}.cause-grid{grid-template-columns:1fr}.related{grid-template-columns:1fr}}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a><a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a></div>
+  </nav></div></header>
+
+  <main class="container" style="padding-top:0">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › Fix DPI scaling</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>Fix Windows DPI Scaling Problems</h1>
+      <p>Windows DPI scaling works reliably for simple setups — but breaks in predictable ways on multi-monitor desks, 4K screens and mixed-resolution configurations. This guide explains why it breaks and how to fix it permanently.</p>
+    </section>
+
+    <div class="guide-layout">
+      <div class="toc-sidebar">
+        <div class="toc-inner">
+          <h3>Contents</h3>
+          <ol>
+            <li><a href="#why">Why scaling breaks</a></li>
+            <li><a href="#global">Fix global scaling</a></li>
+            <li><a href="#per-display">Per-display scaling</a></li>
+            <li><a href="#per-app">Per-app overrides</a></li>
+            <li><a href="#mixed">Mixed DPI setups</a></li>
+            <li><a href="#profiles">Save scaling profiles</a></li>
+            <li><a href="#troubleshoot">Troubleshooting</a></li>
+          </ol>
+        </div>
+      </div>
+
+      <div>
+        <div class="step-card" id="why">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">?</div><h2>Why Windows DPI scaling breaks</h2></div>
+          <p>Windows DPI scaling was designed for single-monitor setups with a single DPI value. Modern multi-monitor and 4K setups expose several architectural limitations that cause blurry apps, wrong UI sizes and scrambled layouts.</p>
+          <div class="cause-grid">
+            <div class="cause-item"><h4>DPI-unaware apps</h4><p>Apps built before Windows 8.1 don't know high-DPI exists. Windows renders them at 96 DPI and scales up — causing blur. Common in older tools, CAD software and developer utilities.</p></div>
+            <div class="cause-item"><h4>App moved between monitors</h4><p>An app opened at 100% DPI dragged to a 150% DPI monitor won't re-render. Windows stretches the existing bitmap — same blurriness as upscaling a 1080p image to 4K.</p></div>
+            <div class="cause-item"><h4>Non-integer scale values</h4><p>Scaling at 125% or 150% is fine. But values like 137% or 175% cause sub-pixel rendering artefacts because UI elements don't map cleanly to physical pixels.</p></div>
+            <div class="cause-item"><h4>Driver / reboot resets</h4><p>GPU driver updates and reboots can reset per-monitor DPI to system default, especially on multi-monitor setups where Windows re-enumerates displays in a different order.</p></div>
+          </div>
+        </div>
+
+        <div class="step-card" id="global">
+          <div class="step-card-head"><div class="step-num">1</div><h2>Fix the global DPI setting</h2></div>
+          <p>The first thing to check: is your system-wide DPI set to a sensible value? Go to <strong>Settings → System → Display → Scale</strong> and choose from the recommended values. Stick to multiples of 25% (100%, 125%, 150%, 175%, 200%) — these map cleanly to pixels.</p>
+          <p>After changing the global scale, <strong>sign out and sign back in</strong>. Some apps won't pick up the new DPI until their process restarts — a sign-out/sign-in restarts all user-space processes at once.</p>
+          <div class="tip"><strong>Recommended scale values by screen size:</strong> 27" 4K → 150% · 24" 4K → 175% · 27" 1440p → 100–125% · 15" FHD laptop → 125% · 13" laptop → 150%</div>
+        </div>
+
+        <div class="step-card" id="per-display">
+          <div class="step-card-head"><div class="step-num">2</div><h2>Set scaling independently per monitor</h2></div>
+          <p>On multi-monitor setups with different screen sizes, each monitor needs its own DPI value. In <strong>Settings → System → Display</strong>, click each monitor rectangle individually before changing the Scale slider — the setting applies only to the selected monitor.</p>
+          <p>Windows applies these per-monitor values correctly for apps that declare Per-Monitor v2 DPI awareness. For older apps, see the per-app override section below.</p>
+          <div class="tip"><strong>Tip:</strong> After setting per-monitor DPI, open a new window of each app you care about — don't drag existing windows. New windows open at the correct DPI for the monitor they appear on; dragged windows often need a restart to re-render.</div>
+        </div>
+
+        <div class="step-card" id="per-app">
+          <div class="step-card-head"><div class="step-num">3</div><h2>Per-app DPI overrides</h2></div>
+          <p>For apps that still look blurry after setting the correct system DPI, apply a per-app override. Windows has a built-in way to do this, and Display EX automates it.</p>
+          <h3>Built-in Windows method</h3>
+          <p>Right-click the app's <span style="font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px;font-size:12px">.exe</span> → <strong>Properties → Compatibility → Change high DPI settings</strong> → tick <strong>Override high DPI scaling behaviour</strong> → set dropdown to <strong>Application</strong>. Restart the app.</p>
+          <h3>Automated with Display EX</h3>
+          <p>Open Display EX → <strong>DPI Overrides</strong> → <strong>Add app</strong> → select the executable. Display EX applies the override automatically on every launch and stores it per display profile — so your 4K profile has different overrides than your laptop profile. See the <a href="fix-blurry-text-scaling.html">blurry apps guide</a> for full details.</p>
+        </div>
+
+        <div class="step-card" id="mixed">
+          <div class="step-card-head"><div class="step-num">4</div><h2>Mixed DPI multi-monitor setups</h2></div>
+          <p>The hardest case: a 4K monitor at 150% next to a 1080p monitor at 100%. Windows handles this reasonably well for modern apps, but older software and even some current apps fail in two ways:</p>
+          <h3>Problem 1: Blurry when moved</h3>
+          <p>An app moved from the 100% screen to the 150% screen renders blurry because it doesn't re-draw at the new DPI. Fix: use Display EX's <strong>Auto re-apply DPI on monitor change</strong> setting, which triggers a DPI refresh cycle when a window moves between screens.</p>
+          <h3>Problem 2: Wrong size on secondary monitor</h3>
+          <p>Some apps use the primary monitor's DPI for all windows regardless of which screen they're on. This is an app bug — the only workaround is to set the secondary monitor to the same DPI as the primary, or use a per-app override to force System DPI awareness mode (which at least keeps the app consistently sized, if not per-monitor sharp).</p>
+          <div class="tip"><strong>Tip:</strong> If a mixed-DPI setup causes too many problems with a specific app, consider setting both monitors to the same DPI value. A 4K at 150% and a 1080p at 100% produce similar physical pixel densities — setting the 1080p to 150% makes it look slightly larger but eliminates all DPI mismatch issues.</div>
+        </div>
+
+        <div class="step-card" id="profiles">
+          <div class="step-card-head"><div class="step-num">5</div><h2>Save DPI settings as Display EX profiles</h2></div>
+          <p>The most persistent scaling problem: driver updates, reboots and monitor reconnections reset per-monitor DPI values back to defaults. Display EX solves this by saving the complete DPI configuration as part of each named profile.</p>
+          <p>Create a profile once with all your DPI settings correct, set it to <strong>Apply on startup</strong>, and Display EX re-applies the full configuration — including per-monitor scale values — every time Windows boots. No more hunting through Display Settings after every driver update.</p>
+          <p>See the <a href="multi-monitor-guide.html">multi-monitor guide</a> for a full walkthrough of creating and switching profiles.</p>
+        </div>
+
+        <div class="step-card" id="troubleshoot">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">?</div><h2>Troubleshooting</h2></div>
+          <h3>DPI resets to 100% after reboot</h3>
+          <p>Create a Display EX profile with the correct DPI settings and enable <strong>Apply on startup</strong>. Display EX re-applies all display settings including scale values a few seconds after login.</p>
+          <h3>Custom scaling percentage causes blurriness</h3>
+          <p>Non-standard percentages (e.g. 137%, 163%) cause fractional pixel mapping. Stick to 100%, 125%, 150%, 175% or 200%. If none of these feel right, try Display EX's custom scaling tool which uses a different rendering path.</p>
+          <h3>App looks correct on launch but blurry after moving windows</h3>
+          <p>Enable <strong>Auto re-apply DPI on monitor change</strong> in Display EX settings. This triggers a DPI refresh when a window changes monitors, prompting the app to re-render at the new scale.</p>
+          <h3>Everything looks too small at correct DPI</h3>
+          <p>This means the DPI is set correctly for sharpness but the UI is physically too small for comfortable reading at your viewing distance. Increase the scale one step (e.g. 125% → 150%) and run the sign-out/sign-in cycle again.</p>
+        </div>
+
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(6,182,212,.04));border:1px solid rgba(14,165,233,.2);border-radius:14px;padding:24px;margin-bottom:20px">
+          <h2 style="font-size:17px;margin:0 0 8px;font-weight:700">Fix DPI scaling permanently with Display EX</h2>
+          <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Save per-monitor DPI settings as profiles, apply per-app overrides automatically, and restore everything on startup.</p>
+          <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+        </div>
+
+        <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:22px">
+          <h2 style="font-size:15px;font-weight:600;margin:0 0 12px">Related guides</h2>
+          <div class="related">
+            <a href="fix-blurry-text-scaling.html" class="related-link"><div class="ri">🔍</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Fix blurry apps on 4K</strong><span style="color:var(--muted);font-size:12px">Per-app DPI overrides</span></div></a>
+            <a href="multi-monitor-guide.html" class="related-link"><div class="ri">🖥</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Multi-monitor setup</strong><span style="color:var(--muted);font-size:12px">Profiles for all screens</span></div></a>
+            <a href="4k-monitor-setup-windows.html" class="related-link"><div class="ri">✨</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">4K monitor setup</strong><span style="color:var(--muted);font-size:12px">Full 4K configuration</span></div></a>
+            <a href="dual-monitor-setup-guide.html" class="related-link"><div class="ri">📺</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Dual monitor guide</strong><span style="color:var(--muted);font-size:12px">Mixed DPI dual screen</span></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a><a href="4k-monitor-setup-windows.html">4K monitor setup</a></div>
+    </div>
+    <div class="footer-bottom"><div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div><div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div></div>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button><button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button><button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button></div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Fix Blurry Apps on Windows 10 &amp; 11 — Complete Guide</title>
+  <meta name="description" content="Fix blurry apps and fuzzy text on Windows 10 and 11. All causes and solutions: DPI scaling, per-app compatibility overrides, Display EX fixes and ClearType calibration.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/fix-blurry-apps-windows.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--warning:#f59e0b;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}
+    .nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    .card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:18px}
+    .card h2{font-size:18px;margin:0 0 12px;font-weight:600}
+    .card h3{font-size:14px;font-weight:600;margin:16px 0 6px}
+    .card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 10px}
+    .card p:last-child{margin-bottom:0}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .fix-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .fix-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .fix-item .label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 8px;border-radius:4px;margin-bottom:8px;font-family:"IBM Plex Mono",monospace}
+    .label-easy{background:rgba(16,185,129,.15);color:#10b981}
+    .label-medium{background:rgba(14,165,233,.15);color:var(--accent)}
+    .label-auto{background:rgba(245,158,11,.12);color:var(--warning)}
+    .fix-item h4{font-size:13px;font-weight:600;margin:0 0 5px}
+    .fix-item p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+    .related{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .related-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:9px;padding:11px 13px;color:var(--text);font-size:13px;transition:background .15s,border-color .15s}
+    .related-link:hover{background:rgba(14,165,233,.06);border-color:rgba(14,165,233,.2)}
+    .ri{width:28px;height:28px;border-radius:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);display:grid;place-items:center;flex-shrink:0;font-size:13px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:700px){.fix-grid{grid-template-columns:1fr}.related{grid-template-columns:1fr}}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a><a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a></div>
+  </nav></div></header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › Fix blurry apps</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>Fix Blurry Apps on Windows 10 &amp; 11</h1>
+      <p>Blurry apps and fuzzy text are one of the most common Windows complaints, especially on laptops, 4K monitors and mixed-DPI multi-monitor setups. This guide covers every cause and every fix — from the simplest one-click solutions to automated per-app overrides with Display EX.</p>
+    </section>
+
+    <div class="card">
+      <h2>Quick diagnosis — which type of blurriness?</h2>
+      <div class="fix-grid">
+        <div class="fix-item"><span class="label label-easy">Type A</span><h4>Everything looks blurry</h4><p>Entire desktop, taskbar and all apps are fuzzy. Cause: wrong DPI scaling percentage or non-native resolution. Fix: Set correct resolution and DPI in Display Settings.</p></div>
+        <div class="fix-item"><span class="label label-easy">Type B</span><h4>One specific app looks blurry</h4><p>Most apps look sharp but one particular app is fuzzy. Cause: that app is DPI-unaware. Fix: per-app DPI override (Properties → Compatibility or Display EX).</p></div>
+        <div class="fix-item"><span class="label label-medium">Type C</span><h4>App blurry after moving between monitors</h4><p>App was sharp on one screen but blurry after dragging to another. Cause: mixed DPI monitors, app didn't re-render. Fix: restart the app, or use Display EX auto DPI refresh.</p></div>
+        <div class="fix-item"><span class="label label-medium">Type D</span><h4>Text looks "soft" but not blurry</h4><p>Text is the right size and position but lacks crispness. Cause: ClearType not calibrated for your monitor. Fix: run ClearType tuning wizard.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Fix A — Set the correct DPI scaling</h2>
+      <p>Go to <strong>Settings → System → Display → Scale</strong> and select the recommended value for your screen size. Always use a value from the dropdown — custom percentages like 137% cause pixel mapping issues that make everything look soft.</p>
+      <p>After changing: <strong>sign out and sign back in</strong>. Do not just click Apply and continue — leftover processes still render at the old DPI and look blurry until restarted.</p>
+      <div class="tip"><strong>Also check:</strong> Settings → Display → Resolution. It must be set to the monitor's native resolution. A 4K monitor at 1080p looks blurry because the image is being upscaled by the monitor hardware.</div>
+    </div>
+
+    <div class="card">
+      <h2>Fix B — Per-app DPI override (Windows built-in)</h2>
+      <p>For a specific blurry app, Windows has a built-in override that tells the OS how to handle DPI scaling for that process.</p>
+      <h3>Steps</h3>
+      <p>1. Find the app's <span style="font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);padding:2px 5px;border-radius:4px;font-size:12px">.exe</span> — right-click the shortcut → <strong>Open file location</strong>.</p>
+      <p>2. Right-click the <span style="font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);padding:2px 5px;border-radius:4px;font-size:12px">.exe</span> → <strong>Properties → Compatibility tab → Change high DPI settings</strong>.</p>
+      <p>3. Tick <strong>Override high DPI scaling behaviour</strong>. Try these in order: <strong>Application</strong> → <strong>System (Enhanced)</strong> → <strong>System</strong>. Restart the app after each to test.</p>
+      <div class="tip"><strong>Windows 11 automatic fix:</strong> Windows 11 has a setting called <strong>Let Windows try to fix apps so they're not blurry</strong> (Settings → Display → Advanced scaling settings). Turn this on — it auto-applies DPI compatibility for known-blurry apps.</div>
+    </div>
+
+    <div class="card">
+      <h2>Fix B (automated) — Display EX DPI Override manager</h2>
+      <p>Display EX's DPI Override manager fixes any number of apps in one place and applies the overrides automatically on every launch — no need to edit properties for each executable every time Windows updates.</p>
+      <p>Open Display EX → <strong>DPI Overrides → Add app</strong> → select the executable or pick from the running process list → choose the override mode → Save. Done. The app will launch with correct DPI applied from that point on.</p>
+      <p>Display EX also has a <strong>Scan for blurry apps</strong> feature that automatically detects running applications using incompatible DPI modes and suggests overrides for them.</p>
+      <p>For a full step-by-step guide see <a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K / HiDPI monitors</a>.</p>
+    </div>
+
+    <div class="card">
+      <h2>Fix C — Apps blurry after moving between monitors</h2>
+      <p>On a dual-monitor setup with different DPI values (e.g. 4K at 150% + 1080p at 100%), dragging an app from one screen to the other often leaves it blurry. The app rendered for the source screen's DPI and Windows is stretching it to fill the target screen.</p>
+      <h3>Immediate fix</h3>
+      <p>Close and reopen the app on the target monitor. Most apps re-render correctly when opened fresh on a screen rather than dragged there.</p>
+      <h3>Permanent fix with Display EX</h3>
+      <p>Enable <strong>Auto re-apply DPI on monitor change</strong> in Display EX settings. When a window moves to a different DPI screen, Display EX triggers a DPI refresh cycle that prompts the app to re-render at the new scale.</p>
+    </div>
+
+    <div class="card">
+      <h2>Fix D — ClearType calibration for soft text</h2>
+      <p>ClearType is Windows' subpixel font rendering. If it's calibrated for the wrong monitor type, text looks slightly "soft" or smeared even when everything else is set correctly. Takes 2 minutes to fix.</p>
+      <p>Search <strong>ClearType</strong> in the Start Menu → open <strong>Adjust ClearType text</strong> → tick <strong>Turn on ClearType</strong> → follow the wizard, picking the sample that looks sharpest to your eye on each screen.</p>
+      <p>Display EX includes a built-in ClearType tool under <strong>Tools → ClearType Calibration</strong> that lets you save separate settings per display profile — useful when switching between monitors with different subpixel layouts.</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(6,182,212,.04));border:1px solid rgba(14,165,233,.2);border-radius:14px;padding:24px;margin-bottom:20px">
+      <h2 style="font-size:17px;margin:0 0 8px;font-weight:700">Fix blurry apps automatically with Display EX</h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Free — per-app DPI overrides applied automatically on launch, ClearType per profile, auto DPI refresh on monitor change.</p>
+      <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+    </div>
+
+    <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:22px">
+      <h2 style="font-size:15px;font-weight:600;margin:0 0 12px">Related guides</h2>
+      <div class="related">
+        <a href="fix-blurry-text-scaling.html" class="related-link"><div class="ri">🔍</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Fix blurry apps on 4K</strong><span style="color:var(--muted);font-size:12px">HiDPI-specific DPI fixes</span></div></a>
+        <a href="windows-scaling-fix.html" class="related-link"><div class="ri">📐</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Fix DPI scaling issues</strong><span style="color:var(--muted);font-size:12px">Root cause &amp; solutions</span></div></a>
+        <a href="4k-monitor-setup-windows.html" class="related-link"><div class="ri">✨</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">4K monitor setup</strong><span style="color:var(--muted);font-size:12px">Full 4K Windows guide</span></div></a>
+        <a href="dual-monitor-setup-guide.html" class="related-link"><div class="ri">🖥</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Dual monitor setup</strong><span style="color:var(--muted);font-size:12px">Mixed DPI two-screen fix</span></div></a>
+      </div>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a><a href="4k-monitor-setup-windows.html">4K monitor setup</a></div>
+    </div>
+    <div class="footer-bottom"><div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div><div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div></div>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button><button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button><button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button></div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+  </script>
+</body>
+</html>

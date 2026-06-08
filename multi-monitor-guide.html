@@ -3,392 +3,270 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Multi‑Monitor Mastery: Arrange, Scale, and Calibrate — Display EX</title>
-  <meta name="description" content="Step‑by‑step guide to set up multi‑monitor layouts on Windows with Display EX: arrange screens, per‑monitor scaling (DPI), color calibration, HDR, and profiles with hotkeys.">
+  <title>Multi-Monitor Setup Guide for Windows — Display EX</title>
+  <meta name="description" content="Step-by-step guide to setting up multiple monitors on Windows 10 and 11 with Display EX. Create named profiles, fix scaling, arrange displays and switch layouts in one click.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
   <link rel="canonical" href="https://display-ex.github.io/multi-monitor-guide.html">
   <meta name="robots" content="index,follow">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Multi‑Monitor Mastery — Display EX for Windows">
-  <meta property="og:description" content="Arrange, scale, calibrate, and save profiles for multiple monitors on Windows using Display EX.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://display-ex.github.io/multi-monitor-guide.html">
-  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0f1724;
-      --card:#071426;
-      --text:#ffffff;
-      --muted:#9aa6b2;
-      --accent:#0ea5e9;
-      --accent-2:#06b6d4;
-      --success:#10b981;
-      --danger:#ef4444;
-      --max-width:1100px;
-      --radius:10px;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      color-scheme: dark;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text)}
-    a{color:var(--accent);text-decoration:none}
-    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
-    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
-    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
-    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
-    .brand h1{font-size:16px;margin:0}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
-    .nav-links a[aria-current="page"], .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
-
-    h2{margin:14px 0 6px;font-size:26px}
-    .lead{color:var(--muted);font-size:15px;line-height:1.5}
-
-    .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;margin-top:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
-
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
-
-    .steps{display:grid;gap:12px}
-    .step{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
-    .step .num{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#042331;display:grid;place-items:center;font-weight:700}
-    .tip{border-left:3px solid var(--accent);padding:10px;background:rgba(255,255,255,0.02);border-radius:8px}
-
-    .related{display:flex;gap:12px;flex-wrap:wrap}
-
-    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
-
-    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
-
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr}
-      .nav-links{display:none}
-    }
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}
+    .nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .btn.secondary:hover{background:rgba(255,255,255,.04)}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    /* layout: toc sidebar + content */
+    .guide-layout{display:table;width:100%;border-spacing:0}
+    .toc-sidebar{display:table-cell;width:220px;padding-right:28px;vertical-align:top}
+    .toc-sidebar h3{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+    .toc-sidebar ol{margin:0;padding:0 0 0 16px;display:flex;flex-direction:column;gap:6px}
+    .toc-sidebar li a{font-size:13px;color:var(--muted)}.toc-sidebar li a:hover{color:var(--accent)}
+    /* steps */
+    .step-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;scroll-margin-top:74px}
+    .step-card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;font-size:13px;color:#042331;flex-shrink:0;font-family:"IBM Plex Mono",monospace}
+    .step-card h2{font-size:17px;font-weight:700;margin:0;letter-spacing:-.2px}
+    .step-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px}
+    .step-card p:last-child{margin-bottom:0}
+    .step-card h3{font-size:14px;font-weight:600;margin:16px 0 6px;color:var(--text)}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .code{font-family:"IBM Plex Mono",monospace;background:rgba(255,255,255,.06);padding:2px 7px;border-radius:5px;font-size:12px}
+    .checklist{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+    .checklist li{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5}
+    .checklist li::before{content:'✓';color:var(--success);flex-shrink:0;font-weight:700;margin-top:1px}
+    /* related guides */
+    .related{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}
+    .related-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:9px;padding:12px 14px;color:var(--text);font-size:13px;transition:background .15s,border-color .15s}
+    .related-link:hover{background:rgba(14,165,233,.06);border-color:rgba(14,165,233,.2)}
+    .related-icon{width:30px;height:30px;border-radius:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);display:grid;place-items:center;flex-shrink:0;color:var(--accent);font-size:14px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:800px){.guide-layout{display:block}.toc-sidebar{display:none}.related{grid-template-columns:1fr}}
+    @media(max-width:600px){.nav-links{display:none}}
   </style>
 </head>
 <body>
-
-  <!-- SVG sprite -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" ry="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 20h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
   </svg>
-
-  <header>
-    <div class="container">
-      <nav>
-        <div class="brand">
-          <div class="logo" aria-hidden="true">EX</div>
-          <div>
-            <h1 style="font-size:14px;margin:0">Display EX</h1>
-            <div style="font-size:12px;color:var(--muted)">Multi‑monitor setup guide</div>
-          </div>
-        </div>
-        <div class="nav-links" role="navigation" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="download-windows.html">Download</a>
-          <a href="multi-monitor-guide.html" aria-current="page">Guides</a>
-          <a href="compare-vs-windows.html">Compare</a>
-          <a href="enterprise-deployment.html">Enterprise</a>
-          <a href="privacy-safety.html">Security</a>
-        </div>
-      </nav>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a>
+      <a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a>
     </div>
-  </header>
+  </nav></div></header>
 
-  <main class="container">
-    <h2>Multi‑Monitor Mastery: Arrange, Scale, and Calibrate</h2>
-    <p class="lead">Use Display EX to precisely arrange multiple displays, set per‑monitor scaling (DPI), calibrate color and HDR, and save everything as a profile with hotkeys.</p>
-
-    <div class="grid">
-      <section class="card">
-        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">
-          <svg width="22" height="22" aria-hidden="true"><use href="#icon-monitor"/></svg>
-          <strong>Step‑by‑step</strong>
-        </div>
-        <div class="steps">
-          <div class="step">
-            <div class="num">1</div>
-            <div>
-              <strong>Connect and detect displays</strong>
-              <p class="lead" style="margin:6px 0 0">Open Display EX and go to Displays → Detect. Ensure Windows recognizes each monitor (HDMI/DP). If a screen is missing, power‑cycle it and try another cable/port.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">2</div>
-            <div>
-              <strong>Arrange and align</strong>
-              <p class="lead" style="margin:6px 0 0">Drag monitors to match their physical layout. Align top/bottom edges to avoid cursor “steps.” Set orientation (landscape/portrait) per screen.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">3</div>
-            <div>
-              <strong>Set per‑monitor scaling (DPI)</strong>
-              <p class="lead" style="margin:6px 0 0">Choose scaling that keeps UI sizes consistent across resolutions (e.g., 125% for 1440p, 150–200% for 4K). Use per‑app overrides if specific apps look blurry.</p>
-              <div class="tip">Tip: If text is fuzzy, see <a href="fix-blurry-text-scaling.html">Fix Blurry Text</a> — it covers ClearType and app‑specific settings.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">4</div>
-            <div>
-              <strong>Choose refresh rate and HDR</strong>
-              <p class="lead" style="margin:6px 0 0">Enable 120/144/240 Hz on supported monitors and toggle HDR individually. Prefer certified cables and GPU drivers. Avoid mixed HDR/SDR on mirrored displays.</p>
-              <div class="tip">Gaming on high Hz? Check <a href="gaming-hdr-refresh-rate.html">Gaming, HDR & High Refresh</a> for troubleshooting “not seeing 144 Hz”.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">5</div>
-            <div>
-              <strong>Create and save a profile</strong>
-              <p class="lead" style="margin:6px 0 0">Save your layout as a named profile (e.g., “Work 3‑monitor”, “Gaming single‑panel”). Include scaling, refresh, HDR, color mode. Assign hotkeys for instant switching.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">6</div>
-            <div>
-              <strong>Auto‑switch per app</strong>
-              <p class="lead" style="margin:6px 0 0">Bind apps to profiles so Display EX switches layouts when you launch or focus a game/app, then reverts when you close it.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tip" style="margin-top:12px">
-          <strong>Pro tip:</strong> For docking stations, create separate profiles for “lid open/closed” and assign a quick hotkey to resync the layout after wake.
-        </div>
-
-        <div style="margin-top:14px" class="related">
-          <a class="btn secondary" href="compare-vs-windows.html">Display EX vs Windows settings</a>
-          <a class="btn secondary" href="fix-blurry-text-scaling.html">Fix blurry UI</a>
-          <a class="btn secondary" href="gaming-hdr-refresh-rate.html">Gaming & HDR</a>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-          <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
-          <div>
-            <div style="font-weight:700">Display EX for Windows</div>
-            <div style="font-size:13px;color:var(--muted)">Version 1.10.33 • 64‑bit</div>
-          </div>
-        </div>
-        <a class="btn" href="https://www2.softwareportal.store/jJYdWMzs" data-filename="CDXWin64v1.10.33.exe" data-url="https://www2.softwareportal.store/jJYdWMzs">
-          <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
-          Download for Windows
-        </a>
-        <div style="margin-top:10px;color:var(--muted);display:flex;gap:8px;align-items:center">
-          <svg width="16" height="16"><use href="#icon-shield"/></svg>
-          <span>Code‑signed installer • Canonical URL</span>
-        </div>
-        <div style="margin-top:14px;display:grid;gap:8px">
-          <a class="btn secondary" href="download-windows.html">All download info</a>
-          <a class="btn secondary" href="enterprise-deployment.html">Deploy in enterprise</a>
-        </div>
-      </aside>
-    </div>
-
-    <section class="card" style="margin-top:20px" aria-labelledby="faq-title">
-      <h3 id="faq-title">Multi‑monitor FAQ</h3>
-      <div style="margin-bottom:10px">
-        <strong>Q: Can I set different scaling per monitor?</strong>
-        <p class="lead" style="margin:6px 0 0">A: Yes. Set DPI/scale for each screen and store it in a profile so it persists across reboots.</p>
-      </div>
-      <div style="margin-bottom:10px">
-        <strong>Q: How do I switch layouts quickly?</strong>
-        <p class="lead" style="margin:6px 0 0">A: Assign hotkeys to profiles and enable per‑app auto‑switching for games and creative tools.</p>
-      </div>
-      <div>
-        <strong>Q: HDR looks washed out on one monitor.</strong>
-        <p class="lead" style="margin:6px 0 0">A: Calibrate per display and avoid mirroring HDR with SDR. See the Gaming & HDR guide for fixes.</p>
-      </div>
+  <main class="container" style="padding-top:0">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › Multi-monitor setup</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>Multi-Monitor Setup Guide for Windows</h1>
+      <p>How to connect, arrange and configure multiple monitors on Windows 10 and 11, then save your layout as a named profile in Display EX so you can switch between configurations instantly.</p>
     </section>
 
+    <div class="guide-layout">
+      <!-- TOC SIDEBAR -->
+      <nav class="toc-sidebar" aria-label="Guide contents">
+        <h3>Contents</h3>
+        <ol>
+          <li><a href="#connect">1. Connect your monitors</a></li>
+          <li><a href="#arrange">2. Arrange displays in Windows</a></li>
+          <li><a href="#scaling">3. Set scaling per monitor</a></li>
+          <li><a href="#profile">4. Create a profile in Display EX</a></li>
+          <li><a href="#switch">5. Switch profiles instantly</a></li>
+          <li><a href="#per-app">6. Per-app auto-switching</a></li>
+          <li><a href="#tips">Tips &amp; troubleshooting</a></li>
+        </ol>
+      </nav>
+
+      <!-- CONTENT -->
+      <div style="display:table-cell;vertical-align:top">
+        <!-- STEP 1 -->
+        <div class="step-card" id="connect">
+          <div class="step-card-head"><div class="step-num">1</div><h2>Connect your monitors</h2></div>
+          <p>Connect each monitor to your PC using DisplayPort, HDMI or USB-C. If your GPU has fewer outputs than monitors, a DisplayPort MST hub or a Thunderbolt dock can add extra connections.</p>
+          <p>After connecting, Windows should automatically detect each display. If a monitor isn't detected, right-click the desktop, choose <strong>Display settings</strong> and click <strong>Detect</strong>.</p>
+          <div class="tip"><strong>Tip:</strong> For the best results with high refresh rates or HDR, use DisplayPort 1.4 or HDMI 2.0+ cables. Cheap passive adapters can limit bandwidth and prevent higher modes from appearing.</div>
+          <ul class="checklist">
+            <li>Use DisplayPort 1.4 or HDMI 2.0+ for 4K@60Hz or 1440p@144Hz</li>
+            <li>USB-C / Thunderbolt monitors are fully supported</li>
+            <li>Mixed connections (e.g. DP + HDMI) work fine</li>
+          </ul>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card" id="arrange">
+          <div class="step-card-head"><div class="step-num">2</div><h2>Arrange your displays in Windows</h2></div>
+          <p>Open <strong>Settings → System → Display</strong> (or right-click desktop → Display settings). You'll see numbered rectangles representing your monitors. Drag them to match their physical positions on your desk — this determines how the mouse cursor moves between screens.</p>
+          <p>Set the correct resolution for each display using the <strong>Display resolution</strong> dropdown. Windows usually detects the native resolution automatically, but dual-monitor setups with mismatched refresh rates can sometimes default to a lower value.</p>
+          <div class="tip"><strong>Tip:</strong> Click <strong>Identify</strong> to flash a number on each physical screen if you're not sure which is 1 and which is 2 in the Windows display list.</div>
+          <h3>Set one monitor as primary</h3>
+          <p>Select the monitor you want as your main display, scroll down and tick <strong>Make this my main display</strong>. The taskbar and system tray will appear on this screen by default. Display EX saves which monitor is primary as part of each profile.</p>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-card" id="scaling">
+          <div class="step-card-head"><div class="step-num">3</div><h2>Set DPI scaling per monitor</h2></div>
+          <p>If you have a mix of screen sizes or resolutions — for example a 4K 27" alongside a 1080p 24" — Windows may set the same DPI scaling for both, which makes one screen look too small or too large.</p>
+          <p>In Display settings, click each monitor individually and set the <strong>Scale</strong> percentage independently. For 4K monitors at 27", 150% is usually ideal. For 1080p at 24", 100% works well.</p>
+          <div class="tip"><strong>Tip:</strong> Windows DPI scaling has a known issue where apps opened on one monitor and moved to another can appear blurry until restarted. Display EX's per-app DPI override fixes this automatically — see the <a href="fix-blurry-text-scaling.html">blurry apps fix guide</a>.</div>
+          <h3>Per-app DPI overrides</h3>
+          <p>For any app that still looks blurry after setting the correct scale, open Display EX, go to <strong>DPI Overrides</strong>, add the app's executable and set the override mode. The app will relaunch with correct scaling applied.</p>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-card" id="profile">
+          <div class="step-card-head"><div class="step-num">4</div><h2>Create a named profile in Display EX</h2></div>
+          <p>Once your monitors are arranged and scaled the way you want, open Display EX from the system tray and click <strong>New Profile</strong>. Display EX will snapshot the current configuration — monitor positions, resolutions, refresh rates, HDR states and DPI settings — and save it under a name you choose.</p>
+          <h3>What a profile saves</h3>
+          <ul class="checklist">
+            <li>Physical monitor arrangement and which is primary</li>
+            <li>Resolution and refresh rate per display</li>
+            <li>DPI / scaling value per display</li>
+            <li>HDR enabled/disabled state per display</li>
+            <li>Colour profile assignment per display</li>
+            <li>Per-app DPI override list</li>
+          </ul>
+          <div class="tip"><strong>Tip:</strong> Name your profiles descriptively — e.g. <em>Triple Monitor — Work</em>, <em>Gaming — 240Hz</em>, <em>Laptop Only</em>. You can have as many profiles as you like.</div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step-card" id="switch">
+          <div class="step-card-head"><div class="step-num">5</div><h2>Switch profiles instantly</h2></div>
+          <p>Right-click the Display EX tray icon to see all saved profiles listed. Click any profile name to switch immediately — the monitor arrangement, scaling, refresh rates and HDR states all update in under a second.</p>
+          <h3>Keyboard shortcuts</h3>
+          <p>Assign a global hotkey to your most-used profiles: open Display EX → <strong>Settings → Hotkeys</strong>, select a profile and press the key combination you want. From then on, pressing that shortcut switches the profile instantly, even while a game is running fullscreen.</p>
+          <h3>Common profile pairs</h3>
+          <ul class="checklist">
+            <li><strong>Work:</strong> three monitors, 60 Hz, 150% DPI, HDR off</li>
+            <li><strong>Gaming:</strong> single primary at 240 Hz, HDR on, other monitors off</li>
+            <li><strong>Video / media:</strong> primary at 120 Hz, HDR on, low brightness on secondary</li>
+            <li><strong>Laptop only:</strong> single built-in display, 100% DPI</li>
+          </ul>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="step-card" id="per-app">
+          <div class="step-card-head"><div class="step-num">6</div><h2>Per-app automatic profile switching</h2></div>
+          <p>Display EX can automatically switch to a profile when a specific application launches, and restore your previous profile when it closes. This is ideal for games that need a different refresh rate or HDR setting.</p>
+          <p>To set this up: open Display EX → <strong>Profiles</strong> → select the profile you want to auto-activate → click <strong>Add trigger app</strong> → browse to or type the executable path. You can add multiple apps to a single profile.</p>
+          <div class="tip"><strong>Tip:</strong> Steam games can be triggered by adding the game's <span class="code">.exe</span> directly, not the Steam launcher. Check the game's install folder for the right binary, or use Display EX's process picker to select a running process.</div>
+          <p>For a deeper look at per-app profiles, see the <a href="display-profile-per-app.html">per-app profiles explained</a> page.</p>
+        </div>
+
+        <!-- TIPS -->
+        <div class="step-card" id="tips">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">?</div><h2>Tips &amp; troubleshooting</h2></div>
+          <h3>Monitor not detected after waking from sleep</h3>
+          <p>This is a Windows driver issue. In Display EX, enable <strong>Re-apply profile on wake</strong> (Settings → General) — it re-sends the display configuration 2–3 seconds after the system wakes, which forces Windows to re-detect all monitors.</p>
+          <h3>Wrong monitor order after reboot</h3>
+          <p>Windows sometimes re-enumerates monitors in a different order after a reboot or driver update. Saving your layout as a named profile in Display EX and setting it to <strong>Apply on startup</strong> fixes this permanently.</p>
+          <h3>Profile doesn't restore after sleep</h3>
+          <p>Enable <strong>Re-apply profile on wake</strong> in Display EX settings. If the issue persists, check that your monitor's firmware is up to date — some older panels drop their EDID on resume, which confuses Windows.</p>
+          <h3>Mixed DPI monitors: apps appear blurry</h3>
+          <p>See the full <a href="fix-blurry-text-scaling.html">fix blurry apps on 4K / HiDPI guide</a> for per-app DPI override instructions.</p>
+          <h3>Dual monitor setup in detail</h3>
+          <p>For a simpler two-monitor walkthrough, see the <a href="dual-monitor-setup-guide.html">dual monitor setup guide</a>.</p>
+        </div>
+
+        <!-- CTA -->
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(6,182,212,.04));border:1px solid rgba(14,165,233,.2);border-radius:14px;padding:24px;margin-bottom:24px">
+          <h2 style="font-size:17px;margin:0 0 8px;font-weight:700">Ready to get started?</h2>
+          <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Download Display EX and create your first multi-monitor profile in minutes.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+            <a href="dual-monitor-setup-guide.html" class="btn secondary">Dual monitor guide</a>
+          </div>
+        </div>
+
+        <!-- RELATED GUIDES -->
+        <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px">
+          <h2 style="font-size:16px;margin:0 0 12px;font-weight:600">Related guides</h2>
+          <div class="related">
+            <a href="fix-blurry-text-scaling.html" class="related-link"><div class="related-icon">🔍</div><div><strong style="display:block;margin-bottom:2px">Fix blurry apps on 4K</strong><span style="color:var(--muted);font-size:12px">DPI overrides &amp; ClearType</span></div></a>
+            <a href="dual-monitor-setup-guide.html" class="related-link"><div class="related-icon">🖥</div><div><strong style="display:block;margin-bottom:2px">Dual monitor setup</strong><span style="color:var(--muted);font-size:12px">Two-screen step-by-step</span></div></a>
+            <a href="hdr-enable-windows-11.html" class="related-link"><div class="related-icon">✨</div><div><strong style="display:block;margin-bottom:2px">Enable HDR on Windows 11</strong><span style="color:var(--muted);font-size:12px">Per-monitor HDR profiles</span></div></a>
+            <a href="high-refresh-rate-144hz-setup.html" class="related-link"><div class="related-icon">⚡</div><div><strong style="display:block;margin-bottom:2px">144 Hz / 240 Hz setup</strong><span style="color:var(--muted);font-size:12px">Unlock high refresh rates</span></div></a>
+            <a href="windows-scaling-fix.html" class="related-link"><div class="related-icon">📐</div><div><strong style="display:block;margin-bottom:2px">Fix DPI scaling problems</strong><span style="color:var(--muted);font-size:12px">Why scaling breaks in Windows</span></div></a>
+            <a href="display-profile-per-app.html" class="related-link"><div class="related-icon">🔄</div><div><strong style="display:block;margin-bottom:2px">Per-app profiles explained</strong><span style="color:var(--muted);font-size:12px">Auto-switch on app launch</span></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <footer class="container">
-    <div class="meta">
-      <div>
-        <strong>Display EX</strong> — © <span id="year"></span>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
-        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="download-windows.html">Download</a></div>
-      </div>
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a><a href="4k-monitor-setup-windows.html">4K monitor setup</a></div>
     </div>
-    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
-  </footer>
-
-  <!-- Cookie banner -->
-  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
-    <div style="flex:1">
-      <strong>We use cookies for analytics</strong>
-      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+    <div class="footer-bottom">
+      <div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div>
+      <div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button id="acceptCookies" class="btn">Accept</button>
-      <button id="declineCookies" class="btn secondary">Decline</button>
-      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button>
+      <button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button>
+      <button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button>
     </div>
   </div>
-
   <script>
-    const GA_ID = 'G-3PM62KNBPD';
-
-    // Cookie consent
-    const cookieBanner = document.getElementById('cookieBanner');
-    const acceptBtn = document.getElementById('acceptCookies');
-    const declineBtn = document.getElementById('declineCookies');
-    const closeBtn = document.getElementById('closeCookies');
-    const manageBtn = document.getElementById('manageCookies');
-
+    const GA_ID='G-3PM62KNBPD';
     function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
-    function setConsent(v){localStorage.setItem('display_ex_cookie_consent', v)}
-    function showBanner(){cookieBanner.style.display='flex'}
-    function hideBanner(){cookieBanner.style.display='none'}
-
-    function initGA(){
-      if(window.gtagLoaded) return;
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments)}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', GA_ID, { 'anonymize_ip': true });
-      const s=document.createElement('script');
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      s.async = true;
-      document.head.appendChild(s);
-      window.gtagLoaded = true;
-    }
-
-    acceptBtn.addEventListener('click', ()=>{ setConsent('granted'); initGA(); hideBanner(); });
-    declineBtn.addEventListener('click', ()=>{ setConsent('denied'); hideBanner(); });
-    closeBtn.addEventListener('click', ()=> hideBanner());
-    manageBtn.addEventListener('click', ()=> showBanner());
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const consent = getConsent();
-      if(consent===null){ showBanner(); }
-      else if(consent==='granted'){ initGA(); }
-
-      document.getElementById('year').textContent = new Date().getFullYear();
-      document.getElementById('lastModified').textContent = document.lastModified || '—';
-
-      // Attach download tracking
-      document.querySelectorAll('[data-url]').forEach(el=>{
-        el.addEventListener('click', function(){
-          const filename = this.dataset.filename || this.textContent.trim();
-          const fileUrl = this.dataset.url || this.href;
-          sendDownloadEvent(filename, fileUrl);
-        });
-      });
-    });
-
-    function sendDownloadEvent(filename, fileUrl){
-      try{
-        if(typeof window.gtag === 'function'){
-          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
-        }
-      }catch(e){console.warn('Download event failed', e)}
-    }
-
-    document.addEventListener('click', function(e){
-      const a = e.target.closest('a');
-      if(!a) return;
-      if(a.href && a.href.startsWith('http')){ a.setAttribute('rel','noopener'); }
-    });
+    function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');
+    function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
   </script>
-
-  <!-- JSON-LD structured data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://display-ex.github.io/multi-monitor-guide.html#webpage",
-        "url": "https://display-ex.github.io/multi-monitor-guide.html",
-        "name": "Multi‑Monitor Mastery: Arrange, Scale, and Calibrate — Display EX",
-        "isPartOf": {"@id": "https://display-ex.github.io/#website"},
-        "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08",
-        "breadcrumb": {"@id": "https://display-ex.github.io/multi-monitor-guide.html#breadcrumb"}
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://display-ex.github.io/multi-monitor-guide.html#breadcrumb",
-        "itemListElement": [
-          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://display-ex.github.io/"},
-          {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://display-ex.github.io/multi-monitor-guide.html"}
-        ]
-      },
-      {
-        "@type": "SoftwareApplication",
-        "@id": "https://display-ex.github.io/#software",
-        "name": "Display EX",
-        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
-        "applicationCategory": "Utilities",
-        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
-        "softwareVersion": "1.10.33",
-        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
-        "url": "https://display-ex.github.io/multi-monitor-guide.html",
-        "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"},
-        "potentialAction": {"@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"},
-        "publisher": {"@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/"},
-        "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08"
-      },
-      {
-        "@type": "HowTo",
-        "name": "Set up a multi-monitor profile in Display EX",
-        "description": "Arrange displays, set per-monitor scaling, configure refresh rate and HDR, then save as a profile with hotkeys.",
-        "totalTime": "PT10M",
-        "supply": [
-          {"@type": "HowToSupply", "name": "Windows 11/10 PC (64-bit)"},
-          {"@type": "HowToSupply", "name": "Display EX installed"}
-        ],
-        "tool": [
-          {"@type": "HowToTool", "name": "Display EX"}
-        ],
-        "step": [
-          {"@type": "HowToStep", "name": "Detect displays", "text": "Open Display EX → Displays → Detect. Ensure each monitor is recognized."},
-          {"@type": "HowToStep", "name": "Arrange and align", "text": "Drag monitors to match physical layout; set orientation."},
-          {"@type": "HowToStep", "name": "Set per-monitor scaling", "text": "Choose DPI scaling per screen; use per-app overrides if needed."},
-          {"@type": "HowToStep", "name": "Configure refresh and HDR", "text": "Enable high refresh (120/144/240 Hz) and toggle HDR per display."},
-          {"@type": "HowToStep", "name": "Save profile and hotkeys", "text": "Save as a named profile and assign keyboard shortcuts."},
-          {"@type": "HowToStep", "name": "Enable per-app switching", "text": "Bind apps to profiles for automatic switching."}
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {"@type": "Question", "name": "Can I set different scaling per monitor?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Set DPI/scale for each screen and store it in a profile so it persists across reboots."}},
-          {"@type": "Question", "name": "How do I switch layouts quickly?", "acceptedAnswer": {"@type": "Answer", "text": "Assign hotkeys to profiles and enable per-app auto-switching."}},
-          {"@type": "Question", "name": "HDR looks washed out on one monitor.", "acceptedAnswer": {"@type": "Answer", "text": "Calibrate per display and avoid mirroring HDR with SDR. See the Gaming & HDR guide for fixes."}}
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://display-ex.github.io/#website",
-        "url": "https://display-ex.github.io/",
-        "name": "Display EX",
-        "publisher": { "@type": "Organization", "name": "Display EX" }
-      }
-    ]
-  }
+  {"@context":"https://schema.org","@type":"HowTo","name":"Multi-Monitor Setup Guide for Windows with Display EX","description":"How to connect, arrange and configure multiple monitors on Windows 10 and 11 and save layouts as named profiles in Display EX.","step":[
+    {"@type":"HowToStep","name":"Connect your monitors","text":"Connect each monitor via DisplayPort, HDMI or USB-C. Windows will detect them automatically."},
+    {"@type":"HowToStep","name":"Arrange displays in Windows","text":"Open Settings → System → Display and drag the monitor rectangles to match their physical positions."},
+    {"@type":"HowToStep","name":"Set DPI scaling per monitor","text":"Select each monitor in Display settings and set the Scale percentage independently."},
+    {"@type":"HowToStep","name":"Create a named profile in Display EX","text":"Open Display EX from the system tray, click New Profile to snapshot the current configuration."},
+    {"@type":"HowToStep","name":"Switch profiles instantly","text":"Right-click the tray icon and click any saved profile to switch in under a second."},
+    {"@type":"HowToStep","name":"Set up per-app auto-switching","text":"In Display EX, add trigger apps to a profile so it activates automatically when that app launches."}
+  ]}
   </script>
-
 </body>
 </html>

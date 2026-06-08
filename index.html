@@ -1,23 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3PM62KNBPD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3PM62KNBPD');
-</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Display EX — Advanced Display Profiles for Windows</title>
   <meta name="description" content="Display EX for Windows — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app. Download the latest Windows installer.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
   <link rel="canonical" href="https://display-ex.github.io/">
   <meta name="robots" content="index,follow">
 
-  <!-- Open Graph / Twitter (images will be added to root later) -->
   <meta property="og:title" content="Display EX — Advanced Display Profiles for Windows">
   <meta property="og:description" content="Manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR. Download Display EX for Windows.">
   <meta property="og:type" content="website">
@@ -27,316 +18,651 @@
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0f1724; /* deep */
-      --card:#071426;
-      --text:#ffffff;
-      --muted:#9aa6b2;
-      --accent:#0ea5e9; /* cyan */
+      --bg:#0b1320;
+      --bg2:#0f1a2e;
+      --card:#0d1929;
+      --card2:#111e31;
+      --text:#e8edf5;
+      --muted:#7a8fa8;
+      --muted2:#4e6278;
+      --accent:#0ea5e9;
       --accent-2:#06b6d4;
+      --accent-glow:rgba(14,165,233,0.18);
       --success:#10b981;
       --danger:#ef4444;
+      --border:rgba(255,255,255,0.05);
       --max-width:1100px;
       --radius:10px;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      color-scheme: dark;
+      font-family:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      color-scheme:dark;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text);}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
     a{color:var(--accent);text-decoration:none}
-    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
-    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04);}
-    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
-    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
-    .brand h1{font-size:16px;margin:0}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
-    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+    a:focus{outline:2px solid rgba(14,165,233,0.35);outline-offset:2px}
+    a:hover{color:#38bdf8}
 
-    .hero{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;padding:48px 0}
-    .hero h2{font-size:28px;margin:0 0 12px}
-    .lead{color:var(--muted);font-size:15px;line-height:1.5}
+    /* ── HEADER ── */
+    header{
+      backdrop-filter:blur(10px);
+      position:sticky;top:0;z-index:100;
+      background:rgba(11,19,32,0.85);
+      border-bottom:1px solid var(--border);
+    }
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{
+      width:38px;height:38px;display:inline-grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      border-radius:8px;font-weight:700;font-size:13px;color:#042331;
+      font-family:'IBM Plex Mono',monospace;letter-spacing:-0.5px;
+    }
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-0.3px}
+    .brand-sub{font-size:11px;color:var(--muted);font-weight:400}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+    .nav-links a.active{color:var(--text)}
+    .nav-dl{
+      padding:7px 14px;border-radius:7px;
+      background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;
+      transition:background .15s,transform .1s;
+    }
+    .nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important;transform:translateY(-1px)}
 
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
-    .download-cta{display:flex;flex-direction:column;gap:12px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
+    /* ── HERO ── */
+    .hero{
+      display:grid;grid-template-columns:1fr 330px;gap:32px;
+      align-items:start;padding:52px 0 36px;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.2);
+      padding:5px 12px;border-radius:20px;font-size:12px;color:var(--accent);
+      margin-bottom:18px;font-family:'IBM Plex Mono',monospace;
+    }
+    .hero h2{font-size:32px;margin:0 0 14px;line-height:1.25;letter-spacing:-0.5px;font-weight:700}
+    .hero h2 span{color:var(--accent)}
+    .lead{color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 12px}
+    .hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
-    .feature{padding:14px;background:rgba(255,255,255,0.02);border-radius:10px}
-    .feature h3{margin:0 0 6px;font-size:16px}
-    .feature p{margin:0;color:var(--muted);font-size:14px}
+    /* ── BUTTONS ── */
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:11px 18px;border-radius:9px;
+      background:var(--accent);color:#042331;
+      font-weight:600;font-size:14px;border:none;cursor:pointer;
+      transition:background .15s,transform .1s;
+      font-family:inherit;
+    }
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.1);
+      color:var(--text);
+    }
+    .btn.secondary:hover{background:rgba(255,255,255,0.04);transform:translateY(-1px)}
+    .btn:focus{outline:2px solid rgba(14,165,233,0.35)}
 
-    .faq{margin-top:20px}
-    .faq h3{margin-top:0}
-    .faq-item{margin-bottom:12px}
+    /* ── DOWNLOAD CARD (sidebar) ── */
+    .dl-card{
+      background:linear-gradient(160deg,var(--card2),var(--card));
+      border:1px solid var(--border);
+      border-top:1px solid rgba(14,165,233,0.15);
+      border-radius:14px;padding:20px;
+    }
+    .dl-card-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .dl-icon{
+      width:46px;height:46px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-weight:700;color:#042331;
+      font-family:'IBM Plex Mono',monospace;font-size:13px;
+    }
+    .dl-card-btns{display:flex;flex-direction:column;gap:8px}
+    .dl-note{margin-top:12px;color:var(--muted);font-size:12px;display:flex;gap:6px;align-items:flex-start;line-height:1.5}
 
-    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    /* ── FEATURES GRID ── */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:32px 0 0}
+    .feature{
+      padding:16px;
+      background:linear-gradient(160deg,rgba(255,255,255,0.025),rgba(255,255,255,0.01));
+      border:1px solid var(--border);border-radius:10px;
+    }
+    .feature-icon{
+      width:34px;height:34px;border-radius:8px;
+      background:var(--accent-glow);border:1px solid rgba(14,165,233,0.15);
+      display:grid;place-items:center;margin-bottom:10px;
+    }
+    .feature h3{margin:0 0 6px;font-size:14px;font-weight:600}
+    .feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
 
-    /* cookie banner */
-    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+    /* ── SECTIONS ── */
+    .section{margin:28px 0}
+    .section-card{
+      background:linear-gradient(160deg,var(--card2),var(--card));
+      border:1px solid var(--border);border-radius:14px;padding:24px;
+    }
+    .section-card h3{margin:0 0 10px;font-size:18px;font-weight:600;letter-spacing:-0.3px}
+    .section-card > .lead{margin-bottom:14px}
 
-    /* responsive */
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr;}
-      .features{grid-template-columns:repeat(1,1fr)}
+    /* ── WHY GRID ── */
+    .why-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .why-item{
+      flex:1;min-width:200px;
+      background:rgba(255,255,255,0.025);
+      border:1px solid var(--border);border-radius:10px;padding:16px;
+    }
+    .why-item h4{margin:0 0 6px;font-size:14px;font-weight:600}
+    .why-item p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+
+    /* ── USE CASES ── */
+    .use-cases{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+    .use-case{
+      background:rgba(255,255,255,0.02);border:1px solid var(--border);
+      border-radius:10px;padding:16px;
+    }
+    .use-case h4{margin:0 0 6px;font-size:14px;font-weight:600}
+    .use-case p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+
+    /* ── COMPAT GRID ── */
+    .compat-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .compat-badge{
+      display:flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,0.03);border:1px solid var(--border);
+      border-radius:8px;padding:8px 14px;font-size:13px;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--success);flex-shrink:0}
+
+    /* ── GUIDE LINKS ── */
+    .guide-links{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+    .guide-link{
+      display:flex;align-items:center;gap:10px;
+      background:rgba(255,255,255,0.025);border:1px solid var(--border);
+      border-radius:9px;padding:12px 14px;color:var(--text);font-size:13px;
+      transition:background .15s,border-color .15s;
+    }
+    .guide-link:hover{background:rgba(14,165,233,0.06);border-color:rgba(14,165,233,0.2);color:var(--text)}
+    .guide-link-icon{
+      width:30px;height:30px;border-radius:7px;flex-shrink:0;
+      background:var(--accent-glow);border:1px solid rgba(14,165,233,0.15);
+      display:grid;place-items:center;color:var(--accent);
+    }
+    .guide-link-text strong{display:block;margin-bottom:2px;font-size:13px}
+    .guide-link-text span{color:var(--muted);font-size:12px}
+
+    /* ── FAQ ── */
+    .faq-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+    .faq-item{
+      background:rgba(255,255,255,0.02);border:1px solid var(--border);
+      border-radius:9px;padding:14px 16px;
+    }
+    .faq-item strong{font-size:14px;display:block;margin-bottom:5px}
+    .faq-item p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+
+    /* ── COMPARE STRIP ── */
+    .compare-strip{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;
+    }
+    .compare-tag{
+      background:rgba(255,255,255,0.03);border:1px solid var(--border);
+      border-radius:7px;padding:7px 13px;font-size:12px;color:var(--muted);
+      transition:color .15s;
+    }
+    .compare-tag:hover{color:var(--accent)}
+
+    /* ── FOOTER ── */
+    footer{
+      margin-top:40px;padding:24px 0;
+      border-top:1px solid var(--border);color:var(--muted);font-size:13px;
+    }
+    .footer-inner{
+      display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;
+    }
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{font-size:13px;color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px;transition:color .12s}
+    .footer-col a:hover{color:var(--accent)}
+    .footer-bottom{
+      margin-top:18px;padding-top:14px;
+      border-top:1px solid var(--border);
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;
+    }
+    .footer-bottom .meta-right{text-align:right}
+
+    /* ── COOKIE ── */
+    .cookie-banner{
+      position:fixed;left:16px;right:16px;bottom:16px;
+      background:linear-gradient(160deg,#0d1f30,#0b1320);
+      padding:14px 18px;border-radius:14px;
+      border:1px solid rgba(14,165,233,0.12);
+      display:flex;gap:14px;align-items:center;
+      box-shadow:0 12px 40px rgba(0,0,0,0.55);
+      z-index:999;
+    }
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr}
+      .use-cases{grid-template-columns:1fr}
+      .guide-links{grid-template-columns:1fr}
+      .nav-links .nav-hide{display:none}
+    }
+    @media(max-width:600px){
       .nav-links{display:none}
+      .hero h2{font-size:24px}
     }
   </style>
 </head>
 <body>
 
-  <!-- SVG sprite -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
-    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 8v.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="icon-monitor" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M2 6a2 2 0 012-2h16a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm5 13h10M12 17v2"/></symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M2 17l10 5 10-5M2 12l10 5 10-5M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+    <symbol id="icon-sliders" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16M8 4v4M12 10v4M16 16v4"/></symbol>
+    <symbol id="icon-zap" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8" fill="none"/></symbol>
+    <symbol id="icon-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="9" y="9" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></symbol>
   </svg>
 
+  <!-- ═══ HEADER ═══ -->
   <header>
     <div class="container">
       <nav>
-        <div class="brand">
+        <a class="brand" href="index.html">
           <div class="logo" aria-hidden="true">EX</div>
           <div>
-            <h1 style="font-size:14px;margin:0">Display EX</h1>
-            <div style="font-size:12px;color:var(--muted)">Advanced display profiles for Windows</div>
+            <div class="brand-name">Display EX</div>
+            <div class="brand-sub">Advanced display profiles for Windows</div>
           </div>
-        </div>
+        </a>
         <div class="nav-links" role="navigation" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="download-windows.html">Download</a>
-          <a href="multi-monitor-guide.html">Guides</a>
-          <a href="compare-vs-windows.html">Compare</a>
-          <a href="enterprise-deployment.html">Enterprise</a>
-          <a href="privacy-safety.html">Security</a>
+          <a href="index.html" class="active">Home</a>
+          <a href="multi-monitor-guide.html" class="nav-hide">Guides</a>
+          <a href="compare-vs-windows.html" class="nav-hide">Compare</a>
+          <a href="faq.html" class="nav-hide">FAQ</a>
+          <a href="changelog.html" class="nav-hide">Changelog</a>
+          <a href="enterprise-deployment.html" class="nav-hide">Enterprise</a>
+          <a href="privacy-safety.html" class="nav-hide">Security</a>
+          <a href="download-windows.html" class="nav-dl" style="margin-left:6px">
+            <svg width="13" height="13" style="vertical-align:-1px"><use href="#icon-download"/></svg>
+            Download
+          </a>
         </div>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div>
-        <h2>Display EX — Control your monitors, not the OS</h2>
-        <p class="lead">Create profiles, fix scaling issues on high‑DPI displays, enable correct refresh rates and HDR modes per app — all from a lightweight utility built for Windows.</p>
+  <!-- ═══ MAIN ═══ -->
+  <main>
+    <div class="container">
 
-        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn" href="https://www2.softwareportal.store/jJYdWMzs" id="download-btn-hero" data-filename="CDXWin64v1.10.33.exe" data-url="https://www2.softwareportal.store/jJYdWMzs"> 
-            <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg> Download for Windows
-          </a>
-          <a class="btn secondary" href="download-windows.html">More download info</a>
-        </div>
-
-        <div class="features" style="margin-top:22px">
-          <div class="feature">
-            <h3>Per‑App Profiles</h3>
-            <p>Automatically switch display profiles for games and apps — resolution, HDR, color and refresh rate.</p>
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <div class="hero-badge">
+            <svg width="11" height="11"><use href="#icon-zap"/></svg>
+            Version 1.10.33 · Windows 10 &amp; 11
           </div>
-          <div class="feature">
-            <h3>Fix Blurry Text</h3>
-            <p>Advanced DPI handling and ClearType tweaks for crisp UI on 4K / high‑DPI monitors.</p>
+          <h2>Take full control of<br><span>every display</span> on your PC</h2>
+          <p class="lead">Display EX fills the gaps Windows never addressed: per‑app refresh rates, HDR tuning, reliable DPI scaling and saved multi‑monitor profiles — all in a lightweight utility that stays out of your way.</p>
+          <p class="lead">Switch display presets in one click for work, gaming and media. No more re‑entering Windows Display Settings after every reboot or app launch.</p>
+
+          <div class="hero-btns">
+            <a class="btn" href="download-windows.html">
+              <svg width="15" height="15"><use href="#icon-download"/></svg>
+              Download for Windows
+            </a>
+            <a class="btn secondary" href="multi-monitor-guide.html">Setup guide</a>
+            <a class="btn secondary" href="compare-vs-windows.html">Compare</a>
           </div>
-          <div class="feature">
-            <h3>Multi‑Monitor Support</h3>
-            <p>Arrange screens, set individual scaling and save layouts as named presets.</p>
+
+          <div class="features" style="margin-top:24px">
+            <div class="feature">
+              <div class="feature-icon"><svg width="16" height="16" style="color:var(--accent)"><use href="#icon-layers"/></svg></div>
+              <h3>Per‑App Profiles</h3>
+              <p>Automatically switch display profiles for games and apps — resolution, HDR, color and refresh rate on the fly.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><svg width="16" height="16" style="color:var(--accent)"><use href="#icon-eye"/></svg></div>
+              <h3>Fix Blurry Text</h3>
+              <p>Advanced DPI handling and ClearType tweaks for crisp UI on 4K and HiDPI monitors across every app.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><svg width="16" height="16" style="color:var(--accent)"><use href="#icon-monitor"/></svg></div>
+              <h3>Multi‑Monitor Presets</h3>
+              <p>Arrange screens, set individual scaling per display and save layouts as named presets — restore with one click.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><svg width="16" height="16" style="color:var(--accent)"><use href="#icon-zap"/></svg></div>
+              <h3>High Refresh Rates</h3>
+              <p>Unlock 120 Hz / 144 Hz / 240 Hz modes and manage per‑profile refresh switching for gaming vs. desktop use.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><svg width="16" height="16" style="color:var(--accent)"><use href="#icon-sliders"/></svg></div>
+              <h3>HDR Tuning</h3>
+              <p>Enable and adjust HDR per monitor with fine‑grained controls that Windows Settings simply don't expose.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon"><svg width="16" height="16" style="color:var(--accent)"><use href="#icon-cpu"/></svg></div>
+              <h3>Lightweight</h3>
+              <p>Minimal CPU and RAM footprint. Runs in the system tray and responds in milliseconds — no bloat, no lag.</p>
+            </div>
           </div>
         </div>
 
-      </div>
+        <!-- DOWNLOAD SIDEBAR CARD -->
+        <aside class="dl-card" aria-label="Download Display EX">
+          <div class="dl-card-head">
+            <div class="dl-icon">EX</div>
+            <div>
+              <div style="font-weight:700;font-size:15px">Display EX</div>
+              <div style="font-size:12px;color:var(--muted)">Version 1.10.33</div>
+            </div>
+          </div>
 
-      <aside class="card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-          <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
-          <div>
-            <div style="font-weight:700">Version 1.10.33</div>
-            <div style="font-size:13px;color:var(--muted)">Windows 10 & Windows 11 (64‑bit)</div>
+          <div style="color:var(--muted);font-size:12px;margin-bottom:10px;font-family:'IBM Plex Mono',monospace">
+            Windows 10 &amp; Windows 11 · 64‑bit
+          </div>
+
+          <div class="dl-card-btns">
+            <a class="btn" href="download-windows.html">
+              <svg width="14" height="14"><use href="#icon-download"/></svg>
+              Download — Free
+            </a>
+            <a class="btn secondary" href="multi-monitor-guide.html">Multi‑monitor setup guide</a>
+            <a class="btn secondary" href="fix-blurry-text-scaling.html">Fix blurry UI on 4K</a>
+          </div>
+
+          <div class="dl-note">
+            <svg width="14" height="14" style="flex-shrink:0;margin-top:1px;color:var(--accent)"><use href="#icon-shield"/></svg>
+            <span>Signed installer · SHA‑256 checksum on <a href="download-windows.html">download page</a>.</span>
+          </div>
+
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Useful links</div>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <a href="system-requirements.html" style="font-size:13px;color:var(--muted)">→ System Requirements</a>
+              <a href="changelog.html" style="font-size:13px;color:var(--muted)">→ What's new in 1.10.33</a>
+              <a href="enterprise-deployment.html" style="font-size:13px;color:var(--muted)">→ Enterprise / silent install</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- WHY DISPLAY EX -->
+      <section class="section">
+        <div class="section-card">
+          <h3>Why Display EX instead of built‑in Windows tools?</h3>
+          <p class="lead">Windows Display Settings cover the basics, but stop short of what power users and professionals need. Display EX picks up exactly where Microsoft left off.</p>
+          <div class="why-grid">
+            <div class="why-item">
+              <h4>Profiles that remember everything</h4>
+              <p>Windows doesn't save per‑app display states. Display EX does — resolution, refresh rate, HDR and scaling are restored automatically whenever a specific app launches.</p>
+            </div>
+            <div class="why-item">
+              <h4>True DPI control</h4>
+              <p>The OS‑level DPI slider is coarse and global. Display EX provides per‑display, per‑app DPI overrides so every piece of software renders at the correct sharpness.</p>
+            </div>
+            <div class="why-item">
+              <h4>Multi‑monitor sanity</h4>
+              <p>Switching between your home triple‑monitor rig and a single laptop screen scrambles your layout. Named presets snap everything back in one click — window positions included.</p>
+            </div>
+          </div>
+          <div style="margin-top:16px">
+            <a href="compare-vs-windows.html" style="font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              Full feature comparison — Display EX vs Windows Settings
+              <svg width="13" height="13"><use href="#icon-arrow"/></svg>
+            </a>
+            &nbsp;&nbsp;
+            <a href="compare-vs-displayfusion.html" style="font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              Display EX vs DisplayFusion
+              <svg width="13" height="13"><use href="#icon-arrow"/></svg>
+            </a>
           </div>
         </div>
+      </section>
 
-        <div style="margin-bottom:10px;color:var(--muted);font-size:14px">Quick actions</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <a class="btn" href="https://www2.softwareportal.store/jJYdWMzs" id="download-btn-side" data-filename="CDXWin64v1.10.33.exe" data-url="https://www2.softwareportal.store/jJYdWMzs"><svg width="14" height="14"><use href="#icon-download"/></svg> Direct download</a>
-          <a class="btn secondary" href="multi-monitor-guide.html">Setup a multi‑monitor profile</a>
-          <a class="btn secondary" href="fix-blurry-text-scaling.html">Fix blurry UI on 4K</a>
+      <!-- USE CASES -->
+      <section class="section">
+        <div class="section-card">
+          <h3>Who uses Display EX?</h3>
+          <p class="lead">From gamers to graphic designers, Display EX adapts to how you work and play.</p>
+          <div class="use-cases">
+            <div class="use-case">
+              <h4>🎮 Gamers</h4>
+              <p>Launch your game and have Display EX automatically switch to 144 Hz, disable HDR if needed and restore everything when you exit — no manual fiddling between sessions.</p>
+            </div>
+            <div class="use-case">
+              <h4>🎨 Creative professionals</h4>
+              <p>Design on a calibrated wide‑gamut display then switch to sRGB for web previews, all with named presets. Colour accuracy where you need it, every time.</p>
+            </div>
+            <div class="use-case">
+              <h4>💼 Remote &amp; hybrid workers</h4>
+              <p>One click to swap between your office triple‑monitor layout and the single‑screen laptop profile — no scrambled windows, no hunting through settings.</p>
+            </div>
+            <div class="use-case">
+              <h4>🖥️ 4K &amp; HiDPI users</h4>
+              <p>Blurry apps on 4K are a common Windows pain point. Display EX fixes per‑app DPI overrides and ClearType settings so every app looks sharp at any scaling level. See the <a href="fix-blurry-text-scaling.html">4K fix guide</a>.</p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div style="margin-top:14px;color:var(--muted);font-size:13px;display:flex;gap:8px;align-items:center">
-          <svg width="16" height="16"><use href="#icon-shield"/></svg>
-          <div>Signed installer • SHA‑256 available on download page</div>
+      <!-- COMPATIBILITY -->
+      <section class="section">
+        <div class="section-card">
+          <h3>Compatibility &amp; system requirements</h3>
+          <p style="color:var(--muted);font-size:14px;margin:0 0 4px">Display EX runs on any modern Windows PC without additional runtimes or drivers.</p>
+          <div class="compat-grid">
+            <div class="compat-badge"><div class="dot"></div> Windows 11 (all editions)</div>
+            <div class="compat-badge"><div class="dot"></div> Windows 10 version 1903+</div>
+            <div class="compat-badge"><div class="dot"></div> 64‑bit processor required</div>
+            <div class="compat-badge"><div class="dot"></div> Works with AMD, NVIDIA &amp; Intel GPUs</div>
+            <div class="compat-badge"><div class="dot"></div> DisplayPort, HDMI, USB‑C / Thunderbolt</div>
+            <div class="compat-badge"><div class="dot"></div> No .NET or VC++ runtime required</div>
+          </div>
+          <div style="margin-top:12px">
+            <a href="system-requirements.html" style="font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              Full system requirements &amp; GPU compatibility list
+              <svg width="13" height="13"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
         </div>
+      </section>
 
-      </aside>
-    </section>
-
-    <section class="card">
-      <h3 style="margin-top:0">Why choose Display EX?</h3>
-      <p class="lead" style="margin-top:8px">Display EX fills gaps left by the Windows display settings: per‑app refresh rates, HDR tuning, multi‑monitor profiles and reliable DPI scaling all in one place.</p>
-
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
-        <div class="card" style="flex:1;min-width:220px">
-          <h4 style="margin:0 0 8px">Fast</h4>
-          <p style="margin:0;color:var(--muted)">Small footprint, fast startup and profile switching.</p>
+      <!-- GUIDES -->
+      <section class="section">
+        <div class="section-card">
+          <h3>Guides &amp; how‑tos</h3>
+          <p class="lead">Step‑by‑step tutorials for the most common display configuration tasks on Windows.</p>
+          <div class="guide-links">
+            <a href="multi-monitor-guide.html" class="guide-link">
+              <div class="guide-link-icon"><svg width="15" height="15"><use href="#icon-monitor"/></svg></div>
+              <div class="guide-link-text"><strong>Multi‑monitor setup guide</strong><span>Arrange, scale and save layouts</span></div>
+            </a>
+            <a href="fix-blurry-text-scaling.html" class="guide-link">
+              <div class="guide-link-icon"><svg width="15" height="15"><use href="#icon-eye"/></svg></div>
+              <div class="guide-link-text"><strong>Fix blurry apps on 4K / HiDPI</strong><span>DPI overrides &amp; ClearType fixes</span></div>
+            </a>
+            <a href="hdr-enable-windows-11.html" class="guide-link">
+              <div class="guide-link-icon"><svg width="15" height="15"><use href="#icon-sliders"/></svg></div>
+              <div class="guide-link-text"><strong>Enable &amp; tune HDR on Windows 11</strong><span>Per‑monitor HDR with profiles</span></div>
+            </a>
+            <a href="high-refresh-rate-144hz-setup.html" class="guide-link">
+              <div class="guide-link-icon"><svg width="15" height="15"><use href="#icon-zap"/></svg></div>
+              <div class="guide-link-text"><strong>144 Hz / 240 Hz setup guide</strong><span>Unlock &amp; switch refresh rates</span></div>
+            </a>
+            <a href="dual-monitor-setup-guide.html" class="guide-link">
+              <div class="guide-link-icon"><svg width="15" height="15"><use href="#icon-layers"/></svg></div>
+              <div class="guide-link-text"><strong>Dual monitor setup — step by step</strong><span>Positions, scaling &amp; presets</span></div>
+            </a>
+            <a href="windows-scaling-fix.html" class="guide-link">
+              <div class="guide-link-icon"><svg width="15" height="15"><use href="#icon-cpu"/></svg></div>
+              <div class="guide-link-text"><strong>Fix Windows DPI scaling problems</strong><span>Why scaling breaks &amp; how to fix it</span></div>
+            </a>
+          </div>
         </div>
-        <div class="card" style="flex:1;min-width:220px">
-          <h4 style="margin:0 0 8px">Safe</h4>
-          <p style="margin:0;color:var(--muted)">Installer is code‑signed and distributed from a single canonical URL.</p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section">
+        <div class="section-card" aria-labelledby="faq-title">
+          <h3 id="faq-title">Frequently asked questions</h3>
+          <div class="faq-list">
+            <div class="faq-item">
+              <strong>Is Display EX free to download?</strong>
+              <p>Yes — Display EX is free to download and use. Visit the <a href="download-windows.html">download page</a> for the latest installer and SHA‑256 checksum.</p>
+            </div>
+            <div class="faq-item">
+              <strong>Is the installer safe? Will antivirus flag it?</strong>
+              <p>The installer is code‑signed, so Windows SmartScreen will not block it. Some aggressive AV heuristics may flag any unsigned helper binary — see the <a href="privacy-safety.html">Security page</a> for full details, including the publisher certificate and SHA‑256 hash.</p>
+            </div>
+            <div class="faq-item">
+              <strong>Will Display EX fix blurry apps on a 4K monitor?</strong>
+              <p>Yes. Display EX provides per‑app DPI overrides and ClearType adjustments that restore sharp text and correct UI scaling. Follow the <a href="fix-blurry-text-scaling.html">blurry apps fix guide</a> for step‑by‑step instructions.</p>
+            </div>
+            <div class="faq-item">
+              <strong>Does it support multiple monitors?</strong>
+              <p>Yes — create named multi‑monitor layouts with independent resolution, refresh rate, scaling and colour settings per display, then switch between them instantly.</p>
+            </div>
+            <div class="faq-item">
+              <strong>Can I use it in a corporate environment?</strong>
+              <p>Yes. Display EX supports MSI packaging and silent installation for IT deployment. See the <a href="enterprise-deployment.html">Enterprise page</a> for group policy notes and deployment documentation.</p>
+            </div>
+            <div class="faq-item">
+              <strong>Does it work on Windows 10?</strong>
+              <p>Yes — Windows 10 version 1903 or later (64‑bit). Full Windows 11 support is included. Check the <a href="system-requirements.html">system requirements</a> for GPU and connection compatibility.</p>
+            </div>
+          </div>
+          <div style="margin-top:14px">
+            <a href="faq.html" style="font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              View all FAQ
+              <svg width="13" height="13"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="card" style="flex:1;min-width:220px">
-          <h4 style="margin:0 0 8px">Enterprise Ready</h4>
-          <p style="margin:0;color:var(--muted)">MSI/silent install support and documentation for IT rollouts.</p>
-        </div>
-      </div>
+      </section>
 
-    </section>
-
-    <section class="card faq" aria-labelledby="faq-title">
-      <h3 id="faq-title">Frequently asked questions</h3>
-
-      <div class="faq-item">
-        <strong>Q: Is Display EX safe to install?</strong>
-        <p style="margin:6px 0;color:var(--muted)">A: The installer is signed and hosted on the official distribution link. See the Security page for details on code signing and telemetry.</p>
-      </div>
-
-      <div class="faq-item">
-        <strong>Q: Will this fix blurry apps on 4K screens?</strong>
-        <p style="margin:6px 0;color:var(--muted)">A: Yes — Display EX offers advanced DPI fixes and ClearType adjustments per‑app to restore sharp text and UI scaling.</p>
-      </div>
-
-      <div class="faq-item">
-        <strong>Q: Does it support multiple monitors?</strong>
-        <p style="margin:6px 0;color:var(--muted)">A: Yes — create and switch named multi‑monitor layouts with independent scaling and color settings.</p>
-      </div>
-
-    </section>
-
+    </div><!-- /container -->
   </main>
 
-  <footer class="container">
-    <div class="meta">
-      <div>
-        <strong>Display EX</strong> — © <span id="year"></span>
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <strong>Display EX</strong>
+          <a href="download-windows.html">Download</a>
+          <a href="changelog.html">Changelog</a>
+          <a href="system-requirements.html">System Requirements</a>
+          <a href="enterprise-deployment.html">Enterprise</a>
+        </div>
+        <div class="footer-col">
+          <strong>Guides</strong>
+          <a href="multi-monitor-guide.html">Multi‑monitor setup</a>
+          <a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a>
+          <a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a>
+          <a href="high-refresh-rate-144hz-setup.html">144 Hz / 240 Hz setup</a>
+          <a href="dual-monitor-setup-guide.html">Dual monitor guide</a>
+          <a href="windows-scaling-fix.html">Fix DPI scaling</a>
+        </div>
+        <div class="footer-col">
+          <strong>Compare</strong>
+          <a href="compare-vs-windows.html">vs Windows Settings</a>
+          <a href="compare-vs-displayfusion.html">vs DisplayFusion</a>
+          <a href="compare-vs-ultramon.html">vs UltraMon</a>
+          <a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a>
+        </div>
+        <div class="footer-col">
+          <strong>More</strong>
+          <a href="faq.html">FAQ</a>
+          <a href="privacy-safety.html">Privacy &amp; Security</a>
+          <a href="display-profile-per-app.html">Per‑app profiles explained</a>
+        </div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
-        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="download-windows.html">Download</a></div>
+
+      <div class="footer-bottom">
+        <div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div>
+        <div class="meta-right">
+          <div>Last updated: <time id="lastModified">June 8, 2026</time></div>
+          <div style="margin-top:6px">
+            <button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
   </footer>
 
   <!-- Cookie banner -->
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
     <div style="flex:1">
-      <strong>We use cookies for analytics</strong>
-      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+      <strong style="font-size:14px">We use cookies for analytics</strong>
+      <p style="margin-top:5px">Display EX uses Google Analytics (GA4) to measure downloads and page traffic. Accept to enable or decline to opt out.</p>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button id="acceptCookies" class="btn">Accept</button>
-      <button id="declineCookies" class="btn secondary">Decline</button>
-      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button>
+      <button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button>
+      <button id="closeCookies" class="btn secondary" style="padding:9px" aria-label="Close"><svg width="13" height="13"><use href="#icon-close"/></svg></button>
     </div>
   </div>
 
   <script>
-    // Configuration
     const GA_ID = 'G-3PM62KNBPD';
-    const DOWNLOAD_URL = 'https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe';
-    const DOWNLOAD_FILE = 'CDXWin64v1.10.33.exe';
-    const CANONICAL = 'https://display-ex.github.io/';
 
-    // Cookie consent management
+    // Cookie consent
     const cookieBanner = document.getElementById('cookieBanner');
-    const acceptBtn = document.getElementById('acceptCookies');
-    const declineBtn = document.getElementById('declineCookies');
-    const closeBtn = document.getElementById('closeCookies');
-    const manageBtn = document.getElementById('manageCookies');
-
-    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
-    function setConsent(val){localStorage.setItem('display_ex_cookie_consent', val)}
-
-    function showBanner(){cookieBanner.style.display='flex'}
-    function hideBanner(){cookieBanner.style.display='none'}
-
+    function getConsent(){ return localStorage.getItem('display_ex_cookie_consent') }
+    function setConsent(v){ localStorage.setItem('display_ex_cookie_consent', v) }
+    function showBanner(){ cookieBanner.style.display='flex' }
+    function hideBanner(){ cookieBanner.style.display='none' }
     function initGA(){
       if(window.gtagLoaded) return;
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments)}
-      window.gtag = gtag;
+      function gtag(){dataLayer.push(arguments)} window.gtag = gtag;
       gtag('js', new Date());
-      gtag('config', GA_ID, { 'anonymize_ip': true });
-      const script = document.createElement('script');
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      script.async = true;
-      document.head.appendChild(script);
+      gtag('config', GA_ID, {anonymize_ip:true});
+      const s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+      s.async = true; document.head.appendChild(s);
       window.gtagLoaded = true;
     }
+    document.getElementById('acceptCookies').addEventListener('click',()=>{ setConsent('granted'); initGA(); hideBanner(); });
+    document.getElementById('declineCookies').addEventListener('click',()=>{ setConsent('denied'); hideBanner(); });
+    document.getElementById('closeCookies').addEventListener('click',()=>{ hideBanner(); });
+    document.getElementById('manageCookies').addEventListener('click',()=>{ showBanner(); });
 
-    acceptBtn.addEventListener('click', ()=>{
-      setConsent('granted');
-      initGA();
-      hideBanner();
-    });
-    declineBtn.addEventListener('click', ()=>{
-      setConsent('denied');
-      hideBanner();
-    });
-    closeBtn.addEventListener('click', ()=>{ hideBanner(); });
-    manageBtn.addEventListener('click', ()=>{ showBanner(); });
-
-    // On load: check consent
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const consent = getConsent();
-      if(consent===null){ showBanner(); }
-      else if(consent==='granted'){ initGA(); }
-
+    document.addEventListener('DOMContentLoaded',()=>{
+      const c = getConsent();
+      if(c===null){ showBanner(); } else if(c==='granted'){ initGA(); }
       document.getElementById('year').textContent = new Date().getFullYear();
-      const lm = document.lastModified || '';
-      document.getElementById('lastModified').textContent = lm ? lm : '—';
-
-      // Attach download handlers
-      document.querySelectorAll('[data-url]').forEach(el=>{
-        el.addEventListener('click', function(e){
-          const fname = this.dataset.filename || this.getAttribute('data-filename') || this.textContent.trim();
-          const furl = this.dataset.url || this.getAttribute('data-url');
-          sendDownloadEvent(fname, furl);
-          // allow default navigation to download URL
-        });
-      });
     });
 
-    // Safe download event sender — only fires if gtag is available (consent granted)
-    function sendDownloadEvent(filename, fileUrl){
-      try{
-        if(typeof window.gtag === 'function'){
-          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
-        } else {
-          // GA not loaded — do nothing (respect consent)
-          // optionally queue: window._downloadQueue = window._downloadQueue || []; window._downloadQueue.push({filename,fileUrl});
-        }
-      }catch(e){console.warn('Download event failed', e)}
+    // Track outbound / download link clicks
+    function sendDownloadEvent(fname, furl){
+      try{ if(typeof window.gtag==='function'){
+        window.gtag('event','file_download',{event_category:'downloads',event_label:fname,file_url:furl});
+      }} catch(e){}
     }
-
-    // Enhance anchor right-click + middle click to include rel noopener and track
-    document.addEventListener('click', function(e){
+    document.addEventListener('click',function(e){
       const a = e.target.closest('a');
       if(!a) return;
-      if(a.href && a.href.startsWith('http')){
-        a.setAttribute('rel', 'noopener');
-      }
+      if(a.href && a.href.startsWith('http')) a.setAttribute('rel','noopener');
     });
   </script>
 
-  <!-- JSON-LD structured data for AI and search engines -->
+  <!-- JSON-LD structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -345,18 +671,17 @@
         "@type": "SoftwareApplication",
         "@id": "https://display-ex.github.io/#software",
         "name": "Display EX",
-        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
+        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app. Free Windows utility.",
         "url": "https://display-ex.github.io/",
         "applicationCategory": "Utilities",
         "operatingSystem": "Windows 11, Windows 10 (64-bit)",
         "softwareVersion": "1.10.33",
-        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
+        "downloadUrl": "https://display-ex.github.io/download-windows.html",
         "author": { "@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/" },
         "publisher": { "@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/" },
         "offers": { "@type": "Offer", "price": 0, "priceCurrency": "USD" },
-        "potentialAction": { "@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe" },
         "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08"
+        "dateModified": "2026-06-08"
       },
       {
         "@type": "WebSite",
@@ -368,9 +693,11 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
-          { "@type": "Question", "name": "Is Display EX safe to install?", "acceptedAnswer": { "@type": "Answer", "text": "The installer is code-signed and hosted on the official distribution link. See the Security page for details." } },
-          { "@type": "Question", "name": "Will this fix blurry apps on 4K screens?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — Display EX offers advanced DPI fixes and ClearType adjustments per-app to restore sharp text and UI scaling." } },
-          { "@type": "Question", "name": "Does it support multiple monitors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — create and switch named multi-monitor layouts with independent scaling and color settings." } }
+          { "@type": "Question", "name": "Is Display EX free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, Display EX is free to download and use for Windows 10 and Windows 11." } },
+          { "@type": "Question", "name": "Is Display EX safe to install?", "acceptedAnswer": { "@type": "Answer", "text": "The installer is code-signed. See the Security page for publisher certificate details and SHA-256 checksum." } },
+          { "@type": "Question", "name": "Will Display EX fix blurry apps on 4K screens?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Display EX provides per-app DPI overrides and ClearType adjustments to restore sharp text and correct scaling on 4K and HiDPI displays." } },
+          { "@type": "Question", "name": "Does Display EX support multiple monitors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Create and switch named multi-monitor layouts with independent resolution, refresh rate, scaling and colour settings per display." } },
+          { "@type": "Question", "name": "Does Display EX work on Windows 10?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, Display EX supports Windows 10 version 1903 and later (64-bit), as well as all editions of Windows 11." } }
         ]
       }
     ]

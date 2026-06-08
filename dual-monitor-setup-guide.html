@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dual Monitor Setup Guide for Windows 10 &amp; 11 — Display EX</title>
+  <meta name="description" content="Complete step-by-step dual monitor setup guide for Windows 10 and 11. Connect two monitors, arrange displays, fix scaling, save layouts as profiles and switch instantly with Display EX.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/dual-monitor-setup-guide.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--warning:#f59e0b;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}.nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    .guide-layout{display:table;width:100%;border-spacing:0}
+    .toc-sidebar{display:table-cell;width:220px;padding-right:28px;vertical-align:top}
+    .toc-sidebar h3{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+    .toc-sidebar ol{margin:0;padding:0 0 0 16px;display:flex;flex-direction:column;gap:6px}
+    .toc-sidebar li a{font-size:13px;color:var(--muted)}.toc-sidebar li a:hover{color:var(--accent)}
+    .step-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;scroll-margin-top:74px}
+    .step-card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;font-size:13px;color:#042331;flex-shrink:0;font-family:"IBM Plex Mono",monospace}
+    .step-card h2{font-size:17px;font-weight:700;margin:0;letter-spacing:-.2px}
+    .step-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px}
+    .step-card p:last-child{margin-bottom:0}
+    .step-card h3{font-size:14px;font-weight:600;margin:16px 0 6px}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+    .mode-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:14px}
+    .mode-item h4{font-size:13px;font-weight:600;margin:0 0 5px;display:flex;align-items:center;gap:6px}
+    .mode-item p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+    .related{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .related-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:9px;padding:11px 13px;color:var(--text);font-size:13px;transition:background .15s,border-color .15s}
+    .related-link:hover{background:rgba(14,165,233,.06);border-color:rgba(14,165,233,.2)}
+    .ri{width:28px;height:28px;border-radius:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);display:grid;place-items:center;flex-shrink:0;font-size:13px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:800px){.guide-layout{display:block}.toc-sidebar{display:none}.mode-grid{grid-template-columns:1fr}.related{grid-template-columns:1fr}}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a><a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a></div>
+  </nav></div></header>
+
+  <main class="container" style="padding-top:0">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › Dual monitor setup</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>Dual Monitor Setup Guide — Windows 10 &amp; 11</h1>
+      <p>Everything you need to set up two monitors on Windows — from connecting the hardware to arranging displays, matching DPI scaling and saving your layout as a named profile in Display EX for instant switching.</p>
+    </section>
+
+    <div class="guide-layout">
+      <nav class="toc-sidebar">
+        <h3>Contents</h3>
+        <ol>
+          <li><a href="#connect">Connect second monitor</a></li>
+          <li><a href="#arrange">Arrange in Windows</a></li>
+          <li><a href="#mode">Choose display mode</a></li>
+          <li><a href="#scaling">Match DPI scaling</a></li>
+          <li><a href="#profile">Save as Display EX profile</a></li>
+          <li><a href="#laptop">Laptop + external setup</a></li>
+          <li><a href="#troubleshoot">Troubleshooting</a></li>
+        </ol>
+      </nav>
+
+      <div style="display:table-cell;vertical-align:top">
+        <div class="step-card" id="connect">
+          <div class="step-card-head"><div class="step-num">1</div><h2>Connect your second monitor</h2></div>
+          <p>Connect the second monitor to your PC or laptop using DisplayPort, HDMI, USB-C or Thunderbolt. Your GPU needs a free output port — most desktop GPUs have 3–4 outputs. Laptops with a single USB-C port can use a Thunderbolt dock or USB-C hub with DisplayPort Alt Mode to add a second display.</p>
+          <p>Windows should detect the new monitor automatically within a few seconds. The screen may flash once as the display topology updates. If nothing appears on the second monitor, right-click the desktop → <strong>Display settings → Detect</strong>.</p>
+          <div class="tip"><strong>Tip:</strong> Turn the second monitor on before connecting the cable. Some monitors don't report their EDID (display capabilities) to the GPU when they're in standby, which can prevent detection.</div>
+        </div>
+
+        <div class="step-card" id="arrange">
+          <div class="step-card-head"><div class="step-num">2</div><h2>Arrange the displays to match your desk</h2></div>
+          <p>Open <strong>Settings → System → Display</strong>. You'll see two numbered rectangles representing your monitors. Drag them so their positions match how they're physically arranged on your desk — this determines how the mouse cursor and windows move between screens.</p>
+          <p>If the secondary monitor is to the right of your primary, drag its rectangle to the right. If it's above, drag it above. Get the vertical alignment right too — if your monitors are different heights, adjust the vertical offset so the cursor movement feels natural.</p>
+          <p>Click <strong>Identify</strong> to flash a large "1" or "2" on each physical screen if you're unsure which is which.</p>
+          <h3>Set the primary monitor</h3>
+          <p>Click the monitor you want as your main screen. Scroll down and tick <strong>Make this my main display</strong>. The taskbar, Start Menu and notification centre will appear here.</p>
+        </div>
+
+        <div class="step-card" id="mode">
+          <div class="step-card-head"><div class="step-num">3</div><h2>Choose display mode</h2></div>
+          <p>Press <strong>Win + P</strong> to quickly switch between display modes, or select <strong>Multiple displays</strong> in Display Settings.</p>
+          <div class="mode-grid">
+            <div class="mode-item"><h4>🖥🖥 Extend (recommended)</h4><p>Both monitors show different content. The mouse and windows move freely between them. This is the standard setup for productivity and gaming.</p></div>
+            <div class="mode-item"><h4>📋 Duplicate / Mirror</h4><p>Both monitors show the same content. Useful for presentations. Both run at the same resolution (usually the lower of the two).</p></div>
+            <div class="mode-item"><h4>1️⃣ Primary only</h4><p>Only monitor 1 is active. Monitor 2 is off. Use this when you want full GPU resources for a single screen.</p></div>
+            <div class="mode-item"><h4>2️⃣ Secondary only</h4><p>Only the secondary monitor is active. Rarely used, but helpful for projector setups or when troubleshooting.</p></div>
+          </div>
+          <div class="tip"><strong>Display EX profiles:</strong> Each of these modes can be saved as a named profile. Create separate profiles for <em>Dual extended</em>, <em>Presentation — duplicate</em> and <em>Gaming — primary only</em> and switch between them instantly.</div>
+        </div>
+
+        <div class="step-card" id="scaling">
+          <div class="step-card-head"><div class="step-num">4</div><h2>Match DPI scaling between monitors</h2></div>
+          <p>If your two monitors have different resolutions or physical sizes — say a 4K 27" primary and a 1080p 24" secondary — you'll need to set individual DPI scaling for each to make text and UI appear the same physical size on both screens.</p>
+          <p>In Display Settings, click each monitor individually and adjust its <strong>Scale</strong> percentage. A common pairing:</p>
+          <ul style="color:var(--muted);font-size:14px;padding-left:20px;margin:8px 0;line-height:1.8">
+            <li><strong style="color:var(--text)">4K 27" primary:</strong> 150%</li>
+            <li><strong style="color:var(--text)">1080p 24" secondary:</strong> 100%</li>
+          </ul>
+          <p>Apps moved between these two screens may appear blurry until restarted. Display EX can automatically apply DPI overrides to prevent this — see the <a href="fix-blurry-text-scaling.html">blurry apps fix guide</a> for details.</p>
+        </div>
+
+        <div class="step-card" id="profile">
+          <div class="step-card-head"><div class="step-num">5</div><h2>Save your layout as a Display EX profile</h2></div>
+          <p>Once everything looks right, open Display EX from the system tray and click <strong>New Profile</strong>. Name it something descriptive like <em>Dual Monitor — Work</em>. Display EX saves:</p>
+          <ul style="color:var(--muted);font-size:14px;padding-left:20px;margin:8px 0;line-height:1.8">
+            <li>Both monitor positions and which is primary</li>
+            <li>Resolution and refresh rate per monitor</li>
+            <li>DPI scaling per monitor</li>
+            <li>HDR state per monitor</li>
+          </ul>
+          <p>Now if anything scrambles your layout — a driver update, a reboot with a monitor off, a laptop dock/undock — one click from the tray restores everything perfectly.</p>
+          <div class="tip"><strong>Tip:</strong> Create a second profile called <em>Laptop Only</em> for when you're away from your desk. Switching to it turns off the external monitor and resets all settings for the built-in display in one step.</div>
+        </div>
+
+        <div class="step-card" id="laptop">
+          <div class="step-card-head"><div class="step-num">6</div><h2>Laptop + external monitor tips</h2></div>
+          <p>Laptops with a single external monitor are the most common dual-display setup. A few things to keep in mind:</p>
+          <h3>Closed-lid mode (clamshell)</h3>
+          <p>To use only the external monitor with the laptop lid closed, connect the external display, then close the lid. Windows will switch to single external display mode. In Display EX, save this as a <em>Desk — External Only</em> profile. When you open the lid, switch back to your <em>Dual Monitor</em> profile.</p>
+          <h3>Refresh rate mismatch</h3>
+          <p>Laptop built-in displays often run at 60 Hz or 144 Hz while external monitors may be different. Display EX stores the refresh rate per monitor per profile — your desk profile can run the external at 144 Hz and the laptop panel at 60 Hz (power saving) simultaneously.</p>
+          <h3>DPI on laptop vs external</h3>
+          <p>Laptop built-in screens often have high DPI (150–200%) while external monitors are 100%. Save separate DPI settings for each in your Display EX profile so switching is seamless.</p>
+        </div>
+
+        <div class="step-card" id="troubleshoot">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">?</div><h2>Troubleshooting</h2></div>
+          <h3>Second monitor not detected</h3>
+          <p>Try: right-click desktop → Display settings → Detect. If still not detected: check the cable (try a different one), confirm the monitor is powered on, update GPU drivers, and try a different port on the GPU.</p>
+          <h3>Monitors swap positions after reboot</h3>
+          <p>Windows re-enumerates monitors on boot and sometimes assigns different numbers. Save your correct layout in Display EX and set it to <strong>Apply on startup</strong> — it re-applies the arrangement after every boot.</p>
+          <h3>Second monitor shows wrong resolution</h3>
+          <p>Click the second monitor in Display Settings and manually set its native resolution. If the native resolution isn't listed, try a different cable (especially if using an adapter or HDMI 1.4 for a 4K monitor).</p>
+          <h3>Blurry apps when moved between screens</h3>
+          <p>Expected when monitors have different DPI settings. See the <a href="fix-blurry-text-scaling.html">blurry apps fix guide</a> for per-app DPI override instructions.</p>
+        </div>
+
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(6,182,212,.04));border:1px solid rgba(14,165,233,.2);border-radius:14px;padding:24px;margin-bottom:20px">
+          <h2 style="font-size:17px;margin:0 0 8px;font-weight:700">Save your dual monitor layout with Display EX</h2>
+          <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Free — save named layouts, fix scrambled arrangements after reboot, switch between desk and laptop profiles instantly.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+            <a href="multi-monitor-guide.html" class="btn secondary">Triple+ monitor guide</a>
+          </div>
+        </div>
+
+        <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:22px">
+          <h2 style="font-size:15px;font-weight:600;margin:0 0 12px">Related guides</h2>
+          <div class="related">
+            <a href="multi-monitor-guide.html" class="related-link"><div class="ri">🖥</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Multi-monitor (3+ screens)</strong><span style="color:var(--muted);font-size:12px">Profiles for triple setups</span></div></a>
+            <a href="fix-blurry-text-scaling.html" class="related-link"><div class="ri">🔍</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Fix blurry apps on 4K</strong><span style="color:var(--muted);font-size:12px">Mixed DPI scaling fixes</span></div></a>
+            <a href="windows-scaling-fix.html" class="related-link"><div class="ri">📐</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Fix DPI scaling issues</strong><span style="color:var(--muted);font-size:12px">Why scaling breaks</span></div></a>
+            <a href="display-profile-per-app.html" class="related-link"><div class="ri">🔄</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Per-app profiles</strong><span style="color:var(--muted);font-size:12px">Auto-switch on app launch</span></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a></div>
+    </div>
+    <div class="footer-bottom"><div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div><div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div></div>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button><button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button><button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button></div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Dual Monitor Setup Guide for Windows","description":"How to connect, arrange and configure two monitors on Windows 10 and 11 and save the layout as a profile in Display EX.","step":[{"@type":"HowToStep","name":"Connect second monitor","text":"Connect via DisplayPort, HDMI or USB-C. Windows detects it automatically."},{"@type":"HowToStep","name":"Arrange displays","text":"Open Settings → System → Display and drag the monitor rectangles to match physical positions."},{"@type":"HowToStep","name":"Set display mode","text":"Choose Extend, Duplicate or primary-only mode from Settings or Win+P."},{"@type":"HowToStep","name":"Match DPI scaling","text":"Set individual Scale percentages per monitor in Display Settings."},{"@type":"HowToStep","name":"Save as Display EX profile","text":"Open Display EX → New Profile to snapshot the dual-monitor configuration."}]}</script>
+</body>
+</html>

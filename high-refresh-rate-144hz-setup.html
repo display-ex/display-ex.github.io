@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>144Hz &amp; 240Hz Monitor Setup Guide for Windows — Display EX</title>
+  <meta name="description" content="How to enable 144Hz, 165Hz or 240Hz on Windows 10 and 11. Fix refresh rate not showing up, save high-refresh profiles per game with Display EX, and combine with HDR and VRR.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/high-refresh-rate-144hz-setup.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--warning:#f59e0b;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}.nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    .guide-layout{display:table;width:100%;border-spacing:0}
+    .toc-sidebar{display:table-cell;width:220px;padding-right:28px;vertical-align:top}
+    .toc-sidebar h3{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+    .toc-sidebar ol{margin:0;padding:0 0 0 16px;display:flex;flex-direction:column;gap:6px}
+    .toc-sidebar li a{font-size:13px;color:var(--muted)}.toc-sidebar li a:hover{color:var(--accent)}
+    .step-card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;scroll-margin-top:74px}
+    .step-card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+    .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;font-size:13px;color:#042331;flex-shrink:0;font-family:"IBM Plex Mono",monospace}
+    .step-card h2{font-size:17px;font-weight:700;margin:0;letter-spacing:-.2px}
+    .step-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px}
+    .step-card p:last-child{margin-bottom:0}
+    .step-card h3{font-size:14px;font-weight:600;margin:16px 0 6px}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .warn{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .warn strong{color:var(--warning)}
+    .bw-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+    .bw-table th{text-align:left;padding:8px 10px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+    .bw-table td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--muted);vertical-align:middle}
+    .bw-table td:first-child{color:var(--text);font-weight:500}
+    .bw-table tr:last-child td{border-bottom:none}
+    .ok{color:var(--success)}
+    .related{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .related-link{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:9px;padding:11px 13px;color:var(--text);font-size:13px;transition:background .15s,border-color .15s}
+    .related-link:hover{background:rgba(14,165,233,.06);border-color:rgba(14,165,233,.2)}
+    .ri{width:28px;height:28px;border-radius:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);display:grid;place-items:center;flex-shrink:0;font-size:13px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:800px){.guide-layout{display:block}.toc-sidebar{display:none}.related{grid-template-columns:1fr}}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a><a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a></div>
+  </nav></div></header>
+
+  <main class="container" style="padding-top:0">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › 144Hz / 240Hz setup</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>144Hz &amp; 240Hz Monitor Setup Guide for Windows</h1>
+      <p>High-refresh-rate monitors default to 60 Hz until you manually enable the higher mode in Windows — and many users never realise they're missing out. This guide shows you how to unlock 144 Hz, 165 Hz or 240 Hz, fix common issues like the mode not appearing, and use Display EX to switch refresh rates automatically per game or app.</p>
+    </section>
+
+    <div class="guide-layout">
+      <nav class="toc-sidebar">
+        <h3>Contents</h3>
+        <ol>
+          <li><a href="#check">Check your current refresh rate</a></li>
+          <li><a href="#cable">Cable &amp; bandwidth requirements</a></li>
+          <li><a href="#enable">Enable high refresh rate</a></li>
+          <li><a href="#missing">Fix: mode not showing up</a></li>
+          <li><a href="#profiles">Save refresh profiles</a></li>
+          <li><a href="#vrr">VRR / G-Sync / FreeSync</a></li>
+          <li><a href="#troubleshoot">Troubleshooting</a></li>
+        </ol>
+      </nav>
+
+      <div style="display:table-cell;vertical-align:top">
+        <div class="step-card" id="check">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">✓</div><h2>Check your current refresh rate</h2></div>
+          <p>Before making any changes, verify what refresh rate Windows is actually using. Right-click the desktop → <strong>Display settings</strong> → scroll down and click <strong>Advanced display</strong>. The current refresh rate is shown at the top.</p>
+          <p>If it shows 60 Hz but your monitor is capable of 144 Hz or more, you either haven't set it yet, or your cable is limiting the bandwidth. Continue with this guide to fix it.</p>
+          <div class="tip"><strong>Quick check:</strong> Visit <a href="https://www.testufo.com" target="_blank" rel="noopener">testufo.com</a> — the frame counter at the top shows your actual refresh rate as seen by the browser. If it reads 60 on a 144 Hz monitor, Windows is not using the higher mode.</div>
+        </div>
+
+        <div class="step-card" id="cable">
+          <div class="step-card-head"><div class="step-num">1</div><h2>Cable &amp; bandwidth requirements</h2></div>
+          <p>The most common reason high refresh rates don't appear in Windows is that the cable doesn't have enough bandwidth. Use this table to confirm your cable supports your target resolution and refresh rate combination.</p>
+          <table class="bw-table">
+            <thead><tr><th>Connection</th><th>Max bandwidth</th><th>1080p 240Hz</th><th>1440p 165Hz</th><th>4K 144Hz</th></tr></thead>
+            <tbody>
+              <tr><td>HDMI 1.4</td><td>10.2 Gbps</td><td class="ok">✓</td><td>✗</td><td>✗</td></tr>
+              <tr><td>HDMI 2.0</td><td>18 Gbps</td><td class="ok">✓</td><td class="ok">✓</td><td>✗</td></tr>
+              <tr><td>HDMI 2.1</td><td>48 Gbps</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+              <tr><td>DisplayPort 1.2</td><td>17.28 Gbps</td><td class="ok">✓</td><td class="ok">✓</td><td>✗</td></tr>
+              <tr><td>DisplayPort 1.4</td><td>25.92 Gbps</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓ (DSC)</td></tr>
+              <tr><td>USB-C (DP 1.4 Alt)</td><td>25.92 Gbps</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            </tbody>
+          </table>
+          <div class="warn"><strong>Note:</strong> Cheap unbranded cables may be labelled HDMI 2.0 but are actually 1.4-spec internally. If a higher refresh mode is missing, try a different cable from a reputable brand before assuming the monitor or GPU is at fault.</div>
+        </div>
+
+        <div class="step-card" id="enable">
+          <div class="step-card-head"><div class="step-num">2</div><h2>Enable high refresh rate in Windows</h2></div>
+          <p>Go to <strong>Settings → System → Display → Advanced display settings</strong>. Under <strong>Choose a refresh rate</strong>, open the dropdown — you should see all modes supported by your monitor and cable combination.</p>
+          <p>Select <strong>144 Hz</strong>, <strong>165 Hz</strong>, or <strong>240 Hz</strong> (whichever is the highest available). The screen will briefly flicker and apply the new rate. Click <strong>Keep changes</strong> when prompted.</p>
+          <div class="tip"><strong>Tip:</strong> If you see a long list of modes (60, 100, 120, 144, 165 Hz...) this is normal — modern monitors report all supported rates. Pick the highest one your GPU can sustain in games and your eyes can perceive smoothly.</div>
+          <h3>Via Display EX</h3>
+          <p>Open Display EX → select your monitor → choose the refresh rate from the dropdown — all supported modes are listed. Save the setting as a named profile so you don't have to re-set it after every driver update or Windows reset.</p>
+        </div>
+
+        <div class="step-card" id="missing">
+          <div class="step-card-head"><div class="step-num">3</div><h2>Fix: high refresh rate mode not showing up</h2></div>
+          <h3>1. Check the cable (most common cause)</h3>
+          <p>Replace the cable with a certified DisplayPort 1.4 or HDMI 2.0+ cable. This is the cause in the majority of cases.</p>
+          <h3>2. Update GPU drivers</h3>
+          <p>Outdated GPU drivers sometimes don't enumerate all monitor modes correctly. Download the latest driver from NVIDIA / AMD / Intel and do a clean install.</p>
+          <h3>3. Enable the mode in the monitor OSD</h3>
+          <p>Some monitors require you to enable high refresh rate in the on-screen display (OSD) menu before Windows can use it. Look for settings like <em>DisplayPort 1.4</em>, <em>HDMI 2.0</em>, or <em>Overclock 165Hz</em> in your monitor's settings.</p>
+          <h3>4. Use Display EX custom resolution</h3>
+          <p>If the mode is technically supported but Windows doesn't list it (common with older GPU + monitor combinations), Display EX can create a <strong>Custom Resolution</strong> entry that forces Windows to expose the mode. Go to <strong>Display EX → Custom Resolutions → Add</strong> and enter your target resolution and refresh rate.</p>
+        </div>
+
+        <div class="step-card" id="profiles">
+          <div class="step-card-head"><div class="step-num">4</div><h2>Save refresh rate profiles for gaming vs desktop</h2></div>
+          <p>Running your desktop at 240 Hz all day is unnecessary and generates more heat from the GPU. Many users prefer 60–120 Hz for desktop work and 144–240 Hz for gaming. With Display EX, switching between them is instant.</p>
+          <h3>Create two profiles</h3>
+          <p><strong>Desktop profile:</strong> Set to 120 Hz (or 60 Hz for maximum power saving). Save as <em>Desktop — Work</em>.</p>
+          <p><strong>Gaming profile:</strong> Set to 144 Hz / 240 Hz, VRR enabled. Save as <em>Gaming — 240Hz</em>.</p>
+          <p>Assign a hotkey to the gaming profile, or set it to trigger automatically when a game executable launches. Display EX switches in under a second — fast enough to do it as part of your game launch routine.</p>
+          <div class="tip"><strong>Tip:</strong> On OLED monitors, running at high refresh rates accelerates pixel-level aging slightly. A separate low-refresh desktop profile is a sensible precaution for longevity.</div>
+        </div>
+
+        <div class="step-card" id="vrr">
+          <div class="step-card-head"><div class="step-num">5</div><h2>Variable refresh rate — G-Sync &amp; FreeSync</h2></div>
+          <p>VRR (G-Sync / FreeSync / HDMI VRR) eliminates screen tearing by syncing the monitor's refresh rate to your GPU's frame output in real time — the monitor runs at exactly the rate the GPU delivers, rather than a fixed rate.</p>
+          <h3>Enable VRR in Windows 11</h3>
+          <p>Go to <strong>Settings → System → Display → Advanced display</strong> and toggle <strong>Variable refresh rate</strong> on (Windows 11 only). This enables VRR for windowed and fullscreen applications globally.</p>
+          <h3>Enable G-Sync or FreeSync in the GPU control panel</h3>
+          <p>NVIDIA: open <strong>NVIDIA Control Panel → Set up G-SYNC</strong> and enable it for your monitor.<br>AMD: open <strong>AMD Software → Gaming → AMD FreeSync</strong> and enable.</p>
+          <h3>Save VRR state in Display EX profiles</h3>
+          <p>Display EX stores the VRR enabled/disabled state as part of each profile. Your gaming profile can have VRR on while a video editing profile turns it off (some colour-critical workflows prefer a fixed refresh rate for consistent motion cadence).</p>
+        </div>
+
+        <div class="step-card" id="troubleshoot">
+          <div class="step-card-head"><div class="step-num" style="background:rgba(14,165,233,.15);color:var(--accent)">?</div><h2>Troubleshooting</h2></div>
+          <h3>Refresh rate resets to 60 Hz after reboot</h3>
+          <p>Some GPU + monitor combinations revert to 60 Hz on boot due to a driver timing issue. Create a Display EX profile at your desired refresh rate and set it to <strong>Apply on startup</strong>. Display EX re-applies the configuration a few seconds after login, overriding the default.</p>
+          <h3>Screen flickering at 144 Hz+</h3>
+          <p>Usually a cable bandwidth issue — replace with a higher-spec cable. If flickering persists with a good cable, try disabling HDR (HDR + 144 Hz requires more bandwidth than one alone) or reduce colour depth from 10-bit to 8-bit in the GPU control panel.</p>
+          <h3>Game feels the same at 144 Hz as 60 Hz</h3>
+          <p>Confirm the game is actually rendering above 60 FPS — if GPU performance is below 60 FPS, the higher refresh rate has no effect. Also check in-game vsync settings: some games cap output to 60 FPS even on high-refresh monitors unless you explicitly set the frame rate limit in-game.</p>
+        </div>
+
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(6,182,212,.04));border:1px solid rgba(14,165,233,.2);border-radius:14px;padding:24px;margin-bottom:20px">
+          <h2 style="font-size:17px;margin:0 0 8px;font-weight:700">Switch refresh rates automatically with Display EX</h2>
+          <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Free — save 240Hz gaming profiles and 60Hz desktop profiles, switch with one click or automatically on game launch.</p>
+          <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+        </div>
+
+        <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:22px">
+          <h2 style="font-size:15px;font-weight:600;margin:0 0 12px">Related guides</h2>
+          <div class="related">
+            <a href="hdr-enable-windows-11.html" class="related-link"><div class="ri">✨</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Enable HDR on Windows 11</strong><span style="color:var(--muted);font-size:12px">Combine HDR + high refresh</span></div></a>
+            <a href="display-profile-per-app.html" class="related-link"><div class="ri">🔄</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Per-app profiles</strong><span style="color:var(--muted);font-size:12px">Auto-switch on game launch</span></div></a>
+            <a href="multi-monitor-guide.html" class="related-link"><div class="ri">🖥</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">Multi-monitor setup</strong><span style="color:var(--muted);font-size:12px">Mixed refresh rate setups</span></div></a>
+            <a href="4k-monitor-setup-windows.html" class="related-link"><div class="ri">📺</div><div><strong style="display:block;margin-bottom:2px;font-size:13px">4K monitor setup</strong><span style="color:var(--muted);font-size:12px">4K + high refresh guide</span></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a></div>
+    </div>
+    <div class="footer-bottom"><div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div><div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div></div>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button><button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button><button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button></div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+  </script>
+</body>
+</html>

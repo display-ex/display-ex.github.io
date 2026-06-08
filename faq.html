@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Display EX FAQ — Frequently Asked Questions</title>
+  <meta name="description" content="Answers to the most common questions about Display EX: installation, safety, multi-monitor support, DPI scaling, HDR, compatibility and enterprise deployment.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/faq.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}.nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;}
+    .btn:hover{background:#38bdf8}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .btn.secondary:hover{background:rgba(255,255,255,.04)}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:680px}
+    /* toc */
+    .toc{display:block;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:28px}
+    .toc h2{display:block;font-size:14px;font-weight:600;margin:0 0 10px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+    .toc-list{display:flex;flex-direction:column;gap:5px;list-style:none;padding:0;margin:0}
+    .toc-list li a{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+    .toc-list li a:hover{color:var(--accent)}
+    /* faq accordion */
+    .faq-section{margin-bottom:32px}
+    .faq-section-title{font-size:16px;font-weight:700;margin:0 0 12px;color:var(--text);display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+    .faq-item{border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;background:linear-gradient(160deg,var(--card2),var(--card))}
+    .faq-q{width:100%;background:none;border:none;color:var(--text);text-align:left;padding:14px 16px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:inherit}
+    .faq-q:hover{background:rgba(255,255,255,.02)}
+    .faq-q .chevron{flex-shrink:0;transition:transform .2s;font-size:12px;color:var(--muted)}
+    .faq-q[aria-expanded="true"] .chevron{transform:rotate(180deg)}
+    .faq-a{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .25s ease,padding .2s}
+    .faq-a.open{max-height:400px;padding:0 16px 14px}
+    .faq-a p{margin:0 0 8px;color:var(--muted);font-size:13px;line-height:1.65}
+    .faq-a p:last-child{margin-bottom:0}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{font-size:13px;color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="multi-monitor-guide.html">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html" class="active">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a>
+      <a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a>
+    </div>
+  </nav></div></header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> › FAQ</div>
+    <section class="page-hero">
+      <div class="badge">❓ FAQ</div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Everything you need to know about downloading, installing and using Display EX. Can't find your answer? Check the relevant guide pages or the <a href="privacy-safety.html">security page</a>.</p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="FAQ sections">
+      <h2>Jump to section</h2>
+      <ul class="toc-list">
+        <li><a href="#general">→ General</a></li>
+        <li><a href="#install">→ Download &amp; Installation</a></li>
+        <li><a href="#features">→ Features &amp; Usage</a></li>
+        <li><a href="#compat">→ Compatibility</a></li>
+        <li><a href="#enterprise">→ Enterprise &amp; Deployment</a></li>
+      </ul>
+    </nav>
+
+    <!-- GENERAL -->
+    <section class="faq-section" id="general">
+      <h2 class="faq-section-title">📋 General</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="a1">
+          What is Display EX and what does it do?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="a1">
+          <p>Display EX is a free Windows utility for advanced display management. It lets you create named display profiles that save your monitor configuration — resolution, refresh rate, HDR mode, DPI scaling and colour settings — and switch between them instantly.</p>
+          <p>It fills the gaps left by Windows Display Settings: per-app profile triggers, reliable DPI overrides for blurry apps on 4K screens, multi-monitor preset management and granular HDR tuning.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="a2">
+          Is Display EX free?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="a2">
+          <p>Yes. Display EX is free to download and use. There is no paid tier, subscription or feature gating. <a href="download-windows.html">Download the installer here.</a></p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="a3">
+          Who makes Display EX?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="a3">
+          <p>Display EX is developed and maintained by the Display EX team. The project is distributed via the official GitHub Pages site. For security and signing details, see the <a href="privacy-safety.html">Privacy &amp; Security page</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALL -->
+    <section class="faq-section" id="install">
+      <h2 class="faq-section-title">⬇ Download &amp; Installation</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="b1">
+          Where do I download Display EX?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="b1">
+          <p>From the official <a href="download-windows.html">Download page</a>. This is the only authorised source. The installer file is <code style="font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px">CDXWin64v1.10.33.exe</code>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="b2">
+          Is the installer safe? Will Windows SmartScreen block it?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="b2">
+          <p>The installer is code-signed, so Windows SmartScreen will recognise the publisher and will not show a blocking warning. If you downloaded from the official download page and the SHA-256 hash matches, the file is authentic.</p>
+          <p>Some heuristic-based antivirus engines may flag display driver utilities as potentially unwanted — this is a common false positive for software that interacts with Windows display APIs. See the <a href="privacy-safety.html">Security page</a> for the verified hash and publisher certificate details.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="b3">
+          How do I verify the downloaded file?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="b3">
+          <p>Open PowerShell and run:</p>
+          <p><code style="display:block;font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);padding:8px 12px;border-radius:6px;font-size:12px">Get-FileHash CDXWin64v1.10.33.exe -Algorithm SHA256</code></p>
+          <p>Compare the output hash with the SHA-256 value listed on the <a href="download-windows.html">download page</a>. If they match, the file is intact and authentic.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="b4">
+          Does it require administrator rights to install?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="b4">
+          <p>Yes — the installer requires administrator rights (UAC elevation) to write to Program Files and register the display management service. This is standard for any Windows display utility. The app itself runs in the system tray with normal user rights after installation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="b5">
+          How do I uninstall Display EX?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="b5">
+          <p>Go to <em>Windows Settings → Apps → Installed apps</em>, search for Display EX and click <em>Uninstall</em>. Alternatively, use the uninstaller in the Display EX program folder. All registry entries and profile data are removed on uninstall.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="faq-section" id="features">
+      <h2 class="faq-section-title">⚙ Features &amp; Usage</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="c1">
+          Will Display EX fix blurry apps on my 4K monitor?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="c1">
+          <p>Yes. Display EX provides per-app DPI overrides and ClearType adjustments that restore sharp text and correct UI scaling for any application. See the step-by-step <a href="fix-blurry-text-scaling.html">blurry apps fix guide</a> for full instructions.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="c2">
+          How do per-app profile triggers work?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="c2">
+          <p>You can associate any saved display profile with one or more executable files. When Display EX detects that a configured application is launched, it automatically switches to the assigned profile. When the app closes, it can optionally restore your previous profile. See <a href="display-profile-per-app.html">per-app profiles explained</a> for more detail.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="c3">
+          How do I switch between profiles quickly?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="c3">
+          <p>Right-click the Display EX system tray icon to see a list of all saved profiles — click any to switch instantly. You can also assign global keyboard shortcuts to your most-used profiles from <em>Settings → Hotkeys</em>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="c4">
+          Does it support HDR monitors?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="c4">
+          <p>Yes. You can toggle HDR on or off per profile, adjust peak brightness for OLED panels and save HDR state as part of any preset. See the <a href="hdr-enable-windows-11.html">HDR setup guide</a> for a walkthrough.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="c5">
+          Can I use 144 Hz or 240 Hz with Display EX?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="c5">
+          <p>Yes. Display EX lists all refresh rates supported by your monitor and GPU combination, including 120 Hz, 144 Hz, 165 Hz, 240 Hz and fractional rates like 59.94 Hz. You can set different refresh rates per profile — for example, 240 Hz for gaming and 60 Hz for battery saving. See the <a href="high-refresh-rate-144hz-setup.html">144 Hz setup guide</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPAT -->
+    <section class="faq-section" id="compat">
+      <h2 class="faq-section-title">🖥 Compatibility</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="d1">
+          Which versions of Windows are supported?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="d1">
+          <p>Display EX supports Windows 10 version 1903 and later (64-bit) and all editions of Windows 11. 32-bit Windows is not supported. See the full <a href="system-requirements.html">system requirements page</a>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="d2">
+          Does it work with AMD, NVIDIA and Intel graphics?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="d2">
+          <p>Yes — Display EX works with all three GPU vendors via standard Windows Display APIs (DXGI / CCD). No vendor-specific drivers or SDKs are required. Tested with AMD RDNA 2/3, NVIDIA RTX 20/30/40-series and Intel Arc/Iris Xe.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="d3">
+          Does it support USB-C and Thunderbolt monitors?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="d3">
+          <p>Yes. Display EX detects monitors connected via USB-C (DisplayPort Alt Mode), Thunderbolt 3/4, HDMI and standard DisplayPort. Docking station pass-through displays are also supported.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENTERPRISE -->
+    <section class="faq-section" id="enterprise">
+      <h2 class="faq-section-title">🏢 Enterprise &amp; Deployment</h2>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="e1">
+          Can I deploy Display EX silently across multiple machines?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="e1">
+          <p>Yes. Display EX supports silent installation via command-line switches for use with software deployment tools (SCCM, Intune, PDQ, etc.). See the <a href="enterprise-deployment.html">Enterprise deployment guide</a> for the full syntax and MSI packaging details.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="e2">
+          Can I pre-configure display profiles for all users?
+          <span class="chevron">▼</span>
+        </button>
+        <div class="faq-a" id="e2">
+          <p>Yes. Profiles can be exported as JSON files and deployed to user machines via group policy or a logon script. Display EX will import them on first run. Refer to the <a href="enterprise-deployment.html">Enterprise page</a> for the profile schema and deployment examples.</p>
+        </div>
+      </div>
+    </section>
+
+    <div style="background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:8px">
+      <h2 style="font-size:17px;margin:0 0 8px;font-weight:600">Still have questions?</h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px">Check the <a href="multi-monitor-guide.html">setup guides</a> or the <a href="privacy-safety.html">security page</a> for more detail.</p>
+      <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div>
+      <div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div>
+    </div>
+  </div></footer>
+
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button>
+      <button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button>
+      <button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button>
+    </div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
+    function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');
+    function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+    // accordion
+    document.querySelectorAll('.faq-q').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const expanded=btn.getAttribute('aria-expanded')==='true';
+        document.querySelectorAll('.faq-q').forEach(b=>{b.setAttribute('aria-expanded','false');document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');});
+        if(!expanded){btn.setAttribute('aria-expanded','true');document.getElementById(btn.getAttribute('aria-controls')).classList.add('open');}
+      });
+    });
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is Display EX free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Display EX is free to download and use with no paid tier or subscription."}},
+    {"@type":"Question","name":"Is the Display EX installer safe?","acceptedAnswer":{"@type":"Answer","text":"Yes. The installer is code-signed. Windows SmartScreen will not block it. SHA-256 verification is available on the download page."}},
+    {"@type":"Question","name":"Will Display EX fix blurry apps on 4K screens?","acceptedAnswer":{"@type":"Answer","text":"Yes. Display EX provides per-app DPI overrides and ClearType adjustments to restore sharp text and correct scaling on 4K and HiDPI displays."}},
+    {"@type":"Question","name":"Which Windows versions does Display EX support?","acceptedAnswer":{"@type":"Answer","text":"Display EX supports Windows 10 version 1903 and later (64-bit) and all editions of Windows 11."}},
+    {"@type":"Question","name":"Does Display EX support multiple monitors?","acceptedAnswer":{"@type":"Answer","text":"Yes. Create and switch named multi-monitor layouts with independent resolution, refresh rate, scaling and colour settings per display."}},
+    {"@type":"Question","name":"Can Display EX be deployed silently in an enterprise?","acceptedAnswer":{"@type":"Answer","text":"Yes. Display EX supports silent installation via command-line switches and MSI packaging for IT deployment tools."}}
+  ]}
+  </script>
+</body>
+</html>

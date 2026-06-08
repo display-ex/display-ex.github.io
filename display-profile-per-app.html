@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Per-App Display Profiles Explained — Auto-Switch Monitor Settings</title>
+  <meta name="description" content="How per-app display profiles work in Display EX. Automatically switch resolution, refresh rate, HDR and DPI settings when specific apps or games launch on Windows.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
+  <link rel="canonical" href="https://display-ex.github.io/display-profile-per-app.html">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}
+    .nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    .card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:18px}
+    .card h2{font-size:18px;margin:0 0 12px;font-weight:600}
+    .card h3{font-size:14px;font-weight:600;margin:16px 0 6px}
+    .card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 10px}
+    .card p:last-child{margin-bottom:0}
+    .tip{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0}
+    .tip strong{color:var(--accent)}
+    .ic{font-family:"IBM Plex Mono",monospace;background:rgba(255,255,255,.07);padding:2px 7px;border-radius:4px;font-size:12px;color:#a5d8f3}
+    .flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:16px 0}
+    .flow-step{background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.2);border-radius:10px;padding:12px 16px;font-size:13px;text-align:center;min-width:130px;flex:1}
+    .flow-step strong{display:block;font-size:12px;color:var(--accent);margin-bottom:4px;font-family:"IBM Plex Mono",monospace}
+    .flow-arrow{color:var(--muted);font-size:18px;padding:0 8px;flex-shrink:0}
+    .use-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .use-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;padding:14px}
+    .use-item h4{font-size:13px;font-weight:600;margin:0 0 5px}
+    .use-item p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:700px){.use-grid{grid-template-columns:1fr}.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+    @media(max-width:600px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="multi-monitor-guide.html" class="active">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html">Security</a><a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a></div>
+  </nav></div></header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <a href="multi-monitor-guide.html">Guides</a> › Per-app profiles</div>
+    <section class="page-hero">
+      <div class="badge">📖 Guide</div>
+      <h1>Per-App Display Profiles Explained</h1>
+      <p>Display EX can automatically switch your monitor configuration — resolution, refresh rate, HDR state and DPI settings — the moment a specific app or game launches, then restore your previous setup when it closes. This page explains how it works and how to set it up.</p>
+    </section>
+
+    <div class="card">
+      <h2>How per-app profile triggers work</h2>
+      <p>Display EX runs a lightweight background process that monitors running applications. When it detects a configured executable starting up, it applies the associated display profile before the app's window appears. When that app exits, Display EX can optionally restore the previous profile.</p>
+      <div class="flow">
+        <div class="flow-step"><strong>App launches</strong>Game.exe detected</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>Profile applies</strong>240Hz · HDR on · VRR</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>Game runs</strong>Optimal display settings</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>App closes</strong>Previous profile restored</div>
+      </div>
+      <p>The switch happens in under one second — fast enough that the game's own startup splash screen renders at the correct settings.</p>
+    </div>
+
+    <div class="card">
+      <h2>What a per-app profile can change</h2>
+      <div class="use-grid">
+        <div class="use-item"><h4>🔄 Refresh rate</h4><p>Switch from 60Hz desktop to 240Hz gaming automatically. Restore to 60Hz when the game exits to save power.</p></div>
+        <div class="use-item"><h4>✨ HDR state</h4><p>Enable HDR when a game or video app launches; disable it for desktop work where HDR can wash out colours.</p></div>
+        <div class="use-item"><h4>📐 DPI / scaling</h4><p>Apply a different DPI override set for specific apps — e.g. your design tools need different overrides than your gaming setup.</p></div>
+        <div class="use-item"><h4>🖥 Monitor layout</h4><p>Switch off secondary monitors when a game launches for maximum GPU resources, then restore them when it closes.</p></div>
+        <div class="use-item"><h4>🌈 Colour profile</h4><p>Switch ICC colour profile — e.g. wide-gamut for design apps, sRGB for web preview, Gaming for games.</p></div>
+        <div class="use-item"><h4>⚡ VRR / G-Sync</h4><p>Enable variable refresh rate for games that benefit from it; disable for video editing where a fixed rate is preferred.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How to set up a per-app trigger</h2>
+      <h3>Step 1 — Create the profile</h3>
+      <p>First, set your display to the desired configuration (e.g. 240Hz, HDR on, VRR enabled). Open Display EX → <strong>New Profile</strong> → name it something like <em>Gaming — 240Hz HDR</em>. Display EX snapshots all current display settings.</p>
+      <h3>Step 2 — Add a trigger app</h3>
+      <p>In Display EX, select the profile → click <strong>Add trigger app</strong>. You can either browse to the game's <span class="ic">.exe</span> file directly, or use the <strong>Live process picker</strong> to select a running process from a list.</p>
+      <h3>Step 3 — Configure restore behaviour</h3>
+      <p>Under <strong>On app exit</strong>, choose one of three options: <em>Restore previous profile</em> (recommended for games), <em>Apply a specific profile</em> (e.g. always return to your Work profile), or <em>Do nothing</em> (keep gaming settings until you switch manually).</p>
+      <div class="tip"><strong>Tip for Steam games:</strong> Find the game's actual executable, not the Steam launcher. Right-click the game in Steam → <strong>Properties → Local Files → Browse</strong> to find the game folder, then locate the main <span class="ic">.exe</span>. Avoid <span class="ic">steam.exe</span> or <span class="ic">GameOverlayUI.exe</span> as triggers.</div>
+      <h3>Step 4 — Test it</h3>
+      <p>Launch the trigger app and confirm the profile switches. If it doesn't fire, check that the <span class="ic">.exe</span> path in the trigger matches exactly — some games use a launcher that spawns a different process. Use the process picker to identify the correct binary name.</p>
+    </div>
+
+    <div class="card">
+      <h2>Multiple apps on one profile</h2>
+      <p>A single profile can have any number of trigger apps. For example, your <em>Gaming</em> profile might trigger for 10 different games — all of them will activate the same display configuration. You don't need a separate profile per game unless each game needs different settings.</p>
+    </div>
+
+    <div class="card">
+      <h2>Common per-app profile setups</h2>
+      <div class="use-grid">
+        <div class="use-item"><h4>🎮 Gaming profile</h4><p>Triggers: all game executables. Settings: 240Hz, HDR on, VRR enabled, secondary monitors off. Restores: Work profile on exit.</p></div>
+        <div class="use-item"><h4>🎨 Design profile</h4><p>Triggers: Photoshop, Figma, Illustrator. Settings: wide-gamut ICC, 60Hz, HDR off, 150% DPI. Restores: previous profile.</p></div>
+        <div class="use-item"><h4>🎬 Video profile</h4><p>Triggers: Premiere, DaVinci Resolve, VLC. Settings: HDR on, 24Hz or 60Hz for smooth playback, secondary display off.</p></div>
+        <div class="use-item"><h4>📊 Work profile</h4><p>Default profile. No triggers — used as the restore target for all other profiles. 60Hz, HDR off, all monitors on, sRGB.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+      <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX — Free</a>
+      <a href="multi-monitor-guide.html" class="btn secondary">Multi-monitor guide</a>
+    </div>
+  </main>
+
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a><a href="windows-scaling-fix.html">Fix DPI scaling</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="4k-monitor-setup-windows.html">4K monitor setup</a><a href="fix-blurry-apps-windows.html">Fix blurry apps</a></div>
+    </div>
+    <div class="footer-bottom"><div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div><div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div></div>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button><button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button><button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button></div>
+  </div>
+  <script>
+    const GA_ID='G-3PM62KNBPD';
+    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
+  </script>
+</body>
+</html>

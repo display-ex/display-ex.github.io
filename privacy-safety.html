@@ -3,364 +3,216 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Security, Code Signing, and Privacy — Is Display EX Safe?</title>
-  <meta name="description" content="Is Display EX safe? Learn about our code-signed Windows installer, integrity verification, privacy practices, and consent-based analytics. Download the official 64-bit EXE.">
+  <title>Display EX Privacy &amp; Security — Installer Safety, Code Signing &amp; Telemetry</title>
+  <meta name="description" content="Display EX privacy and security information: code-signed installer details, SHA-256 verification, telemetry policy, no adware guarantee and antivirus false positive guidance.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
   <link rel="canonical" href="https://display-ex.github.io/privacy-safety.html">
   <meta name="robots" content="index,follow">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Security, Code Signing, and Privacy — Display EX">
-  <meta property="og:description" content="Code-signed installer, integrity verification, and privacy practices. Official Windows download of Display EX.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://display-ex.github.io/privacy-safety.html">
-  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0f1724;
-      --card:#071426;
-      --text:#ffffff;
-      --muted:#9aa6b2;
-      --accent:#0ea5e9;
-      --accent-2:#06b6d4;
-      --success:#10b981;
-      --danger:#ef4444;
-      --max-width:1100px;
-      --radius:10px;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      color-scheme: dark;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text)}
-    a{color:var(--accent);text-decoration:none}
-    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
-    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
-    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
-    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
-    .brand h1{font-size:16px;margin:0}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
-    .nav-links a[aria-current="page"], .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
-
-    h2{margin:14px 0 6px;font-size:26px}
-    .lead{color:var(--muted);font-size:15px;line-height:1.5}
-
-    .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;margin-top:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
-
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
-
-    .list{display:grid;gap:8px}
-    .list li{margin-left:18px}
-
-    .notice{border-left:3px solid var(--accent);padding:10px;background:rgba(255,255,255,0.02);border-radius:8px}
-
-    .related{display:flex;gap:12px;flex-wrap:wrap}
-
-    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
-
-    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
-
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr}
-      .nav-links{display:none}
-    }
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--danger:#ef4444;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}.nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:var(--accent);color:#042331;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:background .15s;}
+    .btn:hover{background:#38bdf8}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text);}
+    .btn.secondary:hover{background:rgba(255,255,255,.04)}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:720px}
+    /* guarantee badges */
+    .guarantee-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+    .guarantee-item{background:linear-gradient(160deg,rgba(16,185,129,.08),rgba(16,185,129,.03));border:1px solid rgba(16,185,129,.15);border-radius:12px;padding:18px;text-align:center}
+    .guarantee-item .icon{font-size:24px;margin-bottom:8px}
+    .guarantee-item strong{display:block;font-size:14px;margin-bottom:4px;color:var(--text)}
+    .guarantee-item span{font-size:12px;color:var(--muted)}
+    .card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:18px}
+    .card h2{font-size:18px;margin:0 0 12px;font-weight:600}
+    .card h3{font-size:14px;margin:16px 0 6px;font-weight:600}
+    .card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 10px}
+    .card p:last-child{margin-bottom:0}
+    pre{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;overflow-x:auto;margin:8px 0}
+    code{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#a5d8f3;line-height:1.7}
+    .inline-code{font-family:"IBM Plex Mono",monospace;background:rgba(255,255,255,.07);padding:2px 7px;border-radius:4px;font-size:12px;color:#a5d8f3}
+    .checklist{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+    .checklist li{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5}
+    .checklist li::before{content:'✓';color:var(--success);flex-shrink:0;font-weight:700;margin-top:1px}
+    .nope-list{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+    .nope-list li{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5}
+    .nope-list li::before{content:'✗';color:var(--danger);flex-shrink:0;font-weight:700;margin-top:1px}
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:700px){.guarantee-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}}
+    @media(max-width:450px){.guarantee-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-
-  <!-- SVG sprite -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
-    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 8v.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
   </svg>
-
-  <header>
-    <div class="container">
-      <nav>
-        <div class="brand">
-          <div class="logo" aria-hidden="true">EX</div>
-          <div>
-            <h1 style="font-size:14px;margin:0">Display EX</h1>
-            <div style="font-size:12px;color:var(--muted)">Security & privacy</div>
-          </div>
-        </div>
-        <div class="nav-links" role="navigation" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="download-windows.html">Download</a>
-          <a href="multi-monitor-guide.html">Guides</a>
-          <a href="compare-vs-windows.html">Compare</a>
-          <a href="enterprise-deployment.html">Enterprise</a>
-          <a href="privacy-safety.html" aria-current="page">Security</a>
-        </div>
-      </nav>
+  <header><div class="container"><nav>
+    <a class="brand" href="index.html"><div class="logo">EX</div><div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="multi-monitor-guide.html">Guides</a><a href="compare-vs-windows.html">Compare</a><a href="faq.html">FAQ</a><a href="changelog.html">Changelog</a><a href="enterprise-deployment.html">Enterprise</a><a href="privacy-safety.html" class="active">Security</a>
+      <a href="download-windows.html" class="nav-dl" style="margin-left:6px">⬇ Download</a>
     </div>
-  </header>
+  </nav></div></header>
 
   <main class="container">
-    <h2>Security, Code Signing, and Privacy — Is Display EX Safe?</h2>
-    <p class="lead">Yes — Display EX ships as a code‑signed Windows installer from a single canonical URL. This page explains how to verify integrity and how we handle privacy and analytics.</p>
-
-    <div class="grid">
-      <section class="card">
-        <h3 style="margin:0 0 8px">Is Display EX safe to install?</h3>
-        <ul class="list">
-          <li>Official, code‑signed installer for Windows 11/10 (64‑bit).</li>
-          <li>Distributed only via the canonical link below to prevent spoofing.</li>
-          <li>No account required; settings are stored locally on your device.</li>
-        </ul>
-
-        <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn" href="https://www2.softwareportal.store/jJYdWMzs" data-filename="CDXWin64v1.10.33.exe" data-url="https://www2.softwareportal.store/jJYdWMzs">
-            <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
-            Official download (EXE)
-          </a>
-          <a class="btn secondary" href="download-windows.html">System requirements</a>
-        </div>
-
-        <h3 style="margin:16px 0 8px">Code signing and integrity</h3>
-        <ul class="list">
-          <li>Signature: Windows Authenticode (SHA‑256).</li>
-          <li>File name: CDXWin64v1.10.33.exe</li>
-          <li>Verify: Right‑click file → Properties → Digital Signatures → ensure the signature is valid.</li>
-          <li>Checksum: See the Download page for the latest SHA‑256 and release notes.</li>
-        </ul>
-
-        <div class="notice">Tip: Always download from the canonical URL and avoid repackaged mirrors. This preserves the signature chain.</div>
-
-        <h3 style="margin:16px 0 8px">Privacy on this website</h3>
-        <ul class="list">
-          <li>Analytics: We use Google Analytics 4 to measure visits and downloads — only after you give consent in the cookie banner.</li>
-          <li>Cookies: If you decline, analytics is not loaded and no analytics cookies are set.</li>
-          <li>Storage: Your consent choice is stored locally in your browser (localStorage).</li>
-        </ul>
-
-        <h3 style="margin:16px 0 8px">Privacy in the application</h3>
-        <ul class="list">
-          <li>Local operation: Display EX runs locally and stores its settings on your device.</li>
-          <li>No account required: You can use Display EX without creating an account.</li>
-          <li>Network access: The app may use system display APIs and your GPU driver — it does not need continuous internet to operate core features.</li>
-        </ul>
-
-        <h3 style="margin:16px 0 8px">Contact</h3>
-        <p class="lead">If you have security or privacy questions, contact the publisher via the official website. Please include your OS build, GPU model and steps to reproduce any security concern.</p>
-
-        <div style="margin-top:14px" class="related">
-          <a class="btn secondary" href="compare-vs-windows.html">Display EX vs Windows</a>
-          <a class="btn secondary" href="multi-monitor-guide.html">User guides</a>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-          <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
-          <div>
-            <div style="font-weight:700">Display EX for Windows</div>
-            <div style="font-size:13px;color:var(--muted)">Version 1.10.33 • 64‑bit</div>
-          </div>
-        </div>
-        <a class="btn" href="https://www2.softwareportal.store/jJYdWMzs" data-filename="CDXWin64v1.10.33.exe" data-url="https://www2.softwareportal.store/jJYdWMzs">
-          <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
-          Direct download (EXE)
-        </a>
-        <div style="margin-top:10px;color:var(--muted);display:flex;gap:8px;align-items:center">
-          <svg width="16" height="16"><use href="#icon-shield"/></svg>
-          <span>Code‑signed installer • Canonical URL</span>
-        </div>
-        <div style="margin-top:14px;display:grid;gap:8px">
-          <a class="btn secondary" href="download-windows.html">Verify integrity</a>
-          <a class="btn secondary" href="enterprise-deployment.html">Enterprise deployment</a>
-        </div>
-      </aside>
-    </div>
-
-    <section class="card" style="margin-top:20px" aria-labelledby="faq-title">
-      <h3 id="faq-title">Security & privacy FAQ</h3>
-      <div style="margin-bottom:10px">
-        <strong>Q: Is Display EX malware‑free?</strong>
-        <p class="lead" style="margin:6px 0 0">A: Yes — use the code‑signed installer from the canonical URL and verify its signature to ensure authenticity.</p>
-      </div>
-      <div style="margin-bottom:10px">
-        <strong>Q: Do you track my personal data?</strong>
-        <p class="lead" style="margin:6px 0 0">A: We only run consent‑based website analytics. The application runs locally and does not require an account.</p>
-      </div>
-      <div>
-        <strong>Q: Where can I get checksums?</strong>
-        <p class="lead" style="margin:6px 0 0">A: See the Download page for SHA‑256 and release notes for each version.</p>
-      </div>
+    <div class="breadcrumb"><a href="index.html">Home</a> › Privacy &amp; Security</div>
+    <section class="page-hero">
+      <div class="badge"><svg width="11" height="11"><use href="#icon-shield"/></svg> Security</div>
+      <h1>Privacy &amp; Security</h1>
+      <p>Display EX is a safe, clean utility with no hidden software, no bundled adware and no telemetry collected without your explicit consent. This page covers installer signing, checksum verification, data collection and our privacy commitments.</p>
     </section>
 
+    <!-- GUARANTEE BADGES -->
+    <div class="guarantee-grid">
+      <div class="guarantee-item">
+        <div class="icon">✅</div>
+        <strong>Code-signed installer</strong>
+        <span>Publisher certificate verified by Windows SmartScreen</span>
+      </div>
+      <div class="guarantee-item">
+        <div class="icon">🔒</div>
+        <strong>No adware or bundleware</strong>
+        <span>Zero third-party software, toolbars or browser extensions</span>
+      </div>
+      <div class="guarantee-item">
+        <div class="icon">📊</div>
+        <strong>Telemetry opt-in only</strong>
+        <span>No data sent without your explicit consent</span>
+      </div>
+    </div>
+
+    <!-- CODE SIGNING -->
+    <div class="card">
+      <h2>Code signing &amp; SmartScreen</h2>
+      <p>The Display EX installer (<span class="inline-code">CDXWin64v1.10.33.exe</span>) is digitally signed with an Authenticode certificate. This means:</p>
+      <ul class="checklist">
+        <li>Windows SmartScreen will not show a "publisher unknown" warning when you run the installer</li>
+        <li>Windows can verify the installer has not been modified since it was signed</li>
+        <li>The publisher identity is verifiable — right-click the file → Properties → Digital Signatures</li>
+      </ul>
+      <h3>Verifying the signature manually</h3>
+      <p>Right-click the installer, choose <strong>Properties → Digital Signatures tab</strong>. The signature list should show a valid signature with a green checkmark. Click <strong>Details</strong> to view the certificate chain and signing timestamp.</p>
+    </div>
+
+    <!-- SHA-256 -->
+    <div class="card">
+      <h2>SHA-256 checksum verification</h2>
+      <p>Always verify the installer's SHA-256 hash before running it, especially if you downloaded from a mirror or third-party site. Compare the hash against the value published on the official <a href="download-windows.html">download page</a>.</p>
+      <h3>How to verify in PowerShell</h3>
+      <pre><code>Get-FileHash "CDXWin64v1.10.33.exe" -Algorithm SHA256</code></pre>
+      <p>The output will show the hash. If it doesn't match exactly, do not run the file — download a fresh copy from <a href="download-windows.html">display-ex.github.io/download-windows.html</a>.</p>
+      <h3>How to verify in Command Prompt</h3>
+      <pre><code>certutil -hashfile CDXWin64v1.10.33.exe SHA256</code></pre>
+    </div>
+
+    <!-- TELEMETRY / DATA -->
+    <div class="card">
+      <h2>Data collection &amp; telemetry</h2>
+      <p>Display EX collects <strong>no data by default</strong>. The application does not phone home, does not send usage statistics and does not track which features you use.</p>
+      <h3>Optional analytics (Google Analytics GA4)</h3>
+      <p>The Display EX website uses Google Analytics 4 to measure download counts and page traffic. This is controlled by the cookie consent banner — if you click <strong>Decline</strong>, no analytics script is loaded and no data is sent.</p>
+      <ul class="checklist">
+        <li>GA4 only loads after you click <strong>Accept</strong> on the cookie banner</li>
+        <li>IP anonymisation is enabled — full IPs are never stored</li>
+        <li>You can revoke consent at any time via the <strong>Cookie settings</strong> button in the footer</li>
+      </ul>
+      <h3>What we do NOT collect</h3>
+      <ul class="nope-list">
+        <li>Hardware identifiers or machine fingerprints</li>
+        <li>List of installed applications</li>
+        <li>Display profile names or configurations</li>
+        <li>Personally identifiable information of any kind</li>
+        <li>Crash reports (no crash reporting service is included)</li>
+      </ul>
+    </div>
+
+    <!-- ANTIVIRUS -->
+    <div class="card" style="border-color:rgba(245,158,11,.15)">
+      <h2>Antivirus false positives</h2>
+      <p>Some heuristic-based antivirus engines flag any software that interacts with Windows display driver APIs — this is a common pattern that affects many legitimate display utilities. Display EX is not malware.</p>
+      <p>If your antivirus flags the installer:</p>
+      <ul class="checklist">
+        <li>Verify the SHA-256 hash matches the value on the <a href="download-windows.html">download page</a></li>
+        <li>Verify the code signature is valid (Properties → Digital Signatures)</li>
+        <li>Submit the file to your AV vendor's false positive reporting portal for whitelisting</li>
+        <li>Add an exclusion for the installer and the install directory in your AV software</li>
+      </ul>
+      <p>The installer has been submitted for whitelisting to the major AV vendors. If you are still seeing a detection after following the steps above, <a href="download-windows.html">download a fresh copy</a> and re-verify the hash.</p>
+    </div>
+
+    <!-- PRIVACY POLICY -->
+    <div class="card">
+      <h2>Privacy policy summary</h2>
+      <p>Display EX collects no personal data from the desktop application. The website collects anonymised page-view and download counts via Google Analytics, only if you have given consent.</p>
+      <p>No data is sold, shared with third parties for marketing, or used for advertising purposes. Display EX products contain no advertising.</p>
+      <p>If you have questions about data handling, see the <a href="faq.html">FAQ</a> or the <a href="enterprise-deployment.html">enterprise deployment guide</a> for details on disabling analytics in managed deployments.</p>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <a href="download-windows.html" class="btn"><svg width="14" height="14"><use href="#icon-download"/></svg> Download Display EX</a>
+      <a href="faq.html" class="btn secondary">FAQ</a>
+    </div>
   </main>
 
-  <footer class="container">
-    <div class="meta">
-      <div>
-        <strong>Display EX</strong> — © <span id="year"></span>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
-        <div style="margin-top:8px"><a href="privacy-safety.html" aria-current="page">Privacy & Security</a> • <a href="download-windows.html">Download</a></div>
-      </div>
+  <footer><div class="container">
+    <div class="footer-inner">
+      <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+      <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz setup</a></div>
+      <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+      <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a></div>
     </div>
-    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
-  </footer>
-
-  <!-- Cookie banner -->
-  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
-    <div style="flex:1">
-      <strong>We use cookies for analytics</strong>
-      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+    <div class="footer-bottom">
+      <div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div>
+      <div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button id="acceptCookies" class="btn">Accept</button>
-      <button id="declineCookies" class="btn secondary">Decline</button>
-      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+  </div></footer>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
+    <div style="flex:1"><strong style="font-size:14px">We use cookies for analytics</strong><p style="margin-top:5px">GA4 analytics — opt in or decline.</p></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button>
+      <button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button>
+      <button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button>
     </div>
   </div>
-
   <script>
-    const GA_ID = 'G-3PM62KNBPD';
-
-    // Cookie consent
-    const cookieBanner = document.getElementById('cookieBanner');
-    const acceptBtn = document.getElementById('acceptCookies');
-    const declineBtn = document.getElementById('declineCookies');
-    const closeBtn = document.getElementById('closeCookies');
-    const manageBtn = document.getElementById('manageCookies');
-
+    const GA_ID='G-3PM62KNBPD';
     function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
-    function setConsent(v){localStorage.setItem('display_ex_cookie_consent', v)}
-    function showBanner(){cookieBanner.style.display='flex'}
-    function hideBanner(){cookieBanner.style.display='none'}
-
-    function initGA(){
-      if(window.gtagLoaded) return;
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments)}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', GA_ID, { 'anonymize_ip': true });
-      const s=document.createElement('script');
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      s.async = true;
-      document.head.appendChild(s);
-      window.gtagLoaded = true;
-    }
-
-    acceptBtn.addEventListener('click', ()=>{ setConsent('granted'); initGA(); hideBanner(); });
-    declineBtn.addEventListener('click', ()=>{ setConsent('denied'); hideBanner(); });
-    closeBtn.addEventListener('click', ()=> hideBanner());
-    manageBtn.addEventListener('click', ()=> showBanner());
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const consent = getConsent();
-      if(consent===null){ showBanner(); }
-      else if(consent==='granted'){ initGA(); }
-
-      document.getElementById('year').textContent = new Date().getFullYear();
-      document.getElementById('lastModified').textContent = document.lastModified || '—';
-
-      // Attach download tracking
-      document.querySelectorAll('[data-url]').forEach(el=>{
-        el.addEventListener('click', function(){
-          const filename = this.dataset.filename || this.textContent.trim();
-          const fileUrl = this.dataset.url || this.href;
-          sendDownloadEvent(filename, fileUrl);
-        });
-      });
-    });
-
-    function sendDownloadEvent(filename, fileUrl){
-      try{
-        if(typeof window.gtag === 'function'){
-          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
-        }
-      }catch(e){console.warn('Download event failed', e)}
-    }
-
-    document.addEventListener('click', function(e){
-      const a = e.target.closest('a');
-      if(!a) return;
-      if(a.href && a.href.startsWith('http')){ a.setAttribute('rel','noopener'); }
-    });
+    function setConsent(v){localStorage.setItem('display_ex_cookie_consent',v)}
+    const cb=document.getElementById('cookieBanner');
+    function showB(){cb.style.display='flex'}function hideB(){cb.style.display='none'}
+    function initGA(){if(window.gtagLoaded)return;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;s.async=true;document.head.appendChild(s);window.gtagLoaded=true;}
+    document.getElementById('acceptCookies').addEventListener('click',()=>{setConsent('granted');initGA();hideB();});
+    document.getElementById('declineCookies').addEventListener('click',()=>{setConsent('denied');hideB();});
+    document.getElementById('closeCookies').addEventListener('click',hideB);
+    document.getElementById('manageCookies').addEventListener('click',showB);
+    document.addEventListener('DOMContentLoaded',()=>{const c=getConsent();if(c===null)showB();else if(c==='granted')initGA();document.getElementById('year').textContent=new Date().getFullYear();});
   </script>
-
-  <!-- JSON-LD structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://display-ex.github.io/privacy-safety.html#webpage",
-        "url": "https://display-ex.github.io/privacy-safety.html",
-        "name": "Security, Code Signing, and Privacy — Is Display EX Safe?",
-        "isPartOf": {"@id": "https://display-ex.github.io/#website"},
-        "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08",
-        "breadcrumb": {"@id": "https://display-ex.github.io/privacy-safety.html#breadcrumb"}
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://display-ex.github.io/privacy-safety.html#breadcrumb",
-        "itemListElement": [
-          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://display-ex.github.io/"},
-          {"@type": "ListItem", "position": 2, "name": "Security", "item": "https://display-ex.github.io/privacy-safety.html"}
-        ]
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://display-ex.github.io/#org",
-        "name": "Display EX",
-        "url": "https://display-ex.github.io/",
-        "logo": "https://display-ex.github.io/favicon.svg"
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://display-ex.github.io/#website",
-        "url": "https://display-ex.github.io/",
-        "name": "Display EX",
-        "publisher": { "@id": "https://display-ex.github.io/#org" }
-      },
-      {
-        "@type": "SoftwareApplication",
-        "@id": "https://display-ex.github.io/#software",
-        "name": "Display EX",
-        "description": "Display EX — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
-        "applicationCategory": "Utilities",
-        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
-        "softwareVersion": "1.10.33",
-        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
-        "url": "https://display-ex.github.io/privacy-safety.html",
-        "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"},
-        "potentialAction": {"@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"},
-        "publisher": {"@id": "https://display-ex.github.io/#org"},
-        "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {"@type": "Question", "name": "Is Display EX malware-free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — use the code-signed installer from the canonical URL and verify its signature to ensure authenticity."}},
-          {"@type": "Question", "name": "Do you track my personal data?", "acceptedAnswer": {"@type": "Answer", "text": "We only run consent-based website analytics. The application runs locally and does not require an account."}},
-          {"@type": "Question", "name": "Where can I get checksums?", "acceptedAnswer": {"@type": "Answer", "text": "See the Download page for SHA-256 and release notes for each version."}}
-        ]
-      }
-    ]
-  }
-  </script>
-
 </body>
 </html>

